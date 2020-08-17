@@ -47,17 +47,13 @@ const styles = {
 		height: 60,
 		width: 60,
 		borderRadius: 30,
-		overflow: 'hidden'
+		justifyContent: 'center',
+		alignItems: 'center'
 	},
 	icon: {
 		name: 'plus',
 		type: 'feather',
 		color: 'white',
-		size: 28,
-		style: {
-			position: 'absolute',
-			bottom: 16,
-			right: 16
-		}
+		size: 28
 	}
 };
