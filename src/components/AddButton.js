@@ -1,31 +1,13 @@
 import React from 'react';
 import { View, TouchableWithoutFeedback } from 'react-native';
-import RNFileSelector from 'react-native-file-selector';
-import { useNavigation } from '@react-navigation/native';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
-import { getStoragePermission, checkStoragePermissions } from '../utils/permissions';
 import Icon from './Icon';
 import { primaryColor } from '../constants';
 
-function AddButton() {
-	const navigation = useNavigation();
-
-	async function selectFile() {
-		let granted = await checkStoragePermissions();
-		if (!granted) await getStoragePermission();
-		RNFileSelector.Show({
-			title: 'Select epub file',
-			filter: '.*\\.(epub|EPUB)$',
-			onDone: (path) => {
-				navigation.navigate('reader', { url: path });
-			},
-			onCancel: () => {}
-		});
-	}
-
+function AddButton(props) {
 	return (
-		<TouchableWithoutFeedback onPress={selectFile}>
+		<TouchableWithoutFeedback onPress={props.addBook}>
 			<View style={styles.view}>
 				<Icon {...styles.icon} />
 			</View>

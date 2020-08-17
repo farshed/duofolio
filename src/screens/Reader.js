@@ -12,16 +12,17 @@ function Reader(props) {
 	React.useEffect(() => {
 		let unsubscribe = props.navigation.addListener('focus', () => {
 			serverInstance && serverInstance.stop();
-			let server = new StaticServer(0, props.route.params.url, { localOnly: true });
+			let server = new StaticServer(0, props.route.params.url, { keepAlive: true });
 			setServerInstance(server);
 			server.start().then((url) => setBookUrl(url));
 		});
 		return unsubscribe;
 	}, [props.route.params.url]);
+	// { localOnly: true }
 
 	const injectedJS = `window.FLOW = "paginated";
 	window.SCREEN_WIDTH = "${width}";
-	window.SCREEN_HEIGHT = "${height}";
+	window.SCREEN_HEIGHT = "${height - 50}";
 	window.BOOK_PATH = "${bookUrl}";
 `;
 
