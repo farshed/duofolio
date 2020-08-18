@@ -3,21 +3,28 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<script src="epub.min.js"></script>
-		<script src="jszip.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/epubjs/dist/epub.min.js"></script>
+		<style>
+			#reader {
+				margin: 0px;
+				height: 100vh;
+				width: 100vw;
+				overflow: hidden;
+			}
+		</style>
 	</head>
 	<body>
 		<div id="reader"></div>
 	</body>
 	<script>
-		document.getElementById('reader').innerHTML = window.BOOK_PATH;
-		// let book = Epub(window.BOOK_PATH);
-		// let rend = book.renderTo(document.getElementById('reader'), {
-		// 	width: '100%',
-		// 	height: '95%'
-		// });
-		// rend.on('started', () => {
-		// 	rend.display();
-		// });
+		let book = ePub(window.BOOK_PATH);
+		let rend = book.renderTo(document.getElementById('reader'), {
+			width: '95%',
+			height: '95%'
+		});
+		rend.on('started', () => {
+			rend.display();
+		});
 	</script>
 </html>

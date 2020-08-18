@@ -12,9 +12,11 @@ function Reader(props) {
 	React.useEffect(() => {
 		let unsubscribe = props.navigation.addListener('focus', () => {
 			serverInstance && serverInstance.stop();
-			let server = new StaticServer(0, props.route.params.url, { keepAlive: true });
+			let trail = props.route.params.url.split('/');
+			let path = trail.splice(0, trail.length - 1).join('/');
+			let server = new StaticServer(0, path, { keepAlive: true });
 			setServerInstance(server);
-			server.start().then((url) => setBookUrl(url));
+			server.start().then((url) => setBookUrl(`${url}/${trail[0]}`));
 		});
 		return unsubscribe;
 	}, [props.route.params.url]);
