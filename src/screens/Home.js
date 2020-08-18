@@ -9,7 +9,7 @@ function Home(props) {
 		if (props.books.length === 0) {
 			return <Text>Wow! such empty</Text>;
 		}
-		return props.books.map((book, i) => <BookItem {...book} key={i.toString()} />);
+		return props.books.map((book, i) => <BookItem {...book} index={i} key={i.toString()} />);
 	}
 
 	return (

@@ -11,6 +11,9 @@
 				height: 100vh;
 				width: 100vw;
 				overflow: hidden;
+				display: flex;
+				justify-content: center;
+				align-items: center;
 			}
 		</style>
 	</head>
@@ -20,11 +23,19 @@
 	<script>
 		let book = ePub(window.BOOK_PATH);
 		let rend = book.renderTo(document.getElementById('reader'), {
-			width: '95%',
-			height: '95%'
+			width: '85%',
+			height: '90%'
 		});
 		rend.on('started', () => {
 			rend.display();
+		});
+		book.loaded.cover.then((url) => {
+			window.ReactNativeWebView.postMessage(JSON.stringify({ cover: url }));
+		});
+		book.loaded.metadata.then((metadata) => {
+			window.ReactNativeWebView.postMessage(
+				JSON.stringify({ title: metadata.title, author: metadata.creator })
+			);
 		});
 	</script>
 </html>

@@ -22,3 +22,7 @@ export const addBook = () => async (dispatch) => {
 		onCancel: () => {}
 	});
 };
+
+export const addMetadata = (data, index) => {
+	return { type: 'add_metadata', payload: { data, index } };
+};
