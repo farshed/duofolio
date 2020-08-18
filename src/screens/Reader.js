@@ -37,10 +37,23 @@ function Reader(props) {
 
 	function handleMetadata(e) {
 		let parsedData = JSON.parse(e.nativeEvent.data);
-		if (parsedData.cover) {
-			parsedData.cover = bookUrl + parsedData.cover;
+		let { type } = parsedData;
+		delete parsedData.type;
+		switch (type) {
+			case 'loc':
+				return props.addLocation(parsedData);
+			case 'key':
+			case 'metadata':
+				return props.addMetadata(parsedData, route.params.index);
+			case 'cover': {
+				if (parsedData.cover) {
+					parsedData.cover = bookUrl + parsedData.cover;
+				}
+				return props.addMetadata(parsedData, route.params.index);
+			}
+			default:
+				return;
 		}
-		props.addMetadata(parsedData, route.params.index);
 	}
 
 	if (!bookUrl) {
