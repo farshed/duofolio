@@ -1,30 +1,25 @@
-import React, { useState } from 'react';
-import { Dimensions } from 'react-native';
+import React, { useState, useEffect } from 'react';
 import StaticServer from 'react-native-static-server';
 import { WebView } from 'react-native-webview';
 import Spinner from '../components/Spinner';
 
-const { height, width } = Dimensions.get('window');
-
 function Reader(props) {
 	const [bookUrl, setBookUrl] = useState(null);
 	const [serverInstance, setServerInstance] = useState(null);
-	React.useEffect(() => {
+
+	useEffect(() => {
 		let unsubscribe = props.navigation.addListener('focus', () => {
 			serverInstance && serverInstance.stop();
 			let trail = props.route.params.url.split('/');
 			let path = trail.splice(0, trail.length - 1).join('/');
-			let server = new StaticServer(0, path, { keepAlive: true });
+			let server = new StaticServer(0, path, { localOnly: true, keepAlive: true });
 			setServerInstance(server);
 			server.start().then((url) => setBookUrl(`${url}/${trail[0]}`));
 		});
 		return unsubscribe;
 	}, [props.route.params.url]);
-	// { localOnly: true }
 
 	const injectedJS = `window.FLOW = "paginated";
-	window.SCREEN_WIDTH = "${width}";
-	window.SCREEN_HEIGHT = "${height - 50}";
 	window.BOOK_PATH = "${bookUrl}";
 `;
 
