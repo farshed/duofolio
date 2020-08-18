@@ -29,8 +29,6 @@ function Reader(props) {
 
 	return (
 		<WebView
-			// source={{ uri: 'https://farshed.me/linguify-epub-frame/' }}
-			// source={{ uri: 'https://pgaskin.net/ePubViewer/' }}
 			source={{ uri: 'file:///android_asset/index.html' }}
 			injectedJavaScriptBeforeContentLoaded={injectedJS}
 			mixedContentMode="always"
