@@ -61,12 +61,6 @@ function Reader(props) {
 			case 'key':
 			case 'metadata':
 				return props.addMetadata(parsedData, params.index);
-			case 'cover': {
-				if (parsedData.cover) {
-					parsedData.cover = state.bookUrl + parsedData.cover;
-				}
-				return props.addMetadata(parsedData, params.index);
-			}
 			default:
 				return;
 		}

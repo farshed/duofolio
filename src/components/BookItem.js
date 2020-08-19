@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, Dimensions } from 'react-native';
+import { Text, TouchableOpacity, Dimensions } from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
 import showToast from './Toast';
+import { contrastColor } from '../constants';
 
 const ScreenWidth = Dimensions.get('window').width;
 
@@ -20,15 +21,12 @@ function BookItem(props) {
 		}
 	}
 
-	// const cover = props.cover ? { uri: props.cover } : require('../../assets/placeholder.png');
-
 	return (
 		<TouchableOpacity
 			activeOpacity={0.4}
 			style={styles.wrapper}
 			onPress={onPress}
 			key={props.index}>
-			{/* <Image source={cover} style={{ height: 100, width: 100 }} /> */}
 			<Text style={styles.title} numberOfLines={1}>
 				{props.title}
 			</Text>
@@ -52,7 +50,7 @@ const styles = {
 		fontSize: 16,
 		fontWeight: 'bold',
 		marginBottom: 3,
-		color: '#000000'
+		color: contrastColor
 	},
 	author: {
 		fontSize: 14,
