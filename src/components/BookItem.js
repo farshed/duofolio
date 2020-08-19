@@ -56,6 +56,7 @@ const styles = {
 	},
 	author: {
 		fontSize: 14,
+		fontWeight: '300',
 		color: 'rgba(0, 0, 0, 0.8)'
 	}
 };

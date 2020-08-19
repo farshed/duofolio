@@ -8,7 +8,12 @@ function Home(props) {
 	function renderBooks() {
 		const { books, locations } = props;
 		if (props.books.length === 0) {
-			return <Text>Wow! such empty</Text>;
+			return (
+				<View style={styles.wrapper}>
+					<Text style={styles.message}>Your library is empty!</Text>
+					<Text style={styles.message}>Add some books to get started</Text>
+				</View>
+			);
 		}
 		return (
 			<FlatList
@@ -55,5 +60,10 @@ const styles = {
 	flatlist: {
 		paddingTop: 15,
 		paddingBottom: 10
+	},
+	message: {
+		fontSize: 16,
+		fontFamily: 'Circular',
+		marginBottom: 5
 	}
 };

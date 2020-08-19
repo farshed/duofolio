@@ -81,6 +81,8 @@ function Reader(props) {
 			<WebView
 				ref={webview}
 				style={wholeScreen}
+				overScrollMode="never"
+				scrollEnabled={false}
 				source={{ uri: 'file:///android_asset/index.html' }}
 				injectedJavaScriptBeforeContentLoaded={injectedJS}
 				onMessage={handleMessage}
