@@ -84,9 +84,9 @@ function Reader(props) {
 				injectedJavaScriptBeforeContentLoaded={injectedJS}
 				mixedContentMode="always"
 				originWhitelist={['*']}
-				allowFileAccess
-				allowUniversalAccessFromFileURLs
-				domStorageEnabled
+				// allowFileAccess
+				// allowUniversalAccessFromFileURLs
+				// domStorageEnabled
 				style={{ flex: 1 }}
 				onMessage={handleMessage}
 			/>

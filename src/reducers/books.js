@@ -10,6 +10,11 @@ export default function(state = INITIAL_STATE, action) {
 			stateCopy[index] = { ...stateCopy[index], ...data };
 			return stateCopy;
 		}
+		case 'remove_book': {
+			let newState = [...state];
+			newState.splice(action.payload, 1);
+			return newState;
+		}
 		default:
 			return state;
 	}

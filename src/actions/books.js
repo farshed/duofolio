@@ -26,3 +26,7 @@ export const addBook = () => async (dispatch) => {
 export const addMetadata = (data, index) => {
 	return { type: 'add_metadata', payload: { data, index } };
 };
+
+export const removeBook = (index) => {
+	return { type: 'remove_book', payload: index };
+};
