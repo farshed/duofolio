@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
 import books from './books';
-import location from './location';
+import locations from './locations';
 
-export default combineReducers({ books, location });
+export default combineReducers({ books, locations });

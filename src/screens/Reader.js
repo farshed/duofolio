@@ -9,34 +9,34 @@ import Spinner from '../components/Spinner';
 import PageButton from '../components/PageButton';
 
 function Reader(props) {
-	const [bookUrl, setBookUrl] = useState(null);
-	const [serverInstance, setServerInstance] = useState(null);
+	const [state, setState] = useState({ bookUrl: null, server: null });
 
 	const webview = useRef();
 
-	const { location, books, route } = props;
+	const { params } = props.route;
 
 	useEffect(() => {
 		let unsubscribe = props.navigation.addListener('focus', () => {
 			showToast('Parsing book');
-			serverInstance && serverInstance.stop();
-			let trail = route.params.url.split('/');
+			state.server && state.server.stop();
+			let trail = params.url.split('/');
 			let path = trail.splice(0, trail.length - 1).join('/');
-			let server = new StaticServer(0, path, { localOnly: true, keepAlive: true });
-			setServerInstance(server);
-			server.start().then((url) => setBookUrl(`${url}/${trail[0]}`));
+			let newServer = new StaticServer(0, path, { localOnly: true, keepAlive: true });
+			newServer
+				.start()
+				.then((url) => setState({ bookUrl: `${url}/${trail[0]}`, server: newServer }));
 		});
 		return () => {
-			serverInstance && serverInstance.stop();
+			state.server && state.server.stop();
 			unsubscribe();
 		};
 	}, []);
 
-	let injectedJS = `window.BOOK_PATH = "${bookUrl}";`;
+	let injectedJS = `window.BOOK_PATH = "${state.bookUrl}";`;
 
-	if (location[books[route.params.index].key]) {
+	if (params.location) {
 		injectedJS = `${injectedJS}
-		window.BOOK_LOCATION = '${location[books[route.params.index].key]}';
+		window.BOOK_LOCATION = '${params.location}';
 		`;
 	}
 
@@ -60,19 +60,19 @@ function Reader(props) {
 				return props.addLocation(parsedData);
 			case 'key':
 			case 'metadata':
-				return props.addMetadata(parsedData, route.params.index);
+				return props.addMetadata(parsedData, params.index);
 			case 'cover': {
 				if (parsedData.cover) {
-					parsedData.cover = bookUrl + parsedData.cover;
+					parsedData.cover = state.bookUrl + parsedData.cover;
 				}
-				return props.addMetadata(parsedData, route.params.index);
+				return props.addMetadata(parsedData, params.index);
 			}
 			default:
 				return;
 		}
 	}
 
-	if (!bookUrl) {
+	if (!state.bookUrl) {
 		return <Spinner />;
 	}
 
@@ -96,14 +96,7 @@ function Reader(props) {
 	);
 }
 
-function mapStateToProps(state) {
-	return {
-		books: state.books,
-		location: state.location
-	};
-}
-
 export default connect(
-	mapStateToProps,
+	null,
 	actions
 )(Reader);

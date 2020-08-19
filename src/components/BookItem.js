@@ -9,7 +9,11 @@ function BookItem(props) {
 	async function onPress() {
 		let { isConnected } = await NetInfo.fetch();
 		if (isConnected) {
-			props.navigation.navigate('reader', { url: props.url, index: props.index });
+			props.navigation.navigate('reader', {
+				url: props.url,
+				index: props.index,
+				location: props.location
+			});
 		} else {
 			showToast('No internet connection');
 		}
