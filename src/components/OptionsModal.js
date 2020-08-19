@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Dimensions } from 'react-native';
 import Modal from 'react-native-modal';
 import Icon from './Icon';
+import { elevatedBG } from '../constants';
 
 const { height, width } = Dimensions.get('window');
 
@@ -47,7 +48,7 @@ const styles = {
 	wrapper: {
 		height: 172,
 		width: width - 16,
-		backgroundColor: '#F7F8FB',
+		backgroundColor: elevatedBG,
 		elevation: 5,
 		justifyContent: 'space-evenly',
 		marginBottom: -20,

@@ -17,7 +17,7 @@ function Reader(props) {
 
 	useEffect(() => {
 		let unsubscribe = props.navigation.addListener('focus', () => {
-			showToast('Parsing book');
+			showToast('Opening book');
 			state.server && state.server.stop();
 			let trail = params.url.split('/');
 			let path = trail.splice(0, trail.length - 1).join('/');
@@ -77,17 +77,12 @@ function Reader(props) {
 	}
 
 	return (
-		<View style={{ flex: 1 }}>
+		<View style={wholeScreen}>
 			<WebView
 				ref={webview}
+				style={wholeScreen}
 				source={{ uri: 'file:///android_asset/index.html' }}
 				injectedJavaScriptBeforeContentLoaded={injectedJS}
-				mixedContentMode="always"
-				originWhitelist={['*']}
-				// allowFileAccess
-				// allowUniversalAccessFromFileURLs
-				// domStorageEnabled
-				style={{ flex: 1 }}
 				onMessage={handleMessage}
 			/>
 			<PageButton side="left" onPress={goPrev} />
@@ -100,3 +95,5 @@ export default connect(
 	null,
 	actions
 )(Reader);
+
+const wholeScreen = { flex: 1 };

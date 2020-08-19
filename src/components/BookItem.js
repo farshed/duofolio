@@ -10,6 +10,7 @@ function BookItem(props) {
 		let { isConnected } = await NetInfo.fetch();
 		if (isConnected) {
 			props.navigation.navigate('reader', {
+				title: props.title,
 				url: props.url,
 				index: props.index,
 				location: props.location

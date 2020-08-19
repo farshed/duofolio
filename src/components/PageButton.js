@@ -1,17 +1,14 @@
 import React from 'react';
-import { View, TouchableHighlight, Dimensions } from 'react-native';
+import { View, TouchableWithoutFeedback, Dimensions } from 'react-native';
 
 const { height, width } = Dimensions.get('window');
 
 function PageButton(props) {
 	let extraStyle = props.side === 'left' ? { left: 0 } : { right: 0 };
 	return (
-		<TouchableHighlight
-			style={[styles.wrapper, extraStyle]}
-			onPress={props.onPress}
-			underlayColor="rgba(0, 0, 0, 0.1)">
-			<View />
-		</TouchableHighlight>
+		<TouchableWithoutFeedback onPress={props.onPress}>
+			<View style={[styles.wrapper, extraStyle]} />
+		</TouchableWithoutFeedback>
 	);
 }
 

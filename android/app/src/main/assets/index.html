@@ -30,9 +30,9 @@
 			window.rendition.display(window.BOOK_LOCATION);
 			window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'key', key: book.key() }));
 		});
-		book.loaded.cover.then((url) => {
-			window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'cover', cover: url }));
-		});
+		// book.loaded.cover.then((url) => {
+		// 	window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'cover', cover: url }));
+		// });
 		book.loaded.metadata.then((metadata) => {
 			window.ReactNativeWebView.postMessage(
 				JSON.stringify({ type: 'metadata', title: metadata.title, author: metadata.creator })
