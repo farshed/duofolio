@@ -1,17 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { View } from 'react-native';
 import StaticServer from 'react-native-static-server';
 import { WebView } from 'react-native-webview';
-// import Epub from 'epubjs';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import showToast from '../components/Toast';
 import Spinner from '../components/Spinner';
+import PageButton from '../components/PageButton';
 
 function Reader(props) {
 	const [bookUrl, setBookUrl] = useState(null);
 	const [serverInstance, setServerInstance] = useState(null);
 
-	const webviewRef = useRef();
+	const webview = useRef();
 
 	const { location, books, route } = props;
 
@@ -25,14 +26,26 @@ function Reader(props) {
 			setServerInstance(server);
 			server.start().then((url) => setBookUrl(`${url}/${trail[0]}`));
 		});
-		return unsubscribe;
-	}, [props.route.params.url]);
+		return () => {
+			serverInstance && serverInstance.stop();
+			unsubscribe();
+		};
+	}, []);
 
-	const injectedJS = `window.FLOW = "paginated";
+	let injectedJS = `window.FLOW = "paginated";
 	window.BOOK_PATH = "${bookUrl}";
+	window.BOOK_LOCATION = '${location[books[route.params.index].key]}';
 `;
 
-	// window.LOCATION = ${location[books[route.params.index].key] || undefined};
+	console.log(injectedJS);
+
+	function goPrev() {
+		webview.current?.injectJavaScript(`window.rendition.prev()`);
+	}
+
+	function goNext() {
+		webview.current?.injectJavaScript(`window.rendition.next()`);
+	}
 
 	function handleMessage(e) {
 		let parsedData = JSON.parse(e.nativeEvent.data);
@@ -60,18 +73,22 @@ function Reader(props) {
 	}
 
 	return (
-		<WebView
-			// ref={webviewRef}
-			source={{ uri: 'file:///android_asset/index.html' }}
-			injectedJavaScriptBeforeContentLoaded={injectedJS}
-			mixedContentMode="always"
-			originWhitelist={['*']}
-			allowFileAccess
-			allowUniversalAccessFromFileURLs
-			domStorageEnabled
-			style={{ flex: 1 }}
-			onMessage={handleMessage}
-		/>
+		<View style={{ flex: 1 }}>
+			<WebView
+				ref={webview}
+				source={{ uri: 'file:///android_asset/index.html' }}
+				injectedJavaScriptBeforeContentLoaded={injectedJS}
+				mixedContentMode="always"
+				originWhitelist={['*']}
+				allowFileAccess
+				allowUniversalAccessFromFileURLs
+				domStorageEnabled
+				style={{ flex: 1 }}
+				onMessage={handleMessage}
+			/>
+			<PageButton side="left" onPress={goPrev} />
+			<PageButton side="right" onPress={goNext} />
+		</View>
 	);
 }
 

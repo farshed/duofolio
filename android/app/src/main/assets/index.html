@@ -15,7 +15,7 @@
 				justify-content: center;
 				align-items: center;
 			}
-			#prev {
+			/* #prev {
 				height: 100%;
 				width: 25%;
 				position: absolute;
@@ -32,7 +32,7 @@
 				bottom: 0;
 				right: 0;
 				background-color: red;
-			}
+			} */
 		</style>
 	</head>
 	<body>
@@ -42,14 +42,14 @@
 	</body>
 	<script>
 		// display book and set up communication
-		console.log(window.BOOK_PATH);
+		// console.log(window.BOOK_PATH);
 		let book = ePub(window.BOOK_PATH);
-		let rendition = book.renderTo(document.getElementById('reader'), {
+		window.rendition = book.renderTo(document.getElementById('reader'), {
 			width: '85%',
 			height: '90%'
 		});
-		rendition.on('started', () => {
-			rendition.display();
+		window.rendition.on('started', () => {
+			window.rendition.display(window.BOOK_LOCATION);
 			window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'key', key: book.key() }));
 		});
 		book.loaded.cover.then((url) => {
@@ -60,7 +60,7 @@
 				JSON.stringify({ type: 'metadata', title: metadata.title, author: metadata.creator })
 			);
 		});
-		rendition.on('relocated', (e) => {
+		window.rendition.on('relocated', (e) => {
 			window.ReactNativeWebView.postMessage(
 				JSON.stringify({ type: 'loc', key: book.key(), cfi: e.start.cfi })
 			);
