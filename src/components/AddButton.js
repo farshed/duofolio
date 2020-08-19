@@ -30,7 +30,8 @@ const styles = {
 		width: 60,
 		borderRadius: 30,
 		justifyContent: 'center',
-		alignItems: 'center'
+		alignItems: 'center',
+		zIndex: 1
 	},
 	icon: {
 		name: 'plus',

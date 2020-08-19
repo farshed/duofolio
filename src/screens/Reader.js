@@ -34,10 +34,14 @@ function Reader(props) {
 
 	let injectedJS = `window.FLOW = "paginated";
 	window.BOOK_PATH = "${bookUrl}";
-	window.BOOK_LOCATION = '${location[books[route.params.index].key]}';
 `;
 
-	console.log(injectedJS);
+	if (location[books[route.params.index].key]) {
+		injectedJS = `${injectedJS}
+	window.BOOK_LOCATION = '${location[books[route.params.index].key]}';
+	`;
+	}
+	// console.log(injectedJS);
 
 	function goPrev() {
 		webview.current?.injectJavaScript(`window.rendition.prev()`);
