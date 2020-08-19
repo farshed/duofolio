@@ -32,16 +32,13 @@ function Reader(props) {
 		};
 	}, []);
 
-	let injectedJS = `window.FLOW = "paginated";
-	window.BOOK_PATH = "${bookUrl}";
-`;
+	let injectedJS = `window.BOOK_PATH = "${bookUrl}";`;
 
 	if (location[books[route.params.index].key]) {
 		injectedJS = `${injectedJS}
-	window.BOOK_LOCATION = '${location[books[route.params.index].key]}';
-	`;
+		window.BOOK_LOCATION = '${location[books[route.params.index].key]}';
+		`;
 	}
-	// console.log(injectedJS);
 
 	function goPrev() {
 		webview.current?.injectJavaScript(`window.rendition.prev()`);
@@ -56,6 +53,9 @@ function Reader(props) {
 		let { type } = parsedData;
 		delete parsedData.type;
 		switch (type) {
+			case 'selected': {
+				return;
+			}
 			case 'loc':
 				return props.addLocation(parsedData);
 			case 'key':

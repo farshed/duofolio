@@ -15,34 +15,12 @@
 				justify-content: center;
 				align-items: center;
 			}
-			/* #prev {
-				height: 100%;
-				width: 25%;
-				position: absolute;
-				top: 0;
-				bottom: 0;
-				left: 0;
-				background-color: red;
-			}
-			#next {
-				height: 100%;
-				width: 25%;
-				position: absolute;
-				top: 0;
-				bottom: 0;
-				right: 0;
-				background-color: red;
-			} */
 		</style>
 	</head>
 	<body>
 		<div id="reader"></div>
-		<!-- <div id="prev"></div> -->
-		<!-- <div id="next"></div> -->
 	</body>
 	<script>
-		// display book and set up communication
-		// console.log(window.BOOK_PATH);
 		let book = ePub(window.BOOK_PATH);
 		window.rendition = book.renderTo(document.getElementById('reader'), {
 			width: '85%',
@@ -65,19 +43,18 @@
 				JSON.stringify({ type: 'loc', key: book.key(), cfi: e.start.cfi })
 			);
 		});
-		// rendition.on('selected', () => {
-		// 	let selected =
-		// 		rendition.manager && rendition.manager.getContents().length > 0
-		// 			? rendition.manager
-		// 					.getContents()[0]
-		// 					.window.getSelection()
-		// 					.toString()
-		// 					.trim()
-		// 			: '';
-		// });
-
-		// event listeners
-		// document.getElementById('next').addEventListener('click', rendition.next);
-		// document.getElementById('prev').addEventListener('click', rendition.prev);
+		window.rendition.on('selected', () => {
+			let selected =
+				window.rendition.manager && window.rendition.manager.getContents().length > 0
+					? window.rendition.manager
+							.getContents()[0]
+							.window.getSelection()
+							.toString()
+							.trim()
+					: '';
+			if (selected) {
+				window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'selected', selected }));
+			}
+		});
 	</script>
 </html>
