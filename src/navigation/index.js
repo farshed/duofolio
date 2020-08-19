@@ -4,9 +4,9 @@ import Home from '../screens/Home';
 import Reader from '../screens/Reader';
 import Settings from '../screens/Settings';
 import Icon from '../components/Icon';
-import { elevatedBG, contrastColor } from '../constants';
+import { contrastColor } from '../constants';
 
-const durationSpec = { config: { duration: 100 } };
+const durationSpec = { config: { duration: 200 } };
 
 const screenOptions = {
 	...TransitionPresets.ScaleFromCenterAndroid,
@@ -14,19 +14,15 @@ const screenOptions = {
 		open: durationSpec,
 		close: durationSpec
 	},
-	// headerStyle: {
-	// 	elevation: 0,
-	// 	backgroundColor: elevatedBG
-	// },
-	// headerTitleStyle: {
-	// 	fontFamily: 'Circular',
-	// 	fontWeight: '400',
-	// 	fontSize: 18,
-	// 	color: contrastColor,
-	// 	marginLeft: 30,
-	// 	marginRight: 30
-	// },
-	// headerTitleAlign: 'center',
+	headerTitleStyle: {
+		fontFamily: 'Circular',
+		fontWeight: '400',
+		fontSize: 18,
+		color: contrastColor,
+		marginLeft: 30,
+		marginRight: 30
+	},
+	headerTitleAlign: 'center',
 	headerBackImage: () => <Icon name="chevron-left" color={contrastColor} size={26} />
 };
 
