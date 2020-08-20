@@ -38,6 +38,12 @@
 				JSON.stringify({ type: 'metadata', title: metadata.title, author: metadata.creator })
 			);
 		});
+		book.loaded.navigation.then((nav) => {
+			let contents = nav.toc.map(({ href, label }) => {
+				return { href, label };
+			});
+			window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'contents', contents }));
+		});
 		window.rendition.on('relocated', (e) => {
 			window.ReactNativeWebView.postMessage(
 				JSON.stringify({ type: 'loc', key: book.key(), cfi: e.start.cfi })

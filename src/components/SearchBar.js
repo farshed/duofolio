@@ -10,7 +10,6 @@ const HIDDEN_POSITION = -(HEIGHT * 2);
 const DURATION = 150;
 
 const AnimatedInput = Animated.createAnimatedComponent(TextInput);
-const AnimatedIcon = Animated.createAnimatedComponent(FeatherIcon);
 
 function SearchBar(props) {
 	const [position] = useState(new Animated.Value(HIDDEN_POSITION));
@@ -35,7 +34,7 @@ function SearchBar(props) {
 	return (
 		<Animated.View style={[styles.wrapper, { transform: [{ translateY: position }] }]}>
 			<TouchableOpacity style={styles.touchable} onPress={props.hide}>
-				<AnimatedIcon name="arrow-left" size={24} color={contrastColor} />
+				<FeatherIcon name="arrow-left" size={24} color={contrastColor} />
 			</TouchableOpacity>
 			<AnimatedInput
 				ref={inputRef}

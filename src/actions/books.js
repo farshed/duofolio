@@ -30,3 +30,7 @@ export const addMetadata = (data, index) => {
 export const removeBook = (index) => {
 	return { type: 'remove_book', payload: index };
 };
+
+export const sortBook = (index) => {
+	return { type: 'sort_book', payload: index };
+};

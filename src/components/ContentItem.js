@@ -5,7 +5,7 @@ function ContentItem(props) {
 	return (
 		<TouchableHighlight onPress={props.onPress} underlayColor="rgba(0, 0, 0, 0.5)">
 			<View style={styles.wrapper}>
-				<Text style={styles.text}>{props.text}</Text>
+				<Text style={styles.text}>{props.label}</Text>
 			</View>
 		</TouchableHighlight>
 	);

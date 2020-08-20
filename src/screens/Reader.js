@@ -52,6 +52,7 @@ function Reader(props) {
 				.then((url) => setState({ bookUrl: `${url}/${trail[0]}`, server: newServer }));
 		});
 		let unsubscribeBlur = props.navigation.addListener('blur', () => {
+			props.sortBook(params.index);
 			state.server && state.server.stop();
 			setState({ bookUrl: null, server: null });
 		});
@@ -90,6 +91,7 @@ function Reader(props) {
 				return props.addLocation(parsedData);
 			case 'key':
 			case 'metadata':
+			case 'contents':
 				return props.addMetadata(parsedData, params.index);
 			default:
 				return;
