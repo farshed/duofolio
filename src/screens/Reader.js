@@ -21,19 +21,22 @@ function Reader(props) {
 	useLayoutEffect(() => {
 		props.navigation.setOptions({
 			headerRight: () => (
-				<View>
+				<View style={styles.iconWrapper}>
 					<Icon
 						name="menu"
 						size={22}
 						color={contrastColor}
-						style={{ paddingRight: 15 }}
-						onPress={() => setDrawer(!isDrawer)}
+						style={styles.headerIcon}
+						onPress={() => {
+							// console.log(isDrawer);
+							setDrawer(!isDrawer);
+						}}
 					/>
 					<Icon
 						name="settings"
 						size={22}
 						color={contrastColor}
-						style={{ paddingRight: 15 }}
+						style={styles.headerIcon}
 						onPress={() => props.navigation.navigate('settings')}
 					/>
 				</View>
@@ -79,6 +82,10 @@ function Reader(props) {
 		webview.current?.injectJavaScript(`window.rendition.next()`);
 	}
 
+	// function onContentPress(href) {
+	// 	webview.current?.injectJavaScript(`window.rendition.display(${href})`);
+	// }
+
 	function handleMessage(e) {
 		let parsedData = JSON.parse(e.nativeEvent.data);
 		let { type } = parsedData;
@@ -101,19 +108,19 @@ function Reader(props) {
 	if (!state.bookUrl) {
 		return <Spinner />;
 	}
-
+	const menu = <Drawer index={params.index} />;
 	return (
 		//<View style={wholeScreen}>
-		<SideMenu menu={Drawer} isOpen={isDrawer} menuPosition="right">
+		<SideMenu menu={menu} isOpen={isDrawer} menuPosition="right" onChange={setDrawer}>
 			<WebView
 				ref={webview}
-				style={wholeScreen}
+				style={styles.wholeScreen}
 				source={{ uri: 'file:///android_asset/index.html' }}
 				injectedJavaScriptBeforeContentLoaded={injectedJS}
 				onMessage={handleMessage}
 			/>
-			<PageButton side="left" onPress={goPrev} />
-			<PageButton side="right" onPress={goNext} />
+			{isDrawer || <PageButton side="left" onPress={goPrev} />}
+			{isDrawer || <PageButton side="right" onPress={goNext} />}
 		</SideMenu>
 		// {/* </View> */}
 	);
@@ -124,4 +131,8 @@ export default connect(
 	actions
 )(Reader);
 
-const wholeScreen = { flex: 1 };
+const styles = {
+	wholeScreen: { flex: 1 },
+	headerIcon: { paddingRight: 15 },
+	iconWrapper: { flexDirection: 'row' }
+};

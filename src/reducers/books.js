@@ -16,9 +16,10 @@ export default function(state = INITIAL_STATE, action) {
 			return newState;
 		}
 		case 'sort_book': {
+			if (action.payload < 1) return state;
 			let stateDup = [...state];
 			let item = stateDup.splice(action.payload, 1);
-			stateDup.unshift(item);
+			stateDup.unshift(...item);
 			return stateDup;
 		}
 		default:

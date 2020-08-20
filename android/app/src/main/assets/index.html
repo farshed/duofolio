@@ -40,7 +40,7 @@
 		});
 		book.loaded.navigation.then((nav) => {
 			let contents = nav.toc.map(({ href, label }) => {
-				return { href, label };
+				return { href, label: label.trim() };
 			});
 			window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'contents', contents }));
 		});

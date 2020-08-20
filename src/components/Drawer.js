@@ -1,27 +1,35 @@
 import React from 'react';
 import { Text, ScrollView, Dimensions } from 'react-native';
+import { connect } from 'react-redux';
 import ContentItem from './ContentItem';
 
-const { height, width } = Dimensions.get('window');
+const { height } = Dimensions.get('window');
 
 function Drawer(props) {
 	return (
-		<ScrollView style={styles.wrapper}>
-			{props.contents.map((item, i) => (
-				<ContentItem {...item} key={i} />
-			))}
+		<ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollViewContent}>
+			{props.books[props.index].contents?.map((item, i) => <ContentItem {...item} key={i} />)}
 		</ScrollView>
 	);
 }
 
-export default Drawer;
+function mapStateToProps(state) {
+	return { books: state.books };
+}
+
+export default connect(
+	mapStateToProps,
+	null
+)(Drawer);
 
 const styles = {
-	wrapper: {
+	scrollView: {
 		flex: 1,
 		height,
-		width: width * 0.6,
-		padding: 15,
-		alignItems: 'center'
+		padding: 15
+	},
+	scrollViewContent: {
+		alignItems: 'flex-start',
+		paddingBottom: 50
 	}
 };
