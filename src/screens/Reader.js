@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import { View } from 'react-native';
 import StaticServer from 'react-native-static-server';
 import { WebView } from 'react-native-webview';
@@ -7,13 +7,28 @@ import * as actions from '../actions';
 import showToast from '../components/Toast';
 import Spinner from '../components/Spinner';
 import PageButton from '../components/PageButton';
+import Icon from '../components/Icon';
+import { contrastColor } from '../constants';
 
 function Reader(props) {
 	const [state, setState] = useState({ bookUrl: null, server: null });
-
 	const webview = useRef();
-
 	const { params } = props.route;
+
+	useLayoutEffect(() => {
+		props.navigation.setOptions({
+			headerTitleAlign: 'left',
+			headerRight: () => (
+				<Icon
+					name="settings"
+					size={22}
+					color={contrastColor}
+					style={{ paddingRight: 15 }}
+					onPress={() => props.navigation.navigate('settings')}
+				/>
+			)
+		});
+	}, [props.navigation]);
 
 	useEffect(() => {
 		let unsubscribeFocus = props.navigation.addListener('focus', () => {

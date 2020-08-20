@@ -339,9 +339,9 @@ function SearchBar(props) {
 
 	return (
 		<Animated.View style={[styles.wrapper, { transform: [{ translateY: position }] }]}>
-			<AnimatedTouchable style={styles.backArrow} onPress={props.hide}>
+			<TouchableOpacity style={styles.backArrow} onPress={props.hide}>
 				<Icon name="arrow-left" size={24} color={contrastColor} />
-			</AnimatedTouchable>
+			</TouchableOpacity>
 			<AnimatedInput
 				ref={inputRef}
 				style={styles.input}
@@ -379,8 +379,7 @@ const styles = {
 		paddingRight: 15,
 		height: HEIGHT,
 		justifyContent: 'center',
-		alignItems: 'center',
-		zIndex: 10
+		alignItems: 'center'
 	},
 	input: {
 		flex: 1,

@@ -13,7 +13,6 @@ function Home(props) {
 
 	useLayoutEffect(() => {
 		props.navigation.setOptions({
-			headerTitleAlign: 'left',
 			headerRight: () => (
 				<Icon
 					name="search"

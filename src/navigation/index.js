@@ -21,8 +21,7 @@ const screenOptions = {
 		color: contrastColor,
 		marginLeft: 30,
 		marginRight: 30
-	},
-	headerTitleAlign: 'center'
+	}
 	// headerBackImage: () => <Icon name="chevron-left" color={contrastColor} size={26} />
 };
 
@@ -35,7 +34,7 @@ export default function Navigator() {
 		<Stack.Navigator screenOptions={screenOptions}>
 			<Stack.Screen name="home" component={Home} options={{ headerTitle: 'My Library' }} />
 			<Stack.Screen name="reader" component={Reader} options={headerTitle} />
-			<Stack.Screen name="settings" component={Settings} />
+			<Stack.Screen name="settings" component={Settings} options={{ headerTitle: 'Settings' }} />
 		</Stack.Navigator>
 	);
 }
