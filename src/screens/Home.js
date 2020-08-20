@@ -25,6 +25,17 @@ function Home(props) {
 		});
 	}, [props.navigation]);
 
+	function listFilter() {
+		if (input) {
+			return props.books.filter((book) => {
+				let itemData = ` ${book.title} ${book.author}`.toUpperCase();
+				let searchData = ' ' + input.toUpperCase();
+				return itemData.indexOf(searchData) > -1;
+			});
+		}
+		return props.books;
+	}
+
 	function renderBooks() {
 		const { books, locations } = props;
 		if (props.books.length === 0) {
@@ -38,7 +49,7 @@ function Home(props) {
 		return (
 			<FlatList
 				contentContainerStyle={styles.flatlist}
-				data={props.books}
+				data={listFilter()}
 				renderItem={({ item, index }) => (
 					<BookItem
 						{...item}

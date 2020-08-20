@@ -2,8 +2,10 @@ import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import { View } from 'react-native';
 import StaticServer from 'react-native-static-server';
 import { WebView } from 'react-native-webview';
+import SideMenu from 'react-native-side-menu';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import Drawer from '../components/Drawer';
 import showToast from '../components/Toast';
 import Spinner from '../components/Spinner';
 import PageButton from '../components/PageButton';
@@ -12,20 +14,29 @@ import { contrastColor } from '../constants';
 
 function Reader(props) {
 	const [state, setState] = useState({ bookUrl: null, server: null });
+	const [isDrawer, setDrawer] = useState(false);
 	const webview = useRef();
 	const { params } = props.route;
 
 	useLayoutEffect(() => {
 		props.navigation.setOptions({
-			headerTitleAlign: 'left',
 			headerRight: () => (
-				<Icon
-					name="settings"
-					size={22}
-					color={contrastColor}
-					style={{ paddingRight: 15 }}
-					onPress={() => props.navigation.navigate('settings')}
-				/>
+				<View>
+					<Icon
+						name="menu"
+						size={22}
+						color={contrastColor}
+						style={{ paddingRight: 15 }}
+						onPress={() => setDrawer(!isDrawer)}
+					/>
+					<Icon
+						name="settings"
+						size={22}
+						color={contrastColor}
+						style={{ paddingRight: 15 }}
+						onPress={() => props.navigation.navigate('settings')}
+					/>
+				</View>
 			)
 		});
 	}, [props.navigation]);
@@ -90,7 +101,8 @@ function Reader(props) {
 	}
 
 	return (
-		<View style={wholeScreen}>
+		//<View style={wholeScreen}>
+		<SideMenu menu={Drawer} isOpen={isDrawer} menuPosition="right">
 			<WebView
 				ref={webview}
 				style={wholeScreen}
@@ -100,7 +112,8 @@ function Reader(props) {
 			/>
 			<PageButton side="left" onPress={goPrev} />
 			<PageButton side="right" onPress={goNext} />
-		</View>
+		</SideMenu>
+		// {/* </View> */}
 	);
 }
 

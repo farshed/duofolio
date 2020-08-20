@@ -18,22 +18,23 @@ const screenOptions = {
 		fontFamily: 'Circular',
 		fontWeight: '400',
 		fontSize: 18,
-		color: contrastColor,
-		marginLeft: 30,
-		marginRight: 30
+		color: contrastColor
 	}
-	// headerBackImage: () => <Icon name="chevron-left" color={contrastColor} size={26} />
 };
 
 const Stack = createStackNavigator();
 // const noHeader = { headerShown: false };
-const headerTitle = ({ route }) => ({ title: route.params.title });
+
+const readerTitle = ({ route }) => ({
+	title: route.params.title,
+	headerTitleStyle: { fontSize: 16 }
+});
 
 export default function Navigator() {
 	return (
 		<Stack.Navigator screenOptions={screenOptions}>
 			<Stack.Screen name="home" component={Home} options={{ headerTitle: 'My Library' }} />
-			<Stack.Screen name="reader" component={Reader} options={headerTitle} />
+			<Stack.Screen name="reader" component={Reader} options={readerTitle} />
 			<Stack.Screen name="settings" component={Settings} options={{ headerTitle: 'Settings' }} />
 		</Stack.Navigator>
 	);
