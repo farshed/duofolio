@@ -16,9 +16,8 @@ function Reader(props) {
 	const { params } = props.route;
 
 	useEffect(() => {
-		let unsubscribe = props.navigation.addListener('focus', () => {
+		let unsubscribeFocus = props.navigation.addListener('focus', () => {
 			showToast('Opening book');
-			state.server && state.server.stop();
 			let trail = params.url.split('/');
 			let path = trail.splice(0, trail.length - 1).join('/');
 			let newServer = new StaticServer(0, path, { localOnly: true, keepAlive: true });
@@ -26,9 +25,14 @@ function Reader(props) {
 				.start()
 				.then((url) => setState({ bookUrl: `${url}/${trail[0]}`, server: newServer }));
 		});
+		let unsubscribeBlur = props.navigation.addListener('blur', () => {
+			state.server && state.server.stop();
+			setState({ bookUrl: null, server: null });
+		});
 		return () => {
 			state.server && state.server.stop();
-			unsubscribe();
+			unsubscribeFocus();
+			unsubscribeBlur();
 		};
 	}, []);
 
@@ -75,8 +79,6 @@ function Reader(props) {
 			<WebView
 				ref={webview}
 				style={wholeScreen}
-				overScrollMode="never"
-				scrollEnabled={false}
 				source={{ uri: 'file:///android_asset/index.html' }}
 				injectedJavaScriptBeforeContentLoaded={injectedJS}
 				onMessage={handleMessage}

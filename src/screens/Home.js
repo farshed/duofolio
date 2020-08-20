@@ -1,10 +1,31 @@
-import React from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import AddButton from '../components/AddButton';
 import BookItem from '../components/BookItem';
+import SearchBar from '../components/SearchBar';
+import Icon from '../components/Icon';
+import { contrastColor } from '../constants';
 
 function Home(props) {
+	const [isSearchBar, setSearchBar] = useState(false);
+	const [input, setInput] = useState('');
+
+	useLayoutEffect(() => {
+		props.navigation.setOptions({
+			headerTitleAlign: 'left',
+			headerRight: () => (
+				<Icon
+					name="search"
+					size={22}
+					color={contrastColor}
+					style={styles.searchIcon}
+					onPress={() => setSearchBar(true)}
+				/>
+			)
+		});
+	}, [props.navigation]);
+
 	function renderBooks() {
 		const { books, locations } = props;
 		if (props.books.length === 0) {
@@ -33,6 +54,15 @@ function Home(props) {
 
 	return (
 		<View style={styles.wrapper}>
+			<SearchBar
+				isVisible={isSearchBar}
+				value={input}
+				setValue={setInput}
+				hide={() => {
+					setSearchBar(false);
+					setInput('');
+				}}
+			/>
 			<AddButton />
 			{renderBooks()}
 		</View>
@@ -65,5 +95,8 @@ const styles = {
 		fontSize: 16,
 		fontFamily: 'Circular',
 		marginBottom: 5
+	},
+	searchIcon: {
+		paddingRight: 15
 	}
 };

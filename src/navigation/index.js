@@ -22,18 +22,18 @@ const screenOptions = {
 		marginLeft: 30,
 		marginRight: 30
 	},
-	headerTitleAlign: 'center',
-	headerBackImage: () => <Icon name="chevron-left" color={contrastColor} size={26} />
+	headerTitleAlign: 'center'
+	// headerBackImage: () => <Icon name="chevron-left" color={contrastColor} size={26} />
 };
 
 const Stack = createStackNavigator();
-const noHeader = { headerShown: false };
+// const noHeader = { headerShown: false };
 const headerTitle = ({ route }) => ({ title: route.params.title });
 
 export default function Navigator() {
 	return (
 		<Stack.Navigator screenOptions={screenOptions}>
-			<Stack.Screen name="home" component={Home} options={noHeader} />
+			<Stack.Screen name="home" component={Home} options={{ headerTitle: 'My Library' }} />
 			<Stack.Screen name="reader" component={Reader} options={headerTitle} />
 			<Stack.Screen name="settings" component={Settings} />
 		</Stack.Navigator>
