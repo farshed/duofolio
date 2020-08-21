@@ -68,6 +68,9 @@
 				window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'selected', selected }));
 			}
 		});
+		navigator.wakeLock.request('screen').then((wakeLock) => {
+			window.wakeLock = wakeLock;
+		});
 		// if (window.PAGE_NAV === 'swipe') {
 		// 	let touchStart = 0;
 		// 	let touchEnd = 0;
