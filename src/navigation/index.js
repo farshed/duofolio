@@ -1,9 +1,8 @@
 import React from 'react';
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 import Home from '../screens/Home';
-import Reader from '../screens/Reader';
+import EpubReader from '../screens/EpubReader';
 import Settings from '../screens/Settings';
-import Icon from '../components/Icon';
 import { contrastColor } from '../constants';
 
 const durationSpec = { config: { duration: 200 } };
@@ -34,7 +33,7 @@ export default function Navigator() {
 	return (
 		<Stack.Navigator screenOptions={screenOptions}>
 			<Stack.Screen name="home" component={Home} options={{ headerTitle: 'My Library' }} />
-			<Stack.Screen name="reader" component={Reader} options={readerTitle} />
+			<Stack.Screen name="reader" component={EpubReader} options={readerTitle} />
 			<Stack.Screen name="settings" component={Settings} options={{ headerTitle: 'Settings' }} />
 		</Stack.Navigator>
 	);

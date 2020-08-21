@@ -12,7 +12,7 @@ import PageButton from '../components/PageButton';
 import Icon from '../components/Icon';
 import { contrastColor } from '../constants';
 
-function Reader(props) {
+function EpubReader(props) {
 	const [state, setState] = useState({ bookUrl: null, server: null });
 	const [isDrawer, setDrawer] = useState(false);
 	const webview = useRef();
@@ -23,21 +23,18 @@ function Reader(props) {
 			headerRight: () => (
 				<View style={styles.iconWrapper}>
 					<Icon
-						name="menu"
-						size={22}
-						color={contrastColor}
-						style={styles.headerIcon}
-						onPress={() => {
-							// console.log(isDrawer);
-							setDrawer(!isDrawer);
-						}}
-					/>
-					<Icon
 						name="settings"
-						size={22}
+						size={20}
 						color={contrastColor}
 						style={styles.headerIcon}
 						onPress={() => props.navigation.navigate('settings')}
+					/>
+					<Icon
+						name="menu"
+						size={20}
+						color={contrastColor}
+						style={styles.headerIcon}
+						onPress={toggleDrawer}
 					/>
 				</View>
 			)
@@ -55,6 +52,7 @@ function Reader(props) {
 				.then((url) => setState({ bookUrl: `${url}/${trail[0]}`, server: newServer }));
 		});
 		let unsubscribeBlur = props.navigation.addListener('blur', () => {
+			if (props.navigation.dangerouslyGetState().index > 1) return;
 			props.sortBook(params.index);
 			state.server && state.server.stop();
 			setState({ bookUrl: null, server: null });
@@ -66,7 +64,8 @@ function Reader(props) {
 		};
 	}, []);
 
-	let injectedJS = `window.BOOK_PATH = "${state.bookUrl}";`;
+	let injectedJS = `window.BOOK_PATH = "${state.bookUrl}";
+	window.PAGE_NAV = 'swipe';`;
 
 	if (params.location) {
 		injectedJS = `${injectedJS}
@@ -82,9 +81,14 @@ function Reader(props) {
 		webview.current?.injectJavaScript(`window.rendition.next()`);
 	}
 
-	// function onContentPress(href) {
-	// 	webview.current?.injectJavaScript(`window.rendition.display(${href})`);
-	// }
+	function toggleDrawer() {
+		console.log(isDrawer);
+		setDrawer(!isDrawer);
+	}
+
+	function onContentPress(href) {
+		webview.current?.injectJavaScript(`window.rendition.display(${href})`);
+	}
 
 	function handleMessage(e) {
 		let parsedData = JSON.parse(e.nativeEvent.data);
@@ -108,7 +112,7 @@ function Reader(props) {
 	if (!state.bookUrl) {
 		return <Spinner />;
 	}
-	const menu = <Drawer index={params.index} />;
+	const menu = <Drawer index={params.index} onItemPress={onContentPress} />;
 	return (
 		//<View style={wholeScreen}>
 		<SideMenu menu={menu} isOpen={isDrawer} menuPosition="right" onChange={setDrawer}>
@@ -129,10 +133,10 @@ function Reader(props) {
 export default connect(
 	null,
 	actions
-)(Reader);
+)(EpubReader);
 
 const styles = {
 	wholeScreen: { flex: 1 },
-	headerIcon: { paddingRight: 15 },
+	headerIcon: { paddingRight: 18 },
 	iconWrapper: { flexDirection: 'row' }
 };
