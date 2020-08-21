@@ -1,8 +1,8 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useLayoutEffect } from 'react';
 
 export default function useDidUpdate(func, vibeCheck) {
 	const didMountRef = useRef(false);
-	useEffect(() => {
+	useLayoutEffect(() => {
 		if (didMountRef.current) func();
 		else didMountRef.current = true;
 	}, vibeCheck);

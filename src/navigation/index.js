@@ -24,16 +24,11 @@ const screenOptions = {
 const Stack = createStackNavigator();
 // const noHeader = { headerShown: false };
 
-const readerTitle = ({ route }) => ({
-	title: route.params.title,
-	headerTitleStyle: { fontSize: 16 }
-});
-
 export default function Navigator() {
 	return (
 		<Stack.Navigator screenOptions={screenOptions}>
 			<Stack.Screen name="home" component={Home} options={{ headerTitle: 'My Library' }} />
-			<Stack.Screen name="epub-reader" component={EpubReader} options={readerTitle} />
+			<Stack.Screen name="epub-reader" component={EpubReader} options={{ headerTitle: '' }} />
 			<Stack.Screen name="settings" component={Settings} options={{ headerTitle: 'Settings' }} />
 		</Stack.Navigator>
 	);

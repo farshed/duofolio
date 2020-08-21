@@ -23,6 +23,13 @@ function EpubReader(props) {
 			headerRight: () => (
 				<View style={styles.iconWrapper}>
 					<Icon
+						name="search"
+						size={20}
+						color={contrastColor}
+						style={styles.headerIcon}
+						onPress={() => props.navigation.navigate('settings')}
+					/>
+					<Icon
 						name="settings"
 						size={20}
 						color={contrastColor}
