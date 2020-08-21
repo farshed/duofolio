@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, TouchableOpacity, Dimensions } from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
+import OptionsModal from './OptionsModal';
 import showToast from './Toast';
 import { contrastColor } from '../constants';
 
 const ScreenWidth = Dimensions.get('window').width;
 
 function BookItem(props) {
+	const [isModalVisible, setModalVisible] = useState(false);
+
 	async function onPress() {
 		let { isConnected } = await NetInfo.fetch();
 		if (isConnected) {
-			props.navigation.navigate('reader', {
+			props.navigation.navigate('epub-reader', {
 				title: props.title,
 				url: props.url,
 				index: props.index,
@@ -26,6 +29,7 @@ function BookItem(props) {
 			activeOpacity={0.4}
 			style={styles.wrapper}
 			onPress={onPress}
+			onLongPress={() => setModalVisible(true)}
 			key={props.index}>
 			<Text style={styles.title} numberOfLines={1}>
 				{props.title}
@@ -33,6 +37,7 @@ function BookItem(props) {
 			<Text style={styles.author} numberOfLines={1}>
 				{props.author || 'unknown'}
 			</Text>
+			<OptionsModal isVisible={isModalVisible} onPressCancel={() => setModalVisible(false)} />
 		</TouchableOpacity>
 	);
 }

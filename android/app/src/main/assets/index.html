@@ -6,6 +6,12 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/epubjs/dist/epub.min.js"></script>
 		<style>
+			body {
+				overflow: hidden !important;
+			}
+			iframe {
+				overflow: hidden !important;
+			}
 			#reader {
 				margin: 0px;
 				height: 100vh;
@@ -62,25 +68,20 @@
 				window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'selected', selected }));
 			}
 		});
-		if (window.PAGE_NAV === 'swipe') {
-			let touchStart = 0;
-			let touchEnd = 0;
-			window.rendition.on('touchstart', (e) => {
-				touchStart = e.changedTouches[0].screenX;
-			});
-			window.rendition.on('touchend', (e) => {
-				touchEnd = e.changedTouches[0].screenX;
-				if (touchStart < touchEnd) {
-					let style = renderer.doc.createElement('style');
-					style.innerHTML =
-						'*{-webkit-transition: transform {t} ease;-moz-transition: tranform {t} ease;-o-transition: transform {t} ease;-ms-transition: transform {t} ease;transition: transform {t} ease;}';
-					style.innerHTML = style.innerHTML.split('{t}').join('0.5s');
-					renderer.doc.body.appendChild(style);
-					window.rendition.prev();
-				} else if (touchStart > touchEnd) {
-					window.rendition.next();
-				}
-			});
-		}
+		// if (window.PAGE_NAV === 'swipe') {
+		// 	let touchStart = 0;
+		// 	let touchEnd = 0;
+		// 	window.rendition.on('touchstart', (e) => {
+		// 		touchStart = e.changedTouches[0].screenX;
+		// 	});
+		// 	window.rendition.on('touchend', (e) => {
+		// 		touchEnd = e.changedTouches[0].screenX;
+		// 		if (touchStart < touchEnd) {
+		// 			window.rendition.prev();
+		// 		} else if (touchStart > touchEnd) {
+		// 			window.rendition.next();
+		// 		}
+		// 	});
+		// }
 	</script>
 </html>
