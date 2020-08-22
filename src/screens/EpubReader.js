@@ -21,32 +21,16 @@ function EpubReader(props) {
 	useLayoutEffect(() => {
 		props.navigation.setOptions({
 			headerRight: () => (
-				<View style={styles.iconWrapper}>
-					<Icon
-						name="search"
-						size={20}
-						color={contrastColor}
-						style={styles.headerIcon}
-						onPress={() => props.navigation.navigate('settings')}
-					/>
-					<Icon
-						name="settings"
-						size={20}
-						color={contrastColor}
-						style={styles.headerIcon}
-						onPress={() => props.navigation.navigate('settings')}
-					/>
-					<Icon
-						name="menu"
-						size={20}
-						color={contrastColor}
-						style={styles.headerIcon}
-						onPress={toggleDrawer}
-					/>
-				</View>
+				<Icon
+					name="menu"
+					size={20}
+					color={contrastColor}
+					style={styles.headerIcon}
+					onPress={() => setDrawer(!isDrawer)}
+				/>
 			)
 		});
-	}, [props.navigation]);
+	}, [props.navigation, isDrawer]);
 
 	useEffect(() => {
 		let unsubscribeFocus = props.navigation.addListener('focus', () => {
@@ -88,11 +72,6 @@ function EpubReader(props) {
 		webview.current?.injectJavaScript(`window.rendition.next()`);
 	}
 
-	function toggleDrawer() {
-		console.log(isDrawer);
-		setDrawer(!isDrawer);
-	}
-
 	function onContentPress(href) {
 		webview.current?.injectJavaScript(`window.rendition.display(${href})`);
 	}
@@ -121,7 +100,7 @@ function EpubReader(props) {
 	}
 	const menu = <Drawer index={params.index} onItemPress={onContentPress} />;
 	return (
-		//<View style={wholeScreen}>
+		// <View style={styles.wholeScreen}>
 		<SideMenu menu={menu} isOpen={isDrawer} menuPosition="right" onChange={setDrawer}>
 			<WebView
 				ref={webview}
@@ -144,6 +123,5 @@ export default connect(
 
 const styles = {
 	wholeScreen: { flex: 1 },
-	headerIcon: { paddingRight: 18 },
-	iconWrapper: { flexDirection: 'row' }
+	headerIcon: { paddingRight: 18, paddingLeft: 10 }
 };

@@ -56,6 +56,7 @@ function Home(props) {
 						navigation={props.navigation}
 						location={locations[books[index].key]}
 						index={index}
+						key={index}
 					/>
 				)}
 			/>

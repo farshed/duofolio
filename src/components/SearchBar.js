@@ -10,11 +10,13 @@ const DURATION = 150;
 const AnimatedInput = Animated.createAnimatedComponent(TextInput);
 
 function SearchBar(props) {
+	const [shouldRender, setShouldRender] = useState(false);
 	const [position] = useState(new Animated.Value(HIDDEN_POSITION));
 	const inputRef = useRef(null);
 
 	useDidUpdate(() => {
 		if (props.isVisible) {
+			setShouldRender(true);
 			inputRef.current?.focus();
 			Animated.timing(position, {
 				toValue: -HEIGHT,
@@ -27,18 +29,18 @@ function SearchBar(props) {
 				toValue: HIDDEN_POSITION,
 				duration: DURATION,
 				useNativeDriver: true
-			}).start();
+			}).start(() => setShouldRender(false));
 		}
 	}, [props.isVisible]);
 
-	return (
+	return shouldRender ? (
 		<Animated.View style={[styles.wrapper, { transform: [{ translateY: position }] }]}>
 			<Icon
 				name="arrow-left"
 				size={24}
 				color={contrastColor}
 				onPress={props.hide}
-				style={styles.backIcon}
+				style={styles.icon}
 			/>
 			<AnimatedInput
 				ref={inputRef}
@@ -54,8 +56,15 @@ function SearchBar(props) {
 				onChangeText={props.setValue}
 				onBlur={props.hide}
 			/>
+			<Icon
+				name="x"
+				size={24}
+				color={contrastColor}
+				onPress={() => props.setValue('')}
+				style={styles.icon}
+			/>
 		</Animated.View>
-	);
+	) : null;
 }
 
 export default SearchBar;
@@ -74,7 +83,7 @@ const styles = {
 		right: 0,
 		zIndex: 1
 	},
-	backIcon: {
+	icon: {
 		paddingLeft: 14,
 		paddingRight: 14
 	},
@@ -83,7 +92,7 @@ const styles = {
 		fontSize: 17,
 		height: HEIGHT,
 		color: contrastColor,
-		paddingRight: 30,
+		paddingRight: 5,
 		alignItems: 'center'
 	}
 };
