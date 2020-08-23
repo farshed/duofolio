@@ -47,7 +47,7 @@ function SearchBar(props) {
 				style={styles.input}
 				placeholder="Search"
 				allowFontScaling={false}
-				clearButtonMode="always"
+				// clearButtonMode="always"
 				placeholderTextColor="rgba(0, 0, 0, 0.7)"
 				autoCorrect={false}
 				autoFocus={props.isVisible}
@@ -92,7 +92,6 @@ const styles = {
 		fontSize: 17,
 		height: HEIGHT,
 		color: contrastColor,
-		paddingRight: 5,
-		alignItems: 'center'
+		paddingRight: 5
 	}
 };

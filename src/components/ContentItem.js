@@ -5,12 +5,7 @@ const { width } = Dimensions.get('window');
 
 function ContentItem(props) {
 	return (
-		<TouchableOpacity
-			onPress={() => {
-				console.log(props.href);
-				props.onPress(props.href);
-			}}
-			style={styles.wrapper}>
+		<TouchableOpacity onPress={() => props.onPress(props.href)} style={styles.wrapper}>
 			<Text style={styles.text} numberOfLines={1}>
 				{props.label}
 			</Text>

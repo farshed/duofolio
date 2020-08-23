@@ -21,28 +21,30 @@ function Drawer(props) {
 			case 'contents':
 				return <Contents {...props} />;
 			case 'search':
-				return <BookSearch />;
+				return <BookSearch onSearch={props.onSearch} searchResults={props.searchResults} />;
 			case 'settings':
 				return <Settings />;
 			default:
-				return;
+				return null;
 		}
 	}
 
 	return (
 		<View style={styles.wrapper}>
-			{sections.map(({ name, icon }, i) => (
-				<TouchableOpacity
-					onPress={() => setCurrentSection(name)}
-					style={
-						currentSection === name
-							? [styles.sectionButton, styles.selectedSectionButton]
-							: styles.sectionButton
-					}
-					key={i}>
-					<Icon name={icon} size={22} color={contrastColor} />
-				</TouchableOpacity>
-			))}
+			<View style={styles.iconWrapper}>
+				{sections.map(({ name, icon }, i) => (
+					<TouchableOpacity
+						onPress={() => setCurrentSection(name)}
+						style={
+							currentSection === name
+								? [styles.sectionButton, styles.selectedSectionButton]
+								: styles.sectionButton
+						}
+						key={i}>
+						<Icon name={icon} size={22} color={contrastColor} />
+					</TouchableOpacity>
+				))}
+			</View>
 			{renderSection()}
 		</View>
 	);
@@ -54,11 +56,17 @@ const styles = {
 	wrapper: {
 		flex: 1,
 		height,
-		padding: 15
+		paddingTop: 10,
+		paddingLeft: 15
+	},
+	iconWrapper: {
+		flexDirection: 'row',
+		paddingRight: 15,
+		paddingBottom: 10
 	},
 	sectionButton: {
-		height: 40,
-		width: '33%',
+		height: 50,
+		width: '33.33%',
 		justifyContent: 'center',
 		alignItems: 'center'
 	},

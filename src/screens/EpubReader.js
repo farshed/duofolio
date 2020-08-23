@@ -15,6 +15,7 @@ import { contrastColor } from '../constants';
 function EpubReader(props) {
 	const [state, setState] = useState({ bookUrl: null, server: null });
 	const [isDrawer, setDrawer] = useState(false);
+	const [searchResults, setSearchResults] = useState(null);
 	const webview = useRef();
 	const { params } = props.route;
 
@@ -55,8 +56,7 @@ function EpubReader(props) {
 		};
 	}, []);
 
-	let injectedJS = `window.BOOK_PATH = "${state.bookUrl}";
-	window.PAGE_NAV = 'swipe';`;
+	let injectedJS = `window.BOOK_PATH = '${state.bookUrl}';`;
 
 	if (params.location) {
 		injectedJS = `${injectedJS}
@@ -73,7 +73,24 @@ function EpubReader(props) {
 	}
 
 	function onContentPress(href) {
-		webview.current?.injectJavaScript(`window.rendition.display(${href})`);
+		webview.current?.injectJavaScript(`window.rendition.display('${href}')`);
+	}
+
+	function onSearch(q) {
+		webview.current?.injectJavaScript(`
+		Promise.all(
+			window.book.spine.spineItems.map((item) => {
+				return item.load(window.book.load.bind(window.book)).then(() => {
+					let results = item.find('${q}'.trim());
+					item.unload();
+					return Promise.resolve(results);
+				});
+			})
+		).then((results) =>
+			window.ReactNativeWebView.postMessage(
+				JSON.stringify({ type: 'search', results: [].concat.apply([], results) })
+			)
+		)`);
 	}
 
 	function handleMessage(e) {
@@ -90,6 +107,8 @@ function EpubReader(props) {
 			case 'metadata':
 			case 'contents':
 				return props.addMetadata(parsedData, params.index);
+			case 'search':
+				return setSearchResults(parsedData.results);
 			default:
 				return;
 		}
@@ -98,7 +117,14 @@ function EpubReader(props) {
 	if (!state.bookUrl) {
 		return <Spinner />;
 	}
-	const menu = <Drawer index={params.index} onItemPress={onContentPress} />;
+	const menu = (
+		<Drawer
+			index={params.index}
+			onContentItemPress={onContentPress}
+			onSearch={onSearch}
+			searchResults={searchResults}
+		/>
+	);
 	return (
 		// <View style={styles.wholeScreen}>
 		<SideMenu menu={menu} isOpen={isDrawer} menuPosition="right" onChange={setDrawer}>

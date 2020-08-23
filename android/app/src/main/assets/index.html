@@ -27,24 +27,26 @@
 		<div id="reader"></div>
 	</body>
 	<script>
-		let book = ePub(window.BOOK_PATH);
-		window.rendition = book.renderTo(document.getElementById('reader'), {
+		window.book = ePub(window.BOOK_PATH);
+		window.rendition = window.book.renderTo(document.getElementById('reader'), {
 			width: '85%',
 			height: '90%'
 		});
 		window.rendition.on('started', () => {
 			window.rendition.display(window.BOOK_LOCATION);
-			window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'key', key: book.key() }));
+			window.ReactNativeWebView.postMessage(
+				JSON.stringify({ type: 'key', key: window.book.key() })
+			);
 		});
-		// book.loaded.cover.then((url) => {
+		// window.book.loaded.cover.then((url) => {
 		// 	window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'cover', cover: url }));
 		// });
-		book.loaded.metadata.then((metadata) => {
+		window.book.loaded.metadata.then((metadata) => {
 			window.ReactNativeWebView.postMessage(
 				JSON.stringify({ type: 'metadata', title: metadata.title, author: metadata.creator })
 			);
 		});
-		book.loaded.navigation.then((nav) => {
+		window.book.loaded.navigation.then((nav) => {
 			let contents = nav.toc.map(({ href, label }) => {
 				return { href, label: label.trim() };
 			});
@@ -52,7 +54,7 @@
 		});
 		window.rendition.on('relocated', (e) => {
 			window.ReactNativeWebView.postMessage(
-				JSON.stringify({ type: 'loc', key: book.key(), cfi: e.start.cfi })
+				JSON.stringify({ type: 'loc', key: window.book.key(), cfi: e.start.cfi })
 			);
 		});
 		window.rendition.on('selected', () => {
