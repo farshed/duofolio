@@ -21,7 +21,7 @@ function Drawer(props) {
 			case 'contents':
 				return <Contents {...props} />;
 			case 'search':
-				return <BookSearch onSearch={props.onSearch} searchResults={props.searchResults} />;
+				return <BookSearch {...props} />;
 			case 'settings':
 				return <Settings />;
 			default:

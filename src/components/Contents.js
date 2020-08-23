@@ -7,7 +7,7 @@ function Drawer(props) {
 	return (
 		<ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollViewContent}>
 			{props.books[props.index].contents?.map((item, i) => (
-				<ContentItem {...item} key={i} onPress={props.onContentItemPress} />
+				<ContentItem {...item} key={i} onPress={props.goToLocation} />
 			))}
 		</ScrollView>
 	);

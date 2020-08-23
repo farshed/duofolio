@@ -7,9 +7,10 @@ function BookSearch(props) {
 	const [input, setInput] = useState('');
 
 	function renderResults() {
-		console.log(props.searchResults);
 		return input && props.searchResults
-			? props.searchResults.map((result, i) => <SearchItem {...result} key={i} />)
+			? props.searchResults.map((result, i) => (
+					<SearchItem {...result} onPress={props.goToLocation} key={i} />
+			  ))
 			: null;
 	}
 

@@ -72,8 +72,9 @@ function EpubReader(props) {
 		webview.current?.injectJavaScript(`window.rendition.next()`);
 	}
 
-	function onContentPress(href) {
+	function goToLocation(href) {
 		webview.current?.injectJavaScript(`window.rendition.display('${href}')`);
+		setDrawer(false);
 	}
 
 	function onSearch(q) {
@@ -120,7 +121,7 @@ function EpubReader(props) {
 	const menu = (
 		<Drawer
 			index={params.index}
-			onContentItemPress={onContentPress}
+			goToLocation={goToLocation}
 			onSearch={onSearch}
 			searchResults={searchResults}
 		/>
