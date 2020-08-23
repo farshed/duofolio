@@ -40,8 +40,7 @@
 				JSON.stringify({
 					type: 'metadata',
 					title: metadata.title,
-					author: metadata.creator,
-					totalPages: window.book.locations.length()
+					author: metadata.creator
 				})
 			);
 		});
@@ -57,7 +56,8 @@
 					type: 'loc',
 					key: window.book.key(),
 					cfi: e.start.cfi,
-					progress: e.start.location
+					progress: e.start.location,
+					totalPages: window.book.locations.length()
 				})
 			);
 		});

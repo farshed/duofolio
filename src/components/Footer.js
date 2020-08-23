@@ -8,20 +8,21 @@ const { width } = Dimensions.get('window');
 
 function Progress(props) {
 	const { progress = 0, totalPages = 0 } = props.books[props.index];
+	console.log(progress, totalPages);
 	return (
-		<View>
+		<View style={styles.wrapper}>
 			<TouchableWithoutFeedback onPress={props.goPrev}>
 				<View style={styles.buttonWrapper}>
-					<Icon name="chevron-left" size={22} color={contrastColor} />
+					<Icon name="chevron-left" size={24} color={contrastColor} />
 				</View>
 			</TouchableWithoutFeedback>
-			<View>
+			<View style={styles.progressWrapper}>
 				<Text>{`${progress}/${totalPages}`}</Text>
 				<Slider />
 			</View>
 			<TouchableWithoutFeedback onPress={props.goNext}>
 				<View style={styles.buttonWrapper}>
-					<Icon name="chevron-right" size={22} color={contrastColor} />
+					<Icon name="chevron-right" size={24} color={contrastColor} />
 				</View>
 			</TouchableWithoutFeedback>
 		</View>
@@ -42,7 +43,8 @@ const styles = {
 		height: 60,
 		width,
 		flexDirection: 'row',
-		justifyContent: 'space-between'
+		justifyContent: 'space-between',
+		backgroundColor: '#ffffff'
 	},
 	buttonWrapper: {
 		height: 60,

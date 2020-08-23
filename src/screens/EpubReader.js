@@ -8,6 +8,7 @@ import Drawer from '../components/Drawer';
 import showToast from '../components/Toast';
 import Spinner from '../components/Spinner';
 import PageButton from '../components/PageButton';
+import Footer from '../components/Footer';
 import Icon from '../components/Icon';
 import { contrastColor } from '../constants';
 
@@ -95,16 +96,23 @@ function EpubReader(props) {
 
 	function handleMessage(e) {
 		let parsedData = JSON.parse(e.nativeEvent.data);
+		console.log(parsedData);
+		delete parsedData.hello;
+		delete parsedData.hell;
 		let { type } = parsedData;
 		delete parsedData.type;
 		switch (type) {
 			case 'selected': {
 				return;
 			}
-			case 'loc':
-				props.addMetadata({ progress: parsedData.progress }, params.index);
+			case 'loc': {
+				console.log(parsedData);
+				const { progress, totalPages } = parsedData;
+				props.addMetadata({ progress, totalPages }, params.index);
 				delete parsedData.progress;
+				delete parsedData.totalPages;
 				return props.addLocation(parsedData);
+			}
 			case 'key':
 			case 'metadata':
 			case 'contents':
@@ -136,8 +144,9 @@ function EpubReader(props) {
 				injectedJavaScriptBeforeContentLoaded={injectedJS}
 				onMessage={handleMessage}
 			/>
-			{isDrawer || <PageButton side="left" onPress={goPrev} />}
-			{isDrawer || <PageButton side="right" onPress={goNext} />}
+			{/* {isDrawer || <PageButton side="left" onPress={goPrev} />} */}
+			{/* {isDrawer || <PageButton side="right" onPress={goNext} />} */}
+			<Footer goNext={goNext} goPrev={goPrev} index={params.index} />
 		</SideMenu>
 	);
 }
