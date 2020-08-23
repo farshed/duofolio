@@ -6,12 +6,6 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/epubjs/dist/epub.min.js"></script>
 		<style>
-			body {
-				overflow: hidden !important;
-			}
-			iframe {
-				overflow: hidden !important;
-			}
 			#reader {
 				margin: 0px;
 				height: 100vh;
@@ -29,8 +23,8 @@
 	<script>
 		window.book = ePub(window.BOOK_PATH);
 		window.rendition = window.book.renderTo(document.getElementById('reader'), {
-			width: '85%',
-			height: '90%'
+			width: '100%',
+			height: '100%'
 		});
 		window.rendition.on('started', () => {
 			window.rendition.display(window.BOOK_LOCATION);
@@ -43,7 +37,12 @@
 		// });
 		window.book.loaded.metadata.then((metadata) => {
 			window.ReactNativeWebView.postMessage(
-				JSON.stringify({ type: 'metadata', title: metadata.title, author: metadata.creator })
+				JSON.stringify({
+					type: 'metadata',
+					title: metadata.title,
+					author: metadata.creator,
+					totalPages: window.book.locations.length()
+				})
 			);
 		});
 		window.book.loaded.navigation.then((nav) => {
@@ -54,7 +53,12 @@
 		});
 		window.rendition.on('relocated', (e) => {
 			window.ReactNativeWebView.postMessage(
-				JSON.stringify({ type: 'loc', key: window.book.key(), cfi: e.start.cfi })
+				JSON.stringify({
+					type: 'loc',
+					key: window.book.key(),
+					cfi: e.start.cfi,
+					progress: e.start.location
+				})
 			);
 		});
 		window.rendition.on('selected', () => {

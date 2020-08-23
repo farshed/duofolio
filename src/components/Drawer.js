@@ -10,7 +10,8 @@ const { height } = Dimensions.get('window');
 const sections = [
 	{ name: 'contents', icon: 'book-open' },
 	{ name: 'search', icon: 'search' },
-	{ name: 'settings', icon: 'settings' }
+	{ name: 'settings', icon: 'settings' },
+	{ name: 'bookmark', icon: 'bookmark' }
 ];
 
 function Drawer(props) {

@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
-import { View } from 'react-native';
 import StaticServer from 'react-native-static-server';
 import { WebView } from 'react-native-webview';
 import SideMenu from 'react-native-side-menu';
@@ -103,6 +102,8 @@ function EpubReader(props) {
 				return;
 			}
 			case 'loc':
+				props.addMetadata({ progress: parsedData.progress }, params.index);
+				delete parsedData.progress;
 				return props.addLocation(parsedData);
 			case 'key':
 			case 'metadata':
@@ -127,7 +128,6 @@ function EpubReader(props) {
 		/>
 	);
 	return (
-		// <View style={styles.wholeScreen}>
 		<SideMenu menu={menu} isOpen={isDrawer} menuPosition="right" onChange={setDrawer}>
 			<WebView
 				ref={webview}
@@ -139,7 +139,6 @@ function EpubReader(props) {
 			{isDrawer || <PageButton side="left" onPress={goPrev} />}
 			{isDrawer || <PageButton side="right" onPress={goNext} />}
 		</SideMenu>
-		// {/* </View> */}
 	);
 }
 
