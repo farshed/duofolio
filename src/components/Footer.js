@@ -24,13 +24,9 @@ function Progress(props) {
 					value={progress || 1}
 					minimumValue={1}
 					maximumValue={totalPages || 1}
-					onValueChange={(n) =>
-						setTimeout(() => {
-							props.goToLocation(JSON.parse(props.locations)[n - 1]);
-						}, 200)
-					}
-
-					// onValueChange={() => props.goToLocation(JSON.parse(props.locations)[progress - 1])}
+					minimumTrackTintColor={contrastColor}
+					thumbTintColor={contrastColor}
+					onSlidingComplete={(n) => props.goToLocation(JSON.parse(props.locations)[n - 1])}
 				/>
 			</View>
 			<TouchableWithoutFeedback onPress={props.goNext}>
@@ -76,6 +72,7 @@ const styles = {
 		fontFamily: 'Circular'
 	},
 	slider: {
-		width: '90%'
+		width: '90%',
+		height: 3
 	}
 };

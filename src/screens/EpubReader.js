@@ -140,10 +140,7 @@ function EpubReader(props) {
 				source={{ uri: 'file:///android_asset/index.html' }}
 				injectedJavaScriptBeforeContentLoaded={injectedJS}
 				onMessage={handleMessage}
-				domStorageEnabled
 			/>
-			{/* {isDrawer || <PageButton side="left" onPress={goPrev} />} */}
-			{/* {isDrawer || <PageButton side="right" onPress={goNext} />} */}
 			<Footer
 				goNext={goNext}
 				goPrev={goPrev}
