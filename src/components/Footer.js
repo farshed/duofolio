@@ -72,7 +72,7 @@ const styles = {
 		alignItems: 'center'
 	},
 	text: {
-		fontSize: 16,
+		fontSize: 15,
 		fontFamily: 'Circular'
 	},
 	slider: {
