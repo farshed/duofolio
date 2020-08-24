@@ -5,9 +5,9 @@ import Icon from './Icon';
 import { contrastColor } from '../constants';
 
 const { width } = Dimensions.get('window');
-
 function Progress(props) {
 	const { progress = 0, totalPages = 0 } = props.books[props.index];
+	console.log(JSON.parse(props.locations)[progress]);
 	return (
 		<View style={styles.wrapper}>
 			<TouchableWithoutFeedback onPress={props.goPrev}>
@@ -16,8 +16,22 @@ function Progress(props) {
 				</View>
 			</TouchableWithoutFeedback>
 			<View style={styles.progressWrapper}>
-				<Text>{`${progress}/${totalPages}`}</Text>
-				<Slider />
+				<Text style={styles.text}>{`${progress}/${totalPages}`}</Text>
+				<Slider
+					style={styles.slider}
+					disabled={progress === 0 || totalPages === 0}
+					step={1}
+					value={progress || 1}
+					minimumValue={1}
+					maximumValue={totalPages || 1}
+					onValueChange={(n) =>
+						setTimeout(() => {
+							props.goToLocation(JSON.parse(props.locations)[n - 1]);
+						}, 200)
+					}
+
+					// onValueChange={() => props.goToLocation(JSON.parse(props.locations)[progress - 1])}
+				/>
 			</View>
 			<TouchableWithoutFeedback onPress={props.goNext}>
 				<View style={styles.buttonWrapper}>
@@ -47,7 +61,7 @@ const styles = {
 	},
 	buttonWrapper: {
 		height: 60,
-		width: '15%',
+		width: '10%',
 		justifyContent: 'center',
 		alignItems: 'center'
 	},
@@ -56,5 +70,12 @@ const styles = {
 		flexDirection: 'column',
 		justifyContent: 'space-evenly',
 		alignItems: 'center'
+	},
+	text: {
+		fontSize: 16,
+		fontFamily: 'Circular'
+	},
+	slider: {
+		width: '90%'
 	}
 };

@@ -74,7 +74,7 @@ function EpubReader(props) {
 
 	function goToLocation(href) {
 		webview.current?.injectJavaScript(`window.rendition.display('${href}')`);
-		setDrawer(false);
+		isDrawer && setDrawer(false);
 	}
 
 	function onSearch(q) {
@@ -144,7 +144,13 @@ function EpubReader(props) {
 			/>
 			{/* {isDrawer || <PageButton side="left" onPress={goPrev} />} */}
 			{/* {isDrawer || <PageButton side="right" onPress={goNext} />} */}
-			<Footer goNext={goNext} goPrev={goPrev} index={params.index} />
+			<Footer
+				goNext={goNext}
+				goPrev={goPrev}
+				locations={params.locations}
+				goToLocation={goToLocation}
+				index={params.index}
+			/>
 		</SideMenu>
 	);
 }
