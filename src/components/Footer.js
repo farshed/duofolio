@@ -7,7 +7,6 @@ import { contrastColor } from '../constants';
 const { width } = Dimensions.get('window');
 function Progress(props) {
 	const { progress = 0, totalPages = 0 } = props.books[props.index];
-	console.log(JSON.parse(props.locations)[progress]);
 	return (
 		<View style={styles.wrapper}>
 			<TouchableWithoutFeedback onPress={props.goPrev}>
@@ -49,30 +48,33 @@ export default connect(
 
 const styles = {
 	wrapper: {
-		height: 60,
+		height: 52,
 		width,
 		flexDirection: 'row',
 		justifyContent: 'space-between',
+		alignItems: 'center',
 		backgroundColor: '#ffffff'
 	},
 	buttonWrapper: {
-		height: 60,
-		width: '10%',
+		height: 52,
+		width: 50,
 		justifyContent: 'center',
 		alignItems: 'center'
 	},
 	progressWrapper: {
 		flex: 1,
+		height: 52,
 		flexDirection: 'column',
-		justifyContent: 'space-evenly',
+		justifyContent: 'flex-start',
 		alignItems: 'center'
 	},
 	text: {
-		fontSize: 15,
-		fontFamily: 'Circular'
+		fontSize: 14,
+		fontFamily: 'Circular',
+		marginBottom: 10
 	},
 	slider: {
-		width: '90%',
+		width: '95%',
 		height: 3
 	}
 };
