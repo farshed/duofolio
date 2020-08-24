@@ -54,7 +54,7 @@ function Home(props) {
 					<BookItem
 						{...item}
 						navigation={props.navigation}
-						location={locations[books[index].key]}
+						currentLocation={locations[books[index].key]}
 						index={index}
 						key={index}
 					/>

@@ -17,7 +17,8 @@ function BookItem(props) {
 				title: props.title,
 				url: props.url,
 				index: props.index,
-				location: props.location
+				currentLocation: props.currentLocation,
+				locations: props.locations || null
 			});
 		} else {
 			showToast('No internet connection');

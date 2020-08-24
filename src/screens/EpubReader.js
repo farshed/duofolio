@@ -7,7 +7,6 @@ import * as actions from '../actions';
 import Drawer from '../components/Drawer';
 import showToast from '../components/Toast';
 import Spinner from '../components/Spinner';
-import PageButton from '../components/PageButton';
 import Footer from '../components/Footer';
 import Icon from '../components/Icon';
 import { contrastColor } from '../constants';
@@ -56,11 +55,12 @@ function EpubReader(props) {
 		};
 	}, []);
 
-	let injectedJS = `window.BOOK_PATH = '${state.bookUrl}';`;
+	let injectedJS = `window.BOOK_PATH = '${state.bookUrl}';
+	window.LOCATIONS = ${params.locations};`;
 
-	if (params.location) {
+	if (params.currentLocation) {
 		injectedJS = `${injectedJS}
-		window.BOOK_LOCATION = '${params.location}';
+		window.BOOK_LOCATION = '${params.currentLocation}';
 		`;
 	}
 
@@ -96,9 +96,6 @@ function EpubReader(props) {
 
 	function handleMessage(e) {
 		let parsedData = JSON.parse(e.nativeEvent.data);
-		console.log(parsedData);
-		delete parsedData.hello;
-		delete parsedData.hell;
 		let { type } = parsedData;
 		delete parsedData.type;
 		switch (type) {
@@ -106,7 +103,6 @@ function EpubReader(props) {
 				return;
 			}
 			case 'loc': {
-				console.log(parsedData);
 				const { progress, totalPages } = parsedData;
 				props.addMetadata({ progress, totalPages }, params.index);
 				delete parsedData.progress;
@@ -116,6 +112,7 @@ function EpubReader(props) {
 			case 'key':
 			case 'metadata':
 			case 'contents':
+			case 'locations':
 				return props.addMetadata(parsedData, params.index);
 			case 'search':
 				return setSearchResults(parsedData.results);
@@ -143,6 +140,7 @@ function EpubReader(props) {
 				source={{ uri: 'file:///android_asset/index.html' }}
 				injectedJavaScriptBeforeContentLoaded={injectedJS}
 				onMessage={handleMessage}
+				domStorageEnabled
 			/>
 			{/* {isDrawer || <PageButton side="left" onPress={goPrev} />} */}
 			{/* {isDrawer || <PageButton side="right" onPress={goNext} />} */}

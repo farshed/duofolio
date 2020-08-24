@@ -8,7 +8,6 @@ const { width } = Dimensions.get('window');
 
 function Progress(props) {
 	const { progress = 0, totalPages = 0 } = props.books[props.index];
-	console.log(progress, totalPages);
 	return (
 		<View style={styles.wrapper}>
 			<TouchableWithoutFeedback onPress={props.goPrev}>

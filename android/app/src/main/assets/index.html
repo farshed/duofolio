@@ -26,6 +26,17 @@
 			width: '100%',
 			height: '100%'
 		});
+		if (window.LOCATIONS) {
+			window.book.locations.load(window.LOCATIONS);
+		} else {
+			window.book.ready.then(() => {
+				window.book.locations.generate(1650).then(() => {
+					window.ReactNativeWebView.postMessage(
+						JSON.stringify({ type: 'locations', locations: window.book.locations.save() })
+					);
+				});
+			});
+		}
 		window.rendition.on('started', () => {
 			window.rendition.display(window.BOOK_LOCATION);
 			window.ReactNativeWebView.postMessage(
