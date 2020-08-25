@@ -43,7 +43,7 @@ function EpubReader(props) {
 				.then((url) => setState({ bookUrl: `${url}/${trail[0]}`, server: newServer }));
 		});
 		let unsubscribeBlur = props.navigation.addListener('blur', () => {
-			if (props.navigation.dangerouslyGetState().index > 1) return;
+			// if (props.navigation.dangerouslyGetState().index > 1) return;
 			props.sortBook(params.index);
 			state.server && state.server.stop();
 			setState({ bookUrl: null, server: null });
