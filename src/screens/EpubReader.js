@@ -8,6 +8,7 @@ import Drawer from '../components/Drawer';
 import showToast from '../components/Toast';
 import Spinner from '../components/Spinner';
 import Footer from '../components/Footer';
+import DictionaryModal from '../components/DictionaryModal';
 import Icon from '../components/Icon';
 import { contrastColor } from '../constants';
 
@@ -15,6 +16,8 @@ function EpubReader(props) {
 	const [state, setState] = useState({ bookUrl: null, server: null });
 	const [isDrawer, setDrawer] = useState(false);
 	const [searchResults, setSearchResults] = useState(null);
+	const [dictState, setDictState] = useState({ isDictVisible: false, selected: '' });
+
 	const webview = useRef();
 	const { params } = props.route;
 
@@ -100,7 +103,7 @@ function EpubReader(props) {
 		delete parsedData.type;
 		switch (type) {
 			case 'selected': {
-				return;
+				return setDictState({ isDictVisible: true, selected: parsedData.selected });
 			}
 			case 'loc': {
 				const { progress, totalPages } = parsedData;
@@ -147,6 +150,11 @@ function EpubReader(props) {
 				locations={params.locations}
 				goToLocation={goToLocation}
 				index={params.index}
+			/>
+			<DictionaryModal
+				isVisible={dictState.isDictVisible}
+				selected={dictState.selected}
+				onPressCancel={() => setDictState({ isDictVisible: false, selected: '' })}
 			/>
 		</SideMenu>
 	);

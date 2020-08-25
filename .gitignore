@@ -59,3 +59,4 @@ buck-out/
 /ios/Pods/
 
 .DS_Store
+dicts/
