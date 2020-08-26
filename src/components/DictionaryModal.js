@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, ScrollView, Dimensions } from 'react-native';
+import { View, Text, Dimensions } from 'react-native';
 import Modal from 'react-native-modal';
-import { elevatedBG } from '../constants';
+import { elevatedBG, contrastColor } from '../constants';
 import frenchDict from '../../assets/dicts/fra-en.json';
 import spanishDict from '../../assets/dicts/es-en.json';
 
@@ -27,26 +27,32 @@ function DictionaryModal(props) {
 				word = ` ${word[0].split('[')[0].toLowerCase()} `;
 				return word.indexOf(q) > -1;
 			})
-			.sort((a, b) => a[0].length - b[0].length);
+			.sort((a, b) => a[0].length - b[0].length)
+			.splice(0, 5);
 	}
 
 	function renderResults() {
 		let results = searchDict();
 		if (results.length > 0) {
 			return (
-				<ScrollView style={styles.scrollView}>
+				<View style={styles.mainWrapper}>
 					{results.map((item, i) => (
 						<View style={styles.itemWrapper} key={i}>
-							<Text style={styles.word}>{item.word}</Text>
-							<Text style={styles.meaning}>{item.meaning}</Text>
+							<Text style={styles.word} numberOfLines={1}>
+								{item[0]}
+								{item[2] && <Text style={styles.part}>{`  [${item[2]}]`}</Text>}
+							</Text>
+							<Text style={styles.meaning} numberOfLines={1}>
+								{item[1]}
+							</Text>
 						</View>
 					))}
-				</ScrollView>
+				</View>
 			);
 		}
 		return (
 			<View style={styles.placeholderWrapper}>
-				<Text>No matches found!</Text>
+				<Text style={styles.placeholder}>No matches found!</Text>
 			</View>
 		);
 	}
@@ -82,7 +88,7 @@ const styles = {
 		alignItems: 'center'
 	},
 	wrapper: {
-		height: 300,
+		height: 310,
 		width: width,
 		backgroundColor: elevatedBG,
 		elevation: 5,
@@ -91,8 +97,34 @@ const styles = {
 		borderTopLeftRadius: 10,
 		borderTopRightRadius: 10
 	},
-	scrollView: { flex: 1 },
-	itemWrapper: {},
-	word: {},
-	meaning: {}
+	mainWrapper: {
+		flex: 1,
+		paddingTop: 5,
+		paddingBottom: 10
+	},
+	itemWrapper: {
+		height: 50,
+		justifyContent: 'space-evenly',
+		alignItems: 'flex-start',
+		marginTop: 8,
+		paddingLeft: 20,
+		paddingRight: 15
+	},
+	word: {
+		fontSize: 16,
+		fontWeight: 'bold',
+		color: contrastColor
+	},
+	meaning: {
+		fontSize: 15,
+		color: contrastColor
+	},
+	part: {
+		fontSize: 13,
+		fontStyle: 'italic',
+		color: 'rgba(0, 0, 0, 0.7)'
+	},
+	placeholder: {
+		fontSize: 16
+	}
 };
