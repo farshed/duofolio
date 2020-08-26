@@ -151,11 +151,13 @@ function EpubReader(props) {
 				goToLocation={goToLocation}
 				index={params.index}
 			/>
-			<DictionaryModal
-				isVisible={dictState.isDictVisible}
-				selected={dictState.selected}
-				onPressCancel={() => setDictState({ isDictVisible: false, selected: '' })}
-			/>
+			{dictState.isDictVisible && (
+				<DictionaryModal
+					isVisible={dictState.isDictVisible}
+					selected={dictState.selected}
+					onPressCancel={() => setDictState({ isDictVisible: false, selected: '' })}
+				/>
+			)}
 		</SideMenu>
 	);
 }

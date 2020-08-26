@@ -19,6 +19,7 @@ function DictionaryModal(props) {
 				dict = spanishDict;
 				break;
 			default:
+				dict = frenchDict;
 				break;
 		}
 		return dict
@@ -32,14 +33,22 @@ function DictionaryModal(props) {
 	function renderResults() {
 		let results = searchDict();
 		if (results.length > 0) {
-			return results.map((item, i) => (
-				<View style={styles.itemWrapper} key={i}>
-					<Text style={styles.word}>{item.word}</Text>
-					<Text style={styles.meaning}>{item.meaning}</Text>
-				</View>
-			));
+			return (
+				<ScrollView style={styles.scrollView}>
+					{results.map((item, i) => (
+						<View style={styles.itemWrapper} key={i}>
+							<Text style={styles.word}>{item.word}</Text>
+							<Text style={styles.meaning}>{item.meaning}</Text>
+						</View>
+					))}
+				</ScrollView>
+			);
 		}
-		return;
+		return (
+			<View style={styles.placeholderWrapper}>
+				<Text>No matches found!</Text>
+			</View>
+		);
 	}
 
 	return (
@@ -55,16 +64,7 @@ function DictionaryModal(props) {
 			animationOutTiming={200}
 			animationInTiming={200}
 			hideModalContentWhileAnimating>
-			<View style={styles.wrapper}>
-				<ScrollView style={styles.scrollView}>
-					{props.results.map((item, i) => (
-						<View style={styles.itemWrapper} key={i}>
-							<Text style={styles.word}>{item.word}</Text>
-							<Text style={styles.meaning}>{item.meaning}</Text>
-						</View>
-					))}
-				</ScrollView>
-			</View>
+			<View style={styles.wrapper}>{renderResults()}</View>
 		</Modal>
 	);
 }
@@ -72,6 +72,11 @@ function DictionaryModal(props) {
 export default DictionaryModal;
 
 const styles = {
+	placeholderWrapper: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
 	modal: {
 		justifyContent: 'flex-end',
 		alignItems: 'center'
