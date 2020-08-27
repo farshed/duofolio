@@ -89,7 +89,7 @@ const styles = {
 	},
 	wrapper: {
 		height: 310,
-		width: width,
+		width: width - 16,
 		backgroundColor: elevatedBG,
 		elevation: 5,
 		justifyContent: 'space-evenly',
@@ -125,6 +125,7 @@ const styles = {
 		color: 'rgba(0, 0, 0, 0.7)'
 	},
 	placeholder: {
-		fontSize: 16
+		fontSize: 16,
+		fontFamily: 'Circular'
 	}
 };

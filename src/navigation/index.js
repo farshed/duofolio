@@ -1,17 +1,10 @@
 import React from 'react';
-import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import Home from '../screens/Home';
 import EpubReader from '../screens/EpubReader';
 import { contrastColor } from '../constants';
 
-const durationSpec = { config: { duration: 200 } };
-
 const screenOptions = {
-	...TransitionPresets.ScaleFromCenterAndroid,
-	transitionSpec: {
-		open: durationSpec,
-		close: durationSpec
-	},
 	headerTitleStyle: {
 		fontFamily: 'Circular',
 		fontWeight: '400',

@@ -62,7 +62,7 @@ const styles = {
 		alignItems: 'center'
 	},
 	wrapper: {
-		height: 172,
+		height: 140,
 		width: width - 16,
 		backgroundColor: elevatedBG,
 		elevation: 5,
@@ -72,15 +72,18 @@ const styles = {
 		borderTopRightRadius: 10
 	},
 	item: {
-		height: 60,
+		height: 50,
 		width: '100%',
-		flexDirection: 'row'
+		flexDirection: 'row',
+		justifyContent: 'flex-start',
+		alignItems: 'center'
 	},
 	icon: {
-		paddingLeft: 10,
-		paddingRight: 10
+		paddingLeft: 20,
+		paddingRight: 20
 	},
 	text: {
+		fontFamily: 'Circular',
 		fontSize: 15
 	}
 };

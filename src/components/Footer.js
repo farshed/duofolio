@@ -15,7 +15,7 @@ function Progress(props) {
 				</View>
 			</TouchableWithoutFeedback>
 			<View style={styles.progressWrapper}>
-				<Text style={styles.text}>{`${progress}/${totalPages}`}</Text>
+				<Text style={styles.text}>{`${progress || 'Loading'} / ${totalPages}`}</Text>
 				<Slider
 					style={styles.slider}
 					disabled={progress === 0 || totalPages === 0}

@@ -56,9 +56,9 @@ function Home(props) {
 						navigation={props.navigation}
 						currentLocation={locations[books[index].key]}
 						index={index}
-						key={index}
 					/>
 				)}
+				keyExtractor={(item, i) => i.toString()}
 			/>
 		);
 	}
