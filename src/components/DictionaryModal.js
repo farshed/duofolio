@@ -67,8 +67,8 @@ function DictionaryModal(props) {
 			onBackdropPress={props.onPressCancel}
 			onSwipeComplete={props.onPressCancel}
 			backdropColor="rgba(0, 0, 0, 0.5)"
-			animationOutTiming={200}
-			animationInTiming={200}
+			animationOutTiming={120}
+			animationInTiming={120}
 			hideModalContentWhileAnimating>
 			<View style={styles.wrapper}>{renderResults()}</View>
 		</Modal>
