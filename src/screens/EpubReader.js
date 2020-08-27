@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import StaticServer from 'react-native-static-server';
+import { ExternalStorageDirectoryPath } from 'react-native-fs';
 import { WebView } from 'react-native-webview';
 import SideMenu from 'react-native-side-menu';
 import { connect } from 'react-redux';
@@ -11,6 +12,8 @@ import Footer from '../components/Footer';
 import DictionaryModal from '../components/DictionaryModal';
 import Icon from '../components/Icon';
 import { contrastColor } from '../constants';
+
+const serverConfig = { localOnly: true, keepAlive: true };
 
 function EpubReader(props) {
 	const [state, setState] = useState({ bookUrl: null, server: null });
@@ -36,25 +39,17 @@ function EpubReader(props) {
 	}, [props.navigation, isDrawer]);
 
 	useEffect(() => {
-		let unsubscribeFocus = props.navigation.addListener('focus', () => {
-			showToast('Opening book');
-			let trail = params.url.split('/');
-			let path = trail.splice(0, trail.length - 1).join('/');
-			let newServer = new StaticServer(0, path, { localOnly: true, keepAlive: true });
-			newServer
-				.start()
-				.then((url) => setState({ bookUrl: `${url}/${trail[0]}`, server: newServer }));
-		});
-		let unsubscribeBlur = props.navigation.addListener('blur', () => {
-			// if (props.navigation.dangerouslyGetState().index > 1) return;
+		showToast('Opening book');
+		let newServer = new StaticServer(0, ExternalStorageDirectoryPath, serverConfig);
+		newServer.start().then((url) =>
+			setState({
+				bookUrl: url + params.url.replace(ExternalStorageDirectoryPath, ''),
+				server: newServer
+			})
+		);
+		return () => {
 			props.sortBook(params.index);
 			state.server && state.server.stop();
-			setState({ bookUrl: null, server: null });
-		});
-		return () => {
-			state.server && state.server.stop();
-			unsubscribeFocus();
-			unsubscribeBlur();
 		};
 	}, []);
 
