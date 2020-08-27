@@ -17,7 +17,12 @@ export const settings = [
 	{
 		text: 'Language',
 		title: 'Choose language',
-		items: [{ label: 'Spanish', value: 'spanish' }, { label: 'French', value: 'french' }]
+		items: [
+			{ label: 'Spanish', value: 'spanish' },
+			{ label: 'French', value: 'french' },
+			{ label: 'Dutch', value: 'dutch' },
+			{ label: 'Russian', value: 'russian' }
+		]
 	},
 	{
 		text: 'Page Flow',
