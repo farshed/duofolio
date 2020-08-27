@@ -1,15 +1,28 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Dimensions } from 'react-native';
 import Modal from 'react-native-modal';
+import Share from 'react-native-share';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 import Icon from './Icon';
 import { elevatedBG } from '../constants';
 
 const { height, width } = Dimensions.get('window');
 
 function OptionsModal(props) {
-	function onShare() {}
+	function onShare() {
+		props.onPressCancel();
+		Share.open({
+			url: `file://${props.url}`,
+			type: 'application/epub+zip',
+			failOnCancel: false
+		});
+	}
 
-	function onRemove() {}
+	function onRemove() {
+		props.onPressCancel();
+		props.removeBook(props.index);
+	}
 
 	return (
 		<Modal
@@ -38,7 +51,10 @@ function OptionsModal(props) {
 	);
 }
 
-export default OptionsModal;
+export default connect(
+	null,
+	actions
+)(OptionsModal);
 
 const styles = {
 	modal: {

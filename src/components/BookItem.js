@@ -38,7 +38,12 @@ function BookItem(props) {
 			<Text style={styles.author} numberOfLines={1}>
 				{props.author || 'unknown'}
 			</Text>
-			<OptionsModal isVisible={isModalVisible} onPressCancel={() => setModalVisible(false)} />
+			<OptionsModal
+				isVisible={isModalVisible}
+				onPressCancel={() => setModalVisible(false)}
+				url={props.url}
+				index={props.index}
+			/>
 		</TouchableOpacity>
 	);
 }
