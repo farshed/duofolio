@@ -2,25 +2,32 @@ export const primaryColor = '#0f2439';
 export const elevatedBG = '#F7F8FB';
 export const contrastColor = '#000000';
 
+export const LANG = {
+	SPANISH: 'es-ES',
+	FRENCH: 'fr-FR',
+	DUTCH: 'nl-NL',
+	RUSSIAN: 'ru-RU'
+};
+
 export const languages = [
 	{
 		label: 'Spanish',
-		value: { language: 'es-ES' },
+		value: { language: LANG.SPANISH },
 		image: require('../../assets/images/spain.png')
 	},
 	{
 		label: 'French',
-		value: { language: 'fr-FR' },
+		value: { language: LANG.FRENCH },
 		image: require('../../assets/images/france.png')
 	},
 	{
 		label: 'Dutch',
-		value: { language: 'nl-NL' },
+		value: { language: LANG.DUTCH },
 		image: require('../../assets/images/netherlands.png')
 	},
 	{
 		label: 'Russian',
-		value: { language: 'ru-RU' },
+		value: { language: LANG.RUSSIAN },
 		image: require('../../assets/images/russia.png')
 	}
 ];

@@ -1,9 +1,12 @@
 import React from 'react';
 import { View, Text, Dimensions } from 'react-native';
 import Modal from 'react-native-modal';
-import { elevatedBG, contrastColor } from '../constants';
+import { connect } from 'react-redux';
+import { elevatedBG, contrastColor, LANG } from '../constants';
 import frenchDict from '../../assets/dicts/fra-en.json';
 import spanishDict from '../../assets/dicts/es-en.json';
+import dutchDict from '../../assets/dicts/nl-en.json';
+import russianDict from '../../assets/dicts/ru-en.json';
 
 const { height, width } = Dimensions.get('window');
 
@@ -12,19 +15,20 @@ function DictionaryModal(props) {
 		let q = ` ${props.selected.toLowerCase()} `;
 		let dict;
 		switch (props.language) {
-			case 'FR':
+			case LANG.FRENCH:
 				dict = frenchDict;
 				break;
-			case 'ES':
+			case LANG.SPANISH:
 				dict = spanishDict;
 				break;
-			case 'NL':
+			case LANG.DUTCH:
+				dict = dutchDict;
 				break;
-			case 'RU':
+			case LANG.RUSSIAN:
+				dict = russianDict;
 				break;
 			default:
-				dict = frenchDict;
-				break;
+				return [];
 		}
 		return dict
 			.filter((word) => {
@@ -79,7 +83,14 @@ function DictionaryModal(props) {
 	);
 }
 
-export default DictionaryModal;
+function mapStateToProps(state) {
+	return { language: state.settings.language };
+}
+
+export default connect(
+	mapStateToProps,
+	null
+)(DictionaryModal);
 
 const styles = {
 	placeholderWrapper: {
