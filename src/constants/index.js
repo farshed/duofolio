@@ -80,15 +80,16 @@ export const settings = [
 		text: 'Font Size',
 		title: 'Choose font size',
 		items: [
-			{ label: '12', value: { size: '12' } },
-			{ label: '13', value: { size: '13' } },
-			{ label: '14', value: { size: '14' } },
-			{ label: '15', value: { size: '15' } },
-			{ label: '16', value: { size: '16' } },
-			{ label: '17', value: { size: '17' } },
-			{ label: '18', value: { size: '18' } },
-			{ label: '19', value: { size: '19' } },
-			{ label: '20', value: { size: '20' } }
+			{ label: '15', value: { size: '15px' } },
+			{ label: '16', value: { size: '16px' } },
+			{ label: '17', value: { size: '17px' } },
+			{ label: '18', value: { size: '18px' } },
+			{ label: '19', value: { size: '19px' } },
+			{ label: '20', value: { size: '20px' } },
+			{ label: '21', value: { size: '21px' } },
+			{ label: '22', value: { size: '22px' } },
+			{ label: '23', value: { size: '23px' } },
+			{ label: '24', value: { size: '24px' } }
 		]
 	},
 	{

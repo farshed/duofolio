@@ -104,7 +104,7 @@ const styles = {
 	},
 	message: {
 		fontSize: 16,
-		fontFamily: 'Circular',
+		fontFamily: 'CircularLight',
 		marginBottom: 5
 	},
 	searchIcon: {

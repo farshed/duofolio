@@ -56,13 +56,16 @@ function EpubReader(props) {
 
 	useEffect(() => {
 		webview.current?.injectJavaScript(`
-		window.rendition.themes.register({ theme: ${themeToStyles(props.settings)} });
+		window.rendition.themes.register({ theme: "${JSON.stringify(themeToStyles(props.settings))}" });
 		window.rendition.themes.select('theme');
 		window.rendition.getContents().forEach(window.getFonts);`);
+		webview.current?.reload();
 	}, [props.settings]);
 
 	let injectedJS = `window.BOOK_PATH = '${state.bookUrl}';
-	window.LOCATIONS = ${params.locations};`;
+	window.LOCATIONS = ${params.locations};
+	window.THEME = ${JSON.stringify(themeToStyles(props.settings))};
+	`;
 
 	if (params.currentLocation) {
 		injectedJS = `${injectedJS}
@@ -142,7 +145,7 @@ function EpubReader(props) {
 		<SideMenu menu={menu} isOpen={isDrawer} menuPosition="right" onChange={setDrawer}>
 			<WebView
 				ref={webview}
-				style={styles.wholeScreen}
+				style={[styles.wholeScreen, { backgroundColor: props.settings.bg }]}
 				source={{ uri: 'file:///android_asset/index.html' }}
 				injectedJavaScriptBeforeContentLoaded={injectedJS}
 				onMessage={handleMessage}
