@@ -7,21 +7,21 @@ export const settings = [
 		text: 'Themes',
 		title: 'Choose theme',
 		items: [
-			{ label: 'Light (default)', value: '#fafafa' },
-			{ label: 'Dark', value: '#121212' },
-			{ label: 'Classic', value: '#f8f1e3' },
-			{ label: 'Silver', value: '#bebebe' },
-			{ label: 'Grey', value: '#5a5a5c' }
+			{ label: 'Light (default)', value: { bg: '#fafafa', fg: '#000000' } },
+			{ label: 'Dark', value: { bg: '#121212', fg: '#ffffff' } },
+			{ label: 'Classic', value: { bg: '#f8f1e3', fg: '#000000' } },
+			{ label: 'Silver', value: { bg: '#bebebe', fg: '#000000' } },
+			{ label: 'Grey', value: { bg: '#5a5a5c', fg: '#ffffff' } }
 		]
 	},
 	{
 		text: 'Language',
 		title: 'Choose language',
 		items: [
-			{ label: 'Spanish', value: 'spanish' },
-			{ label: 'French', value: 'french' },
-			{ label: 'Dutch', value: 'dutch' },
-			{ label: 'Russian', value: 'russian' }
+			{ label: 'Spanish', value: 'ES' },
+			{ label: 'French', value: 'FR' },
+			{ label: 'Dutch', value: 'NL' },
+			{ label: 'Russian', value: 'RU' }
 		]
 	},
 	{

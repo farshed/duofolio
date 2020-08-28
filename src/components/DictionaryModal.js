@@ -12,11 +12,15 @@ function DictionaryModal(props) {
 		let q = ` ${props.selected.toLowerCase()} `;
 		let dict;
 		switch (props.language) {
-			case 'french':
+			case 'FR':
 				dict = frenchDict;
 				break;
-			case 'spanish':
+			case 'ES':
 				dict = spanishDict;
+				break;
+			case 'NL':
+				break;
+			case 'RU':
 				break;
 			default:
 				dict = frenchDict;

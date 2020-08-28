@@ -81,6 +81,8 @@ target 'duofolio' do
 
   pod 'RNFS', :path => '../node_modules/react-native-fs'
 
+  pod 'TextToSpeech', :path => '../node_modules/react-native-tts'
+
   target 'duofolioTests' do
     inherit! :complete
     # Pods for testing

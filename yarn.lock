@@ -5105,6 +5105,11 @@ react-native-static-server@^0.5.0:
   resolved "https://registry.yarnpkg.com/react-native-static-server/-/react-native-static-server-0.5.0.tgz#4b396082bfe7dfdbba6fe7d7de894de5ba4ebadb"
   integrity sha512-RGteckPoBZq48p9Y8V67bjZGPxLHKkEOAffLSUJiGC7hkx+H+zuekqCR+04F30NuWB7y+nb8N7Qld2RGjX5DNg==
 
+react-native-tts@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-tts/-/react-native-tts-3.2.0.tgz#6c271c6809c164f86699b4b6c420f7bae0f68b4e"
+  integrity sha512-z8p9OfWd9N1QTs3EcZCt05iqNFs9qZ9s743Pt1xqqVlL+vE4ju2pybNE/pjxA2L+RvuD3L0wOdNvXcCNP5qi2g==
+
 react-native-vector-icons@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/react-native-vector-icons/-/react-native-vector-icons-7.0.0.tgz#5b92ed363c867645daad48c559e1f99efcfbb813"
