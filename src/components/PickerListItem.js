@@ -11,8 +11,7 @@ function PickerListItem(props) {
 				prompt={props.title}
 				selectedValue={props.items[0].value}
 				onValueChange={props.updateSettings}
-				style={styles.picker}
-				itemStyle={styles.pickerItem}>
+				style={styles.picker}>
 				{props.items.map((item, i) => (
 					<Picker.Item label={item.label} value={item.value} key={i} />
 				))}
@@ -40,13 +39,9 @@ const styles = {
 	text: {
 		fontSize: 16,
 		fontWeight: 'bold',
-		paddingLeft: 10
+		paddingLeft: 8
 	},
 	picker: {
 		width: '65%'
-	},
-	pickerItem: {
-		marginLeft: 200,
-		backgroundColor: 'red'
 	}
 };

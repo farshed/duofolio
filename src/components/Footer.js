@@ -70,11 +70,10 @@ const styles = {
 	},
 	text: {
 		fontSize: 14,
-		fontFamily: 'Circular',
 		marginBottom: 10
 	},
 	slider: {
 		width: '95%',
-		height: 3
+		height: 6
 	}
 };

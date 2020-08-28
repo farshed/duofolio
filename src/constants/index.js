@@ -11,24 +11,24 @@ export const LANG = {
 
 export const languages = [
 	{
-		label: 'Spanish',
-		value: { language: LANG.SPANISH },
-		image: require('../../assets/images/spain.png')
-	},
-	{
 		label: 'French',
 		value: { language: LANG.FRENCH },
 		image: require('../../assets/images/france.png')
 	},
 	{
-		label: 'Dutch',
-		value: { language: LANG.DUTCH },
-		image: require('../../assets/images/netherlands.png')
+		label: 'Spanish',
+		value: { language: LANG.SPANISH },
+		image: require('../../assets/images/spain.png')
 	},
 	{
 		label: 'Russian',
 		value: { language: LANG.RUSSIAN },
 		image: require('../../assets/images/russia.png')
+	},
+	{
+		label: 'Dutch',
+		value: { language: LANG.DUTCH },
+		image: require('../../assets/images/netherlands.png')
 	}
 ];
 

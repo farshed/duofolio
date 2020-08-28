@@ -26,6 +26,14 @@
 			width: '100%',
 			height: '100%'
 		});
+		window.getFonts = function getFonts(content) {
+			let el = content.document.body.appendChild(content.document.createElement('link'));
+			el.setAttribute('rel', 'stylesheet');
+			el.setAttribute(
+				'href',
+				'https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=EB+Garamond:ital@0;1&family=Libre+Caslon+Text:ital@0;1&family=Lora:ital@0;1&family=Pacifico&family=Poppins&family=Raleway:ital@0;1&family=Roboto:ital@0;1&family=Special+Elite&display=swap'
+			);
+		};
 		if (window.LOCATIONS) {
 			window.book.locations.load(window.LOCATIONS);
 		} else {
