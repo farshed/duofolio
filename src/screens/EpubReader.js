@@ -53,6 +53,10 @@ function EpubReader(props) {
 		};
 	}, []);
 
+	useEffect(() => {
+		console.log(props.settings);
+	}, [props.settings]);
+
 	let injectedJS = `window.BOOK_PATH = '${state.bookUrl}';
 	window.LOCATIONS = ${params.locations};`;
 
@@ -157,8 +161,12 @@ function EpubReader(props) {
 	);
 }
 
+function mapStateToProps(state) {
+	return { settings: state.settings };
+}
+
 export default connect(
-	null,
+	mapStateToProps,
 	actions
 )(EpubReader);
 

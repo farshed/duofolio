@@ -1,5 +1,7 @@
 import React from 'react';
 import { View, Text, Picker } from 'react-native';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 function PickerListItem(props) {
 	return (
@@ -8,7 +10,7 @@ function PickerListItem(props) {
 			<Picker
 				prompt={props.title}
 				selectedValue={props.items[0].value}
-				onValueChange={console.log}
+				onValueChange={props.updateSettings}
 				style={styles.picker}
 				itemStyle={styles.pickerItem}>
 				{props.items.map((item, i) => (
@@ -19,7 +21,14 @@ function PickerListItem(props) {
 	);
 }
 
-export default PickerListItem;
+function mapStateToProps(state) {
+	return { settings: state.settings };
+}
+
+export default connect(
+	mapStateToProps,
+	actions
+)(PickerListItem);
 
 const styles = {
 	wrapper: {
