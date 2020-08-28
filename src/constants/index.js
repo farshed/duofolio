@@ -18,10 +18,10 @@ export const settings = [
 		text: 'Language',
 		title: 'Choose language',
 		items: [
-			{ label: 'Spanish', value: 'ES' },
-			{ label: 'French', value: 'FR' },
-			{ label: 'Dutch', value: 'NL' },
-			{ label: 'Russian', value: 'RU' }
+			{ label: 'Spanish', value: 'es-ES' },
+			{ label: 'French', value: 'fr-FR' },
+			{ label: 'Dutch', value: 'nl-NL' },
+			{ label: 'Russian', value: 'ru-RU' }
 		]
 	},
 	{
@@ -69,4 +69,11 @@ export const settings = [
 			{ label: '2.4', value: 2.4 }
 		]
 	}
+];
+
+export const languages = [
+	{ name: 'Spanish', image: require('../../assets/images/spain.png') },
+	{ name: 'French', image: require('../../assets/images/france.png') },
+	{ name: 'Dutch', image: require('../../assets/images/netherlands.png') },
+	{ name: 'Russian', image: require('../../assets/images/russia.png') }
 ];
