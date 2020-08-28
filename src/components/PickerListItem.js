@@ -12,7 +12,7 @@ function PickerListItem(props) {
 				style={styles.picker}
 				itemStyle={styles.pickerItem}>
 				{props.items.map((item, i) => (
-					<Picker.Item {...item} key={i} />
+					<Picker.Item label={item.label} value={item.value} key={i} />
 				))}
 			</Picker>
 		</View>

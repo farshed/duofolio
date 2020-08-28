@@ -1,18 +1,22 @@
 import React from 'react';
-import { View, Image, Text } from 'react-native';
+import { View, Image, Text, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
-import { languages } from '../constants';
+import { languages, contrastColor } from '../constants';
 
 function LangSelect(props) {
 	return (
 		<View style={styles.wrapper}>
+			<Text style={styles.notice}>Select a language that you would like to practice</Text>
 			{languages.map((lang, i) => (
-				<View style={styles.itemWrapper} key={i}>
-					<Image source={lang.image} style={styles.image} />
-					<Text style={styles.text}>{lang.name}</Text>
-				</View>
+				<TouchableHighlight onPress={() => {}} key={i}>
+					<View style={styles.itemWrapper}>
+						<Image source={lang.image} style={styles.image} />
+						<Text style={styles.text}>{lang.name}</Text>
+					</View>
+				</TouchableHighlight>
 			))}
+			<Text style={styles.notice}>It can be changed later</Text>
 		</View>
 	);
 }
@@ -39,5 +43,10 @@ const styles = {
 	text: {
 		fontSize: 18,
 		fontFamily: 'CircularBold'
+	},
+	notice: {
+		fontSize: 15,
+		fontFamily: 'Circular',
+		color: contrastColor
 	}
 };
