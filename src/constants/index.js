@@ -13,22 +13,22 @@ export const languages = [
 	{
 		label: 'French',
 		value: { language: LANG.FRENCH },
-		image: require('../../assets/images/france.png')
+		image: require('../../assets/images/fr.png')
 	},
 	{
 		label: 'Spanish',
 		value: { language: LANG.SPANISH },
-		image: require('../../assets/images/spain.png')
+		image: require('../../assets/images/es.png')
 	},
 	{
 		label: 'Russian',
 		value: { language: LANG.RUSSIAN },
-		image: require('../../assets/images/russia.png')
+		image: require('../../assets/images/ru.png')
 	},
 	{
 		label: 'Dutch',
 		value: { language: LANG.DUTCH },
-		image: require('../../assets/images/netherlands.png')
+		image: require('../../assets/images/nl.png')
 	}
 ];
 
