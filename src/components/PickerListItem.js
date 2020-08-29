@@ -4,12 +4,29 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 
 function PickerListItem(props) {
+	function getCurrentValue() {
+		switch (props.id) {
+			case 'theme':
+				return { bg: props.settings.bg, fg: props.settings.fg };
+			case 'lang':
+				return { language: props.settings.language };
+			case 'flow':
+				return { flow: props.settings.flow };
+			case 'font':
+				return { font: props.settings.font };
+			case 'size':
+				return { size: props.settings.size };
+			case 'height':
+				return { height: props.settings.height };
+		}
+	}
+
 	return (
 		<View style={styles.wrapper}>
 			<Text style={styles.text}>{props.text}</Text>
 			<Picker
 				prompt={props.title}
-				selectedValue={props.items[0].value}
+				selectedValue={getCurrentValue()}
 				onValueChange={props.updateSettings}
 				style={styles.picker}>
 				{props.items.map((item, i) => (

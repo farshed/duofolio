@@ -34,6 +34,7 @@ export const languages = [
 
 export const settings = [
 	{
+		id: 'theme',
 		text: 'Themes',
 		title: 'Choose theme',
 		items: [
@@ -45,11 +46,13 @@ export const settings = [
 		]
 	},
 	{
+		id: 'lang',
 		text: 'Language',
 		title: 'Choose language',
 		items: languages
 	},
 	{
+		id: 'flow',
 		text: 'Page Flow',
 		title: 'Choose page flow',
 		items: [
@@ -64,6 +67,7 @@ export const settings = [
 		]
 	},
 	{
+		id: 'font',
 		text: 'Font Family',
 		title: 'Choose font',
 		items: [
@@ -77,6 +81,7 @@ export const settings = [
 		]
 	},
 	{
+		id: 'size',
 		text: 'Font Size',
 		title: 'Choose font size',
 		items: [
@@ -93,6 +98,7 @@ export const settings = [
 		]
 	},
 	{
+		id: 'height',
 		text: 'Line Height',
 		title: 'Choose line height',
 		items: [
