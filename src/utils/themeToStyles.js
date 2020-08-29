@@ -44,6 +44,5 @@ export default function(theme) {
 		'line-height': theme.height
 	};
 	styles.h1.color = theme.fg;
-
 	return styles;
 }

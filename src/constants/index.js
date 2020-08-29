@@ -37,7 +37,7 @@ export const settings = [
 		text: 'Themes',
 		title: 'Choose theme',
 		items: [
-			{ label: 'Light (default)', value: { bg: '#fafafa', fg: '#000000' } },
+			{ label: 'Light', value: { bg: '#fafafa', fg: '#000000' } },
 			{ label: 'Dark', value: { bg: '#121212', fg: '#ffffff' } },
 			{ label: 'Classic', value: { bg: '#f8f1e3', fg: '#000000' } },
 			{ label: 'Silver', value: { bg: '#bebebe', fg: '#000000' } },
