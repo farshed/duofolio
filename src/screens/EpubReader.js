@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
+import { StatusBar } from 'react-native';
 import StaticServer from 'react-native-static-server';
 import { ExternalStorageDirectoryPath } from 'react-native-fs';
 import { WebView } from 'react-native-webview';
@@ -58,6 +59,8 @@ function EpubReader(props) {
 		window.rendition.themes.register({ theme: "${JSON.stringify(themeToStyles(props.settings))}" });
 		window.rendition.themes.select('theme');`);
 		webview.current?.reload();
+		StatusBar.setBackgroundColor(props.settings.bg, true);
+		StatusBar.setBarStyle(`${props.settings.fg === '#000000' ? 'dark' : 'light'}-content`);
 	}, [props.settings]);
 
 	let injectedJS = `window.BOOK_PATH = '${state.bookUrl}';
