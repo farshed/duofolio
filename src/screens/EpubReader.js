@@ -31,7 +31,7 @@ function EpubReader(props) {
 				<Icon
 					name="menu"
 					size={20}
-					color={contrastColor}
+					color={props.settings.fg}
 					style={styles.headerIcon}
 					onPress={() => setDrawer(!isDrawer)}
 				/>
@@ -131,7 +131,7 @@ function EpubReader(props) {
 	}
 
 	if (!state.bookUrl) {
-		return <Spinner />;
+		return <Spinner bg={props.settings.bg} />;
 	}
 	const menu = (
 		<Drawer

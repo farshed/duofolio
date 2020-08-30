@@ -141,6 +141,6 @@ const styles = {
 	},
 	placeholder: {
 		fontSize: 16,
-		fontFamily: 'Circular'
+		fontFamily: 'CircularLight'
 	}
 };

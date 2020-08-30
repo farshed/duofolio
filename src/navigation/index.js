@@ -8,27 +8,23 @@ const Stack = createStackNavigator();
 
 const screenOptions = {
 	headerTitleStyle: {
-		fontFamily: 'Circular',
-		fontWeight: '400',
-		fontSize: 18,
-		color: ''
-	},
-	headerStyle: {
-		elevation: 0,
-		backgroundColor: ''
-	},
-	headerTintColor: ''
+		fontSize: 18
+	}
 };
 
-const readerTitle = ({ route }) => ({
-	title: route.params.title,
-	headerTitleStyle: { fontSize: 16 }
-});
-
 function Navigator(props) {
-	screenOptions.headerTitleStyle.color = props.fg;
-	screenOptions.headerStyle.backgroundColor = props.bg;
-	screenOptions.headerTintColor = props.fg;
+	const readerTitle = ({ route }) => ({
+		title: route.params.title,
+		headerTitleStyle: {
+			fontSize: 16,
+			color: props.fg
+		},
+		headerStyle: {
+			elevation: 0,
+			backgroundColor: props.bg
+		},
+		headerTintColor: props.fg
+	});
 
 	return (
 		<Stack.Navigator screenOptions={screenOptions}>

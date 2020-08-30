@@ -26,7 +26,7 @@ function PickerListItem(props) {
 			<Text style={styles.text}>{props.text}</Text>
 			<Picker
 				prompt={props.title}
-				selectedValue={getCurrentValue()}
+				selectedValue={'Classic'}
 				onValueChange={props.updateSettings}
 				style={styles.picker}>
 				{props.items.map((item, i) => (

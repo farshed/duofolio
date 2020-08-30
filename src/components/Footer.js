@@ -14,7 +14,8 @@ function Progress(props) {
 				</View>
 			</TouchableWithoutFeedback>
 			<View style={styles.progressWrapper}>
-				<Text style={styles.text}>{`${progress || 'Loading'} / ${totalPages}`}</Text>
+				<Text style={[styles.text, { color: props.fg }]}>{`${progress ||
+					'Loading'} / ${totalPages}`}</Text>
 				<Slider
 					style={styles.slider}
 					disabled={progress === 0 || totalPages === 0}
@@ -51,7 +52,6 @@ export default connect(
 
 const styles = {
 	wrapper: {
-		flex: 1,
 		height: 52,
 		width,
 		flexDirection: 'row',
