@@ -10,7 +10,7 @@ function LangSelect(props) {
 			{languages.map((lang, i) => (
 				<TouchableOpacity
 					style={styles.itemWrapper}
-					onPress={() => props.updateSettings(lang.value)}
+					onPress={() => props.updateSettings({ language: lang.value })}
 					key={i}>
 					<Image source={lang.image} style={styles.image} />
 					<Text style={styles.text}>{lang.label}</Text>
