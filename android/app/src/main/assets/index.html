@@ -3,10 +3,6 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=EB+Garamond:ital@0;1&family=Libre+Caslon+Text:ital@0;1&family=Lora:ital@0;1&family=Pacifico&family=Poppins&family=Raleway:ital@0;1&family=Roboto:ital@0;1&family=Special+Elite&display=swap"
-			rel="stylesheet"
-		/>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/epubjs/dist/epub.min.js"></script>
 		<style>
@@ -30,14 +26,6 @@
 			width: '100%',
 			height: '100%'
 		});
-		window.getFonts = function getFonts(content) {
-			let el = content.document.body.appendChild(content.document.createElement('link'));
-			el.setAttribute('rel', 'stylesheet');
-			el.setAttribute(
-				'href',
-				'https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=EB+Garamond:ital@0;1&family=Libre+Caslon+Text:ital@0;1&family=Lora:ital@0;1&family=Pacifico&family=Poppins&family=Raleway:ital@0;1&family=Roboto:ital@0;1&family=Special+Elite&display=swap'
-			);
-		};
 		if (window.LOCATIONS) {
 			window.book.locations.load(window.LOCATIONS);
 		} else {
@@ -53,7 +41,6 @@
 			window.rendition.display(window.BOOK_LOCATION);
 			window.rendition.themes.register({ theme: window.THEME });
 			window.rendition.themes.select('theme');
-			setTimeout(() => window.rendition.getContents().forEach(window.getFonts), 200);
 			window.ReactNativeWebView.postMessage(
 				JSON.stringify({ type: 'key', key: window.book.key() })
 			);

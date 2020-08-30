@@ -61,6 +61,9 @@ function DictionaryModal(props) {
 		return (
 			<View style={styles.placeholderWrapper}>
 				<Text style={styles.placeholder}>No matches found!</Text>
+				<Text style={styles.placeholderSubtitle}>
+					Make sure you have the right language selected in the settings
+				</Text>
 			</View>
 		);
 	}
@@ -141,6 +144,16 @@ const styles = {
 	},
 	placeholder: {
 		fontSize: 16,
+		fontFamily: 'Circular'
+	},
+	placeholderSubtitle: {
+		fontSize: 14,
+		paddingLeft: 50,
+		paddingRight: 50,
+		textAlign: 'center',
+		marginTop: 15,
+		lineHeight: 16,
+		fontStyle: 'italic',
 		fontFamily: 'CircularLight'
 	}
 };

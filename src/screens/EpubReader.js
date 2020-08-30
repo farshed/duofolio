@@ -12,7 +12,6 @@ import Footer from '../components/Footer';
 import DictionaryModal from '../components/DictionaryModal';
 import Icon from '../components/Icon';
 import themeToStyles from '../utils/themeToStyles';
-import { contrastColor } from '../constants';
 
 const serverConfig = { localOnly: true, keepAlive: true };
 
@@ -57,8 +56,7 @@ function EpubReader(props) {
 	useEffect(() => {
 		webview.current?.injectJavaScript(`
 		window.rendition.themes.register({ theme: "${JSON.stringify(themeToStyles(props.settings))}" });
-		window.rendition.themes.select('theme');
-		window.rendition.getContents().forEach(window.getFonts);`);
+		window.rendition.themes.select('theme');`);
 		webview.current?.reload();
 	}, [props.settings]);
 
@@ -131,7 +129,7 @@ function EpubReader(props) {
 	}
 
 	if (!state.bookUrl) {
-		return <Spinner bg={props.settings.bg} />;
+		return <Spinner fg={props.settings.fg} bg={props.settings.bg} />;
 	}
 	const menu = (
 		<Drawer
