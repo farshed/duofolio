@@ -1,5 +1,5 @@
-import React, { useState, useLayoutEffect } from 'react';
-import { View, Text, FlatList } from 'react-native';
+import React, { useState, useLayoutEffect, useEffect } from 'react';
+import { View, Text, FlatList, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import AddButton from '../components/AddButton';
 import BookItem from '../components/BookItem';
@@ -10,6 +10,11 @@ import { contrastColor } from '../constants';
 function Home(props) {
 	const [isSearchBar, setSearchBar] = useState(false);
 	const [input, setInput] = useState('');
+
+	useEffect(() => {
+		StatusBar.setBackgroundColor('#ffffff', true);
+		StatusBar.setBarStyle('dark-content');
+	}, []);
 
 	useLayoutEffect(() => {
 		props.navigation.setOptions({

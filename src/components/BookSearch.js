@@ -48,6 +48,6 @@ const styles = {
 		paddingLeft: 10,
 		borderWidth: 1,
 		borderColor: contrastColor,
-		borderRadius: 5
+		borderRadius: 20
 	}
 };
