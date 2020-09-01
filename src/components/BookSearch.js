@@ -41,7 +41,7 @@ const styles = {
 	},
 	input: {
 		fontSize: 15,
-		height: 40,
+		height: 38,
 		width: '95%',
 		color: contrastColor,
 		paddingRight: 10,
