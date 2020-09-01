@@ -1,7 +1,9 @@
 import React from 'react';
-import { View, Text, Dimensions } from 'react-native';
+import { View, TouchableOpacity, Text, Dimensions } from 'react-native';
 import Modal from 'react-native-modal';
+import Tts from 'react-native-tts';
 import { connect } from 'react-redux';
+import Icon from './Icon';
 import { elevatedBG, contrastColor, LANG } from '../constants';
 import frenchDict from '../../assets/dicts/fra-en.json';
 import spanishDict from '../../assets/dicts/es-en.json';
@@ -30,6 +32,7 @@ function DictionaryModal(props) {
 			default:
 				return [];
 		}
+		Tts.setDefaultLanguage(props.language);
 		return dict
 			.filter((word) => {
 				word = ` ${word[0].split('[')[0].toLowerCase()} `;
@@ -45,15 +48,23 @@ function DictionaryModal(props) {
 			return (
 				<View style={styles.mainWrapper}>
 					{results.map((item, i) => (
-						<View style={styles.itemWrapper} key={i}>
-							<Text style={styles.word} numberOfLines={1}>
-								{item[0]}
-								{item[2] && <Text style={styles.part}>{`  [${item[2]}]`}</Text>}
-							</Text>
-							<Text style={styles.meaning} numberOfLines={1}>
-								{item[1]}
-							</Text>
-						</View>
+						<TouchableOpacity
+							style={styles.itemWrapper}
+							onPress={() =>
+								Tts.speak(item[0].replace(/\s?\{[^}]+\}/g, '').replace(/ *\[[^\]]*]/, ''))
+							}
+							key={i}>
+							<Icon name="volume-2" size={24} color={contrastColor} style={styles.icon} />
+							<View style={styles.textWrapper}>
+								<Text style={styles.word} numberOfLines={1}>
+									{item[0]}
+									{item[2] && <Text style={styles.part}>{`  [${item[2]}]`}</Text>}
+								</Text>
+								<Text style={styles.meaning} numberOfLines={1}>
+									{item[1]}
+								</Text>
+							</View>
+						</TouchableOpacity>
 					))}
 				</View>
 			);
@@ -122,11 +133,18 @@ const styles = {
 	},
 	itemWrapper: {
 		height: 50,
-		justifyContent: 'space-evenly',
-		alignItems: 'flex-start',
+		flexDirection: 'row',
+		alignItems: 'center',
 		marginTop: 8,
 		paddingLeft: 20,
 		paddingRight: 15
+	},
+	textWrapper: {
+		flexDirection: 'column',
+		justifyContent: 'space-evenly'
+	},
+	icon: {
+		paddingRight: 12
 	},
 	word: {
 		fontSize: 16,
