@@ -41,11 +41,13 @@ const styles = {
 	},
 	input: {
 		fontSize: 15,
-		height: 38,
+		height: 36,
 		width: '95%',
 		color: contrastColor,
-		paddingRight: 10,
-		paddingLeft: 10,
+		paddingRight: 15,
+		paddingLeft: 15,
+		paddingTop: 0,
+		paddingBottom: 0,
 		borderWidth: 1,
 		borderColor: contrastColor,
 		borderRadius: 20
