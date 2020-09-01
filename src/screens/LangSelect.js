@@ -65,7 +65,10 @@ const styles = {
 		fontFamily: 'Circular',
 		color: contrastColor,
 		textAlign: 'center',
-		lineHeight: 20
+		paddingLeft: 20,
+		paddingRight: 20,
+		lineHeight: 20,
+		marginBottom: 8
 	},
 	subtitle: {
 		fontSize: 14,

@@ -54,7 +54,7 @@ function DictionaryModal(props) {
 								Tts.speak(item[0].replace(/\s?\{[^}]+\}/g, '').replace(/ *\[[^\]]*]/, ''))
 							}
 							key={i}>
-							<Icon name="volume-2" size={24} color={contrastColor} style={styles.icon} />
+							<Icon name="volume-2" size={22} color={contrastColor} style={styles.icon} />
 							<View style={styles.textWrapper}>
 								<Text style={styles.word} numberOfLines={1}>
 									{item[0]}
@@ -144,7 +144,7 @@ const styles = {
 		justifyContent: 'space-evenly'
 	},
 	icon: {
-		paddingRight: 12
+		paddingRight: 10
 	},
 	word: {
 		fontSize: 16,
