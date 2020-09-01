@@ -35,7 +35,7 @@ export const languages = [
 export const settings = [
 	{
 		id: 'bg',
-		text: 'Themes',
+		text: 'Theme',
 		title: 'Choose theme',
 		items: [
 			{ label: 'Light', value: '#fafafa' },
@@ -51,21 +51,21 @@ export const settings = [
 		title: 'Choose language',
 		items: languages
 	},
-	{
-		id: 'flow',
-		text: 'Page Flow',
-		title: 'Choose page flow',
-		items: [
-			{
-				label: 'Paginated',
-				value: ''
-			},
-			{
-				label: 'Scroll',
-				value: ''
-			}
-		]
-	},
+	// {
+	// 	id: 'flow',
+	// 	text: 'Page Flow',
+	// 	title: 'Choose page flow',
+	// 	items: [
+	// 		{
+	// 			label: 'Paginated',
+	// 			value: 'paginated'
+	// 		},
+	// 		{
+	// 			label: 'Scroll',
+	// 			value: 'scrolled-doc'
+	// 		}
+	// 	]
+	// },
 	{
 		id: 'size',
 		text: 'Font Size',

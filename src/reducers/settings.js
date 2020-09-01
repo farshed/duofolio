@@ -5,8 +5,8 @@ const InitialState = {
 	fg: '#000000',
 	size: '100%',
 	height: 'normal',
-	flow: '',
 	language: ''
+	// flow: '',
 };
 
 export default function(state = InitialState, action) {
