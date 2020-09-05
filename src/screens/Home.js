@@ -21,7 +21,7 @@ function Home(props) {
 			headerRight: () => (
 				<Icon
 					name="search"
-					size={22}
+					size={20}
 					color={contrastColor}
 					style={styles.searchIcon}
 					onPress={() => setSearchBar(true)}
