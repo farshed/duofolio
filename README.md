@@ -36,3 +36,4 @@ One of the best ways to learn a language is by reading books in it. However, rea
 -  [ ] Offline support
 -  [ ] Support more languages
 -  [ ] Display book covers
+-  [ ] Support other document formats
