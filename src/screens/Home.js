@@ -69,6 +69,9 @@ function Home(props) {
 				<View style={styles.wrapper}>
 					<Text style={styles.message}>Your library is empty!</Text>
 					<Text style={styles.message}>Add some books to get started</Text>
+					<Text style={[styles.message, { fontSize: 13, fontStyle: 'italic' }]}>
+						(Only EPUB files supported)
+					</Text>
 				</View>
 			);
 		}
