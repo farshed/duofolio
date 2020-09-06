@@ -1,109 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/epubjs/dist/epub.min.js"></script>
-		<style>
-			#reader {
-				margin: 0px;
-				height: 100vh;
-				width: 100vw;
-				overflow: hidden !important;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-			}
-		</style>
-	</head>
-	<body>
-		<div id="reader"></div>
-	</body>
-	<script>
-		window.book = ePub(window.BOOK_PATH);
-		window.rendition = window.book.renderTo(document.getElementById('reader'), {
-			width: '100%',
-			height: '100%'
-		});
-		if (window.LOCATIONS) {
-			window.book.locations.load(window.LOCATIONS);
-		} else {
-			window.book.ready.then(() => {
-				window.book.locations.generate(1650).then(() => {
-					window.ReactNativeWebView.postMessage(
-						JSON.stringify({ type: 'locations', locations: window.book.locations.save() })
-					);
-				});
-			});
-		}
-		window.rendition.on('started', () => {
-			window.rendition.display(window.BOOK_LOCATION);
-			window.rendition.themes.register({ theme: window.THEME });
-			window.rendition.themes.select('theme');
-			window.ReactNativeWebView.postMessage(
-				JSON.stringify({ type: 'key', key: window.book.key() })
-			);
-		});
-		// window.book.loaded.cover.then((url) => {
-		// 	window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'cover', cover: url }));
-		// });
-		window.book.loaded.metadata.then((metadata) => {
-			window.ReactNativeWebView.postMessage(
-				JSON.stringify({
-					type: 'metadata',
-					title: metadata.title,
-					author: metadata.creator
-				})
-			);
-		});
-		window.book.loaded.navigation.then((nav) => {
-			let contents = nav.toc.map(({ href, label }) => {
-				return { href, label: label.trim() };
-			});
-			window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'contents', contents }));
-		});
-		window.rendition.on('relocated', (e) => {
-			window.ReactNativeWebView.postMessage(
-				JSON.stringify({
-					type: 'loc',
-					key: window.book.key(),
-					cfi: e.start.cfi,
-					progress: e.start.location,
-					totalPages: window.book.locations.length()
-				})
-			);
-		});
-		window.rendition.on('selected', () => {
-			let selected =
-				window.rendition.manager && window.rendition.manager.getContents().length > 0
-					? window.rendition.manager
-							.getContents()[0]
-							.window.getSelection()
-							.toString()
-							.trim()
-					: '';
-			if (selected) {
-				window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'selected', selected }));
-			}
-		});
-		// navigator.wakeLock.request('screen').then((wakeLock) => {
-		// 	window.wakeLock = wakeLock;
-		// });
-		// if (window.PAGE_NAV === 'swipe') {
-		// 	let touchStart = 0;
-		// 	let touchEnd = 0;
-		// 	window.rendition.on('touchstart', (e) => {
-		// 		touchStart = e.changedTouches[0].screenX;
-		// 	});
-		// 	window.rendition.on('touchend', (e) => {
-		// 		touchEnd = e.changedTouches[0].screenX;
-		// 		if (touchStart < touchEnd) {
-		// 			window.rendition.prev();
-		// 		} else if (touchStart > touchEnd) {
-		// 			window.rendition.next();
-		// 		}
-		// 	});
-		// }
-	</script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/epubjs/dist/epub.min.js"></script>
+    <style>
+      #reader {
+        margin: 0px;
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="reader"></div>
+  </body>
+  <script>
+    window.book = ePub(window.BOOK_PATH);
+    window.rendition = window.book.renderTo(document.getElementById('reader'), {
+      width: '100%',
+      height: '100%',
+    });
+    if (window.LOCATIONS) {
+      window.book.locations.load(window.LOCATIONS);
+    } else {
+      window.book.ready.then(() => {
+        window.book.locations.generate(1650).then(() => {
+          window.ReactNativeWebView.postMessage(
+            JSON.stringify({
+              type: 'locations',
+              locations: window.book.locations.save(),
+            }),
+          );
+        });
+      });
+    }
+    window.rendition.on('started', () => {
+      window.rendition.display(window.BOOK_LOCATION);
+      window.rendition.themes.register({ theme: window.THEME });
+      window.rendition.themes.select('theme');
+      window.ReactNativeWebView.postMessage(
+        JSON.stringify({ type: 'key', key: window.book.key() }),
+      );
+    });
+    // window.book.loaded.cover.then((url) => {
+    // 	window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'cover', cover: url }));
+    // });
+    window.book.loaded.metadata.then((metadata) => {
+      window.ReactNativeWebView.postMessage(
+        JSON.stringify({
+          type: 'metadata',
+          title: metadata.title,
+          author: metadata.creator,
+        }),
+      );
+    });
+    window.book.loaded.navigation.then((nav) => {
+      let contents = nav.toc.map(({ href, label }) => {
+        return { href, label: label.trim() };
+      });
+      window.ReactNativeWebView.postMessage(
+        JSON.stringify({ type: 'contents', contents }),
+      );
+    });
+    window.rendition.on('relocated', (e) => {
+      window.ReactNativeWebView.postMessage(
+        JSON.stringify({
+          type: 'loc',
+          key: window.book.key(),
+          cfi: e.start.cfi,
+          progress: e.start.location,
+          totalPages: window.book.locations.length(),
+        }),
+      );
+    });
+    window.rendition.on('selected', () => {
+      let selected =
+        window.rendition.manager &&
+        window.rendition.manager.getContents().length > 0
+          ? window.rendition.manager
+              .getContents()[0]
+              .window.getSelection()
+              .toString()
+              .trim()
+          : '';
+      if (selected) {
+        window.ReactNativeWebView.postMessage(
+          JSON.stringify({ type: 'selected', selected }),
+        );
+      }
+    });
+    // navigator.wakeLock.request('screen').then((wakeLock) => {
+    // 	window.wakeLock = wakeLock;
+    // });
+    // if (window.PAGE_NAV === 'swipe') {
+    // 	let touchStart = 0;
+    // 	let touchEnd = 0;
+    // 	window.rendition.on('touchstart', (e) => {
+    // 		touchStart = e.changedTouches[0].screenX;
+    // 	});
+    // 	window.rendition.on('touchend', (e) => {
+    // 		touchEnd = e.changedTouches[0].screenX;
+    // 		if (touchStart < touchEnd) {
+    // 			window.rendition.prev();
+    // 		} else if (touchStart > touchEnd) {
+    // 			window.rendition.next();
+    // 		}
+    // 	});
+    // }
+  </script>
 </html>

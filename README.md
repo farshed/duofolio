@@ -16,16 +16,16 @@ One of the best ways to learn a language is by reading books in it. However, rea
 
 ## Supported Languages
 
--  🇫🇷 FRENCH
--  🇪🇸 SPANISH
--  🇳🇱 DUTCH
--  🇷🇺 RUSSIAN
+- 🇫🇷 FRENCH
+- 🇪🇸 SPANISH
+- 🇳🇱 DUTCH
+- 🇷🇺 RUSSIAN
 
 ## Powered by
 
--  React Native
--  Redux
--  [epub.js](https://github.com/futurepress/epub.js)
+- React Native
+- Redux
+- [epub.js](https://github.com/futurepress/epub.js)
 
 ## Screenshots
 
@@ -33,7 +33,7 @@ One of the best ways to learn a language is by reading books in it. However, rea
 
 ## Todo
 
--  [ ] Offline support
--  [ ] Support more languages
--  [ ] Display book covers
--  [ ] Support other document formats
+- [ ] Offline support
+- [ ] Support more languages
+- [ ] Display book covers
+- [ ] Support other document formats

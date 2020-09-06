@@ -4,14 +4,11 @@ import Navigator from './navigation';
 import LangSelect from './screens/LangSelect';
 
 function Root(props) {
-	return props.language ? <Navigator /> : <LangSelect />;
+  return props.language ? <Navigator /> : <LangSelect />;
 }
 
 function mapStateToProps(state) {
-	return { language: state.settings.language };
+  return { language: state.settings.language };
 }
 
-export default connect(
-	mapStateToProps,
-	null
-)(Root);
+export default connect(mapStateToProps, null)(Root);

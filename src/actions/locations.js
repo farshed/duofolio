@@ -1,3 +1,3 @@
 export const addLocation = (payload) => {
-	return { type: 'add_location', payload };
+  return { type: 'add_location', payload };
 };
