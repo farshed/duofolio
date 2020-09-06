@@ -12,7 +12,7 @@
 
 ## Why?
 
-One of the best ways to learn a language is by reading books in it. However, reader will frequently need to lookup words from a dictionary, which can disrupt their engagement and immersion. This is where Duofolio comes in. It has a built-in dictionary system to quickly lookup words by simply selecting them, without breaking your concentration.
+One of the best ways to learn a language is by reading books in it. However, reader frequently needs to lookup words from a dictionary, which can disrupt their engagement and immersion. This is where Duofolio comes in. It has a built-in dictionary system to quickly lookup words by simply selecting them, without breaking your concentration.
 
 ## Supported Languages
 
