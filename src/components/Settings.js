@@ -4,21 +4,24 @@ import PickerListItem from './PickerListItem';
 import { settings } from '../constants';
 
 function Settings() {
-	return (
-		<ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollViewContent}>
-			{settings.map((item, i) => (
-				<PickerListItem {...item} key={i} />
-			))}
-		</ScrollView>
-	);
+  return (
+    <ScrollView
+      style={styles.scrollView}
+      contentContainerStyle={styles.scrollViewContent}
+    >
+      {settings.map((item, i) => (
+        <PickerListItem {...item} key={i} />
+      ))}
+    </ScrollView>
+  );
 }
 
 export default Settings;
 
 const styles = {
-	scrollView: { flex: 1 },
-	scrollViewContent: {
-		alignItems: 'flex-start',
-		paddingBottom: 50
-	}
+  scrollView: { flex: 1 },
+  scrollViewContent: {
+    alignItems: 'flex-start',
+    paddingBottom: 50,
+  },
 };

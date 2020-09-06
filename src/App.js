@@ -8,18 +8,18 @@ import { store, persistor } from './store';
 import Root from './Root';
 
 export default function App() {
-	useEffect(() => {
-		if (Text.defaultProps == null) Text.defaultProps = {};
-		Text.defaultProps.allowFontScaling = false;
-	}, []);
+  useEffect(() => {
+    if (Text.defaultProps == null) Text.defaultProps = {};
+    Text.defaultProps.allowFontScaling = false;
+  }, []);
 
-	return (
-		<Provider store={store}>
-			<PersistGate persistor={persistor}>
-				<NavigationContainer>
-					<Root />
-				</NavigationContainer>
-			</PersistGate>
-		</Provider>
-	);
+  return (
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <NavigationContainer>
+          <Root />
+        </NavigationContainer>
+      </PersistGate>
+    </Provider>
+  );
 }
