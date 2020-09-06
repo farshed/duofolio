@@ -7,7 +7,7 @@
 <p align="center">An ebook reader that helps you read books in other languages. Made for linguaphiles.</p>
 
 <p align="center">
-  <a href="https://play.google.com/store/apps/details?id=com.duofolio">Download</a>
+  <a href="https://play.google.com/store/apps/details?id=com.duofolio">Play Store</a>
 <p>
 
 ## Why?

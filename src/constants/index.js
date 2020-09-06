@@ -5,8 +5,13 @@ export const contrastColor = '#000000';
 export const LANG = {
 	SPANISH: 'es-ES',
 	FRENCH: 'fr-FR',
+	GERMAN: 'de-DE',
 	DUTCH: 'nl-NL',
-	RUSSIAN: 'ru-RU'
+	SWEDISH: 'sv-SV',
+	NORWEGIAN: 'no-NO',
+	RUSSIAN: 'ru-RU',
+	ITALIAN: 'it-IT',
+	PORTUGUESE: 'pt-PT'
 };
 
 export const languages = [
