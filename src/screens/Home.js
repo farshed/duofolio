@@ -14,21 +14,42 @@ function Home(props) {
 	useEffect(() => {
 		StatusBar.setBackgroundColor('#ffffff', true);
 		StatusBar.setBarStyle('dark-content');
+		const unsubscribe = props.navigation.addListener('blur', hideSearchBar);
+		return unsubscribe;
 	}, []);
 
 	useLayoutEffect(() => {
-		props.navigation.setOptions({
-			headerRight: () => (
-				<Icon
-					name="search"
-					size={20}
-					color={contrastColor}
-					style={styles.searchIcon}
-					onPress={() => setSearchBar(true)}
-				/>
-			)
-		});
-	}, [props.navigation]);
+		if (isSearchBar) {
+			props.navigation.setOptions({
+				header: () => (
+					<SearchBar
+						isVisible={isSearchBar}
+						value={input}
+						setValue={setInput}
+						hide={hideSearchBar}
+					/>
+				)
+			});
+		} else {
+			props.navigation.setOptions({
+				header: undefined,
+				headerRight: () => (
+					<Icon
+						name="search"
+						size={20}
+						color={contrastColor}
+						style={styles.searchIcon}
+						onPress={() => setSearchBar(true)}
+					/>
+				)
+			});
+		}
+	}, [props.navigation, isSearchBar, input, setInput, setSearchBar]);
+
+	function hideSearchBar() {
+		setSearchBar(false);
+		setInput('');
+	}
 
 	function listFilter() {
 		if (input) {
@@ -70,16 +91,7 @@ function Home(props) {
 
 	return (
 		<View style={styles.wrapper}>
-			<SearchBar
-				isVisible={isSearchBar}
-				value={input}
-				setValue={setInput}
-				hide={() => {
-					setSearchBar(false);
-					setInput('');
-				}}
-			/>
-			<AddButton />
+			<AddButton navigation={props.navigation} />
 			{renderBooks()}
 		</View>
 	);
@@ -101,7 +113,8 @@ const styles = {
 	wrapper: {
 		flex: 1,
 		justifyContent: 'center',
-		alignItems: 'center'
+		alignItems: 'center',
+		backgroundColor: '#ffffff'
 	},
 	flatlist: {
 		paddingTop: 15,
