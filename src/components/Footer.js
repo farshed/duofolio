@@ -5,7 +5,7 @@ import Icon from './Icon';
 
 const { width } = Dimensions.get('window');
 function Progress(props) {
-	const { progress = 0, totalPages = 0 } = props.books[props.index];
+	const { progress, totalPages = 0 } = props.books[props.index];
 	return (
 		<View style={[styles.wrapper, { backgroundColor: props.bg }]}>
 			<TouchableWithoutFeedback onPress={props.goPrev}>
@@ -14,11 +14,12 @@ function Progress(props) {
 				</View>
 			</TouchableWithoutFeedback>
 			<View style={styles.progressWrapper}>
-				<Text style={[styles.text, { color: props.fg }]}>{`${progress ||
-					'Loading'} / ${totalPages}`}</Text>
+				<Text style={[styles.text, { color: props.fg }]}>{`${
+					progress === undefined ? 'Loading' : progress + 1
+				} / ${totalPages}`}</Text>
 				<Slider
 					style={styles.slider}
-					disabled={progress === 0 || totalPages === 0}
+					disabled={progress === undefined || totalPages === 0}
 					step={1}
 					value={progress || 1}
 					minimumValue={1}

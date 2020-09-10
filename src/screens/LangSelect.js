@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, Text, TouchableOpacity } from 'react-native';
+import { View, Text, Picker, TouchableNativeFeedback } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import { languages, contrastColor } from '../constants';
@@ -7,58 +7,81 @@ import { languages, contrastColor } from '../constants';
 function LangSelect(props) {
 	return (
 		<View style={styles.wrapper}>
-			{languages.map((lang, i) => (
-				<TouchableOpacity
-					style={styles.itemWrapper}
-					onPress={() => props.updateSettings({ language: lang.value })}
-					key={i}>
-					<Image source={lang.image} style={styles.image} />
-					<Text style={styles.text}>{lang.label}</Text>
-				</TouchableOpacity>
-			))}
-			<View style={styles.textWrapper}>
-				<Text style={styles.notice}>Select a language that you would like to practice.</Text>
-				<Text style={styles.subtitle}>(It can be changed later)</Text>
+			<Text style={styles.label}>Choose source language</Text>
+			<View style={styles.pickerWrapper}>
+				<Picker
+					prompt="Choose source language"
+					selectedValue={props.sLang}
+					onValueChange={(val) => props.updateSettings({ sLang: val })}
+					style={{ flex: 1 }}>
+					{languages.map((lang, i) => (
+						<Picker.Item label={lang.label} value={lang.value} key={i} />
+					))}
+				</Picker>
 			</View>
+			<Text style={styles.label}>Choose target language</Text>
+			<View style={styles.pickerWrapper}>
+				<Picker
+					prompt="Choose target language"
+					selectedValue={props.tLang}
+					onValueChange={(val) => props.updateSettings({ tLang: val })}
+					style={{ flex: 1 }}>
+					{languages.map((lang, i) => (
+						<Picker.Item label={lang.label} value={lang.value} key={i} />
+					))}
+				</Picker>
+			</View>
+			<TouchableNativeFeedback>
+				<View>
+					<Text>Confirm</Text>
+				</View>
+			</TouchableNativeFeedback>
+			<View style={styles.textWrapper}>
+				<Text style={styles.notice}>Select your source and target languages</Text>
+				<Text style={styles.subtitle}>(These can be changed later)</Text>
+			</View>
+			{props.sLang === props.tLang && <Text>Source and target languages cannot be same</Text>}
 		</View>
 	);
 }
 
+function mapStateToProps(state) {
+	return {
+		sLang: state.settings.sLang,
+		tLang: state.settings.tLang
+	};
+}
+
 export default connect(
-	null,
+	mapStateToProps,
 	actions
 )(LangSelect);
 
 const styles = {
 	wrapper: {
 		flex: 1,
-		justifyContent: 'space-evenly',
+		justifyContent: 'center',
+		alignItems: 'center',
 		backgroundColor: '#ffffff'
 	},
-	itemWrapper: {
-		flexDirection: 'row',
-		alignItems: 'center',
-		borderWidth: 2,
-		padding: 15,
-		paddingTop: 10,
-		paddingBottom: 10,
-		marginLeft: 10,
-		marginRight: 10,
-		borderRadius: 45
+	pickerWrapper: {
+		height: 60,
+		width: '80%',
+		borderColor: '#000000',
+		borderWidth: 1,
+		borderRadius: 5,
+		paddingLeft: 10,
+		marginBottom: 40
 	},
-	image: {
-		height: 50,
-		width: 50
-	},
-	text: {
-		fontSize: 24,
-		fontFamily: 'Circular',
-		color: contrastColor,
-		marginLeft: 25
+	label: {
+		marginBottom: 20,
+		fontFamily: 'CircularBold',
+		fontSize: 17
 	},
 	textWrapper: {
 		height: 50,
-		justifyContent: 'space-evenly'
+		justifyContent: 'space-evenly',
+		marginBottom: 10
 	},
 	notice: {
 		fontSize: 16,
@@ -68,7 +91,7 @@ const styles = {
 		paddingLeft: 20,
 		paddingRight: 20,
 		lineHeight: 20,
-		marginBottom: 8
+		marginBottom: 5
 	},
 	subtitle: {
 		fontSize: 14,
@@ -78,5 +101,13 @@ const styles = {
 		paddingRight: 20,
 		textAlign: 'center',
 		lineHeight: 20
+	},
+	error: {
+		fontSize: 15,
+		fontFamily: 'CircularLight',
+		paddingLeft: 20,
+		paddingRight: 20,
+		textAlign: 'center',
+		color: 'red'
 	}
 };

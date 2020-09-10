@@ -7,15 +7,17 @@ function PickerListItem(props) {
 	return (
 		<View style={styles.wrapper}>
 			<Text style={styles.text}>{props.text}</Text>
-			<Picker
-				prompt={props.title}
-				selectedValue={props.settings[props.id]}
-				onValueChange={(val) => props.updateSettings({ [props.id]: val })}
-				style={styles.picker}>
-				{props.items.map((item, i) => (
-					<Picker.Item label={item.label} value={item.value} key={i} />
-				))}
-			</Picker>
+			<View style={styles.pickerWrapper}>
+				<Picker
+					prompt={props.title}
+					selectedValue={props.settings[props.id]}
+					onValueChange={(val) => props.updateSettings({ [props.id]: val })}
+					style={styles.picker}>
+					{props.items.map((item, i) => (
+						<Picker.Item label={item.label} value={item.value} key={i} />
+					))}
+				</Picker>
+			</View>
 		</View>
 	);
 }
@@ -32,16 +34,25 @@ export default connect(
 const styles = {
 	wrapper: {
 		width: '100%',
-		height: 60,
+		height: 70,
 		justifyContent: 'space-evenly',
 		marginTop: 15
 	},
+	pickerWrapper: {
+		height: 35,
+		width: '90%',
+		justifyContent: 'center',
+		borderWidth: 1,
+		borderColor: '#000000',
+		borderRadius: 4
+	},
 	text: {
 		fontSize: 16,
-		fontWeight: 'bold',
-		paddingLeft: 8
+		fontFamily: 'CircularBold',
+		paddingLeft: 2,
+		paddingBottom: 6
 	},
 	picker: {
-		width: '65%'
+		width: '100%'
 	}
 };

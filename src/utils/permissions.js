@@ -7,8 +7,8 @@ export const getStoragePermission = async () => {
 			PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE
 		],
 		{
-			title: 'Linguify Storage Permission',
-			message: 'Linguify needs to access your storage'
+			title: 'Duofolio Storage Permission',
+			message: 'Duofolio needs to access your storage'
 		}
 	);
 
@@ -17,7 +17,7 @@ export const getStoragePermission = async () => {
 	} else {
 		Alert.alert(
 			'Permission required',
-			'Allow Linguify to access your storage',
+			'Allow Duofolio to access your storage',
 			[{ text: 'OK', onPress: async () => await getStoragePermission() }],
 			{ cancelable: false }
 		);

@@ -17,7 +17,9 @@ function Navigator(props) {
 		title: route.params.title,
 		headerTitleStyle: {
 			fontSize: 16,
-			color: props.fg
+			color: props.fg,
+			marginRight: 25,
+			marginLeft: -5
 		},
 		headerStyle: {
 			elevation: 0,

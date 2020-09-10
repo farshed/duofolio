@@ -5,7 +5,8 @@ const InitialState = {
 	fg: '#000000',
 	size: '100%',
 	height: 'normal',
-	language: ''
+	sLang: '',
+	tLang: ''
 	// flow: '',
 };
 

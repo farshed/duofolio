@@ -63,7 +63,6 @@ function Home(props) {
 	}
 
 	function renderBooks() {
-		const { books, locations } = props;
 		if (props.books.length === 0) {
 			return (
 				<View style={styles.wrapper}>
@@ -80,12 +79,7 @@ function Home(props) {
 				contentContainerStyle={styles.flatlist}
 				data={listFilter()}
 				renderItem={({ item, index }) => (
-					<BookItem
-						{...item}
-						navigation={props.navigation}
-						currentLocation={locations[books[index].key]}
-						index={index}
-					/>
+					<BookItem {...item} navigation={props.navigation} index={index} />
 				)}
 				keyExtractor={(item, i) => i.toString()}
 			/>
@@ -102,8 +96,7 @@ function Home(props) {
 
 function mapStateToProps(state) {
 	return {
-		books: state.books,
-		locations: state.locations
+		books: state.books
 	};
 }
 

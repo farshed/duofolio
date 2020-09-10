@@ -1,6 +1,12 @@
 import React from 'react';
 import FeatherIcon from 'react-native-vector-icons/Feather';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 export default function Icon(props) {
-	return <FeatherIcon {...props} />;
+	switch (props.type) {
+		case 'material':
+			return <MaterialIcon {...props} />;
+		default:
+			return <FeatherIcon {...props} />;
+	}
 }

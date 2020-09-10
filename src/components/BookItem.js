@@ -17,7 +17,6 @@ function BookItem(props) {
 				title: props.title,
 				url: props.url,
 				index: props.index,
-				currentLocation: props.currentLocation,
 				locations: props.locations || null
 			});
 		} else {
