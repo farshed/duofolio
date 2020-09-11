@@ -2,9 +2,9 @@ export const primaryColor = '#0f2439';
 export const elevatedBG = '#F7F8FB';
 export const contrastColor = '#000000';
 
-export const translateUrl = (sl, tl, text) =>
+export const translateUrl = (sl, tl, q) =>
 	`https://translate.google.com/#view=home&op=translate&sl=${sl}&tl=${tl}&text=${encodeURIComponent(
-		text
+		q
 	)}`;
 
 export const languages = [

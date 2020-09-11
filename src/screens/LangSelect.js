@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Picker, TouchableNativeFeedback } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
-import { languages, contrastColor } from '../constants';
+import { languages, primaryColor } from '../constants';
 
 function LangSelect(props) {
 	return (
@@ -67,7 +67,7 @@ const styles = {
 	pickerWrapper: {
 		height: 60,
 		width: '80%',
-		borderColor: '#000000',
+		borderColor: primaryColor,
 		borderWidth: 1,
 		borderRadius: 5,
 		paddingLeft: 10,
@@ -86,7 +86,7 @@ const styles = {
 	notice: {
 		fontSize: 16,
 		fontFamily: 'Circular',
-		color: contrastColor,
+		color: primaryColor,
 		textAlign: 'center',
 		paddingLeft: 20,
 		paddingRight: 20,
@@ -96,7 +96,7 @@ const styles = {
 	subtitle: {
 		fontSize: 14,
 		fontFamily: 'CircularLight',
-		color: contrastColor,
+		color: primaryColor,
 		paddingLeft: 20,
 		paddingRight: 20,
 		textAlign: 'center',

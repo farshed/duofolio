@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Picker } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import { primaryColor } from '../constants';
 
 function PickerListItem(props) {
 	return (
@@ -43,7 +44,7 @@ const styles = {
 		width: '90%',
 		justifyContent: 'center',
 		borderWidth: 1,
-		borderColor: '#000000',
+		borderColor: primaryColor,
 		borderRadius: 4
 	},
 	text: {

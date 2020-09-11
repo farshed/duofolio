@@ -5,6 +5,8 @@ import StaticServer from 'react-native-static-server';
 import { ExternalStorageDirectoryPath } from 'react-native-fs';
 import { WebView } from 'react-native-webview';
 import SideMenu from 'react-native-side-menu';
+import axios from 'axios';
+import { translateApiUrl } from '../constants/private';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import Drawer from '../components/Drawer';
@@ -132,6 +134,9 @@ function EpubReader(props) {
 		delete parsedData.type;
 		switch (type) {
 			case 'selected': {
+				axios
+					.get(translateApiUrl('en', 'ur', parsedData.selected))
+					.then((res) => console.log(res.data[0][0][0]));
 				return setSelectedText(parsedData.selected);
 			}
 			case 'loc': {

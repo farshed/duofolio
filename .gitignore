@@ -58,4 +58,5 @@ buck-out/
 # CocoaPods
 /ios/Pods/
 
+private.js
 .DS_Store
