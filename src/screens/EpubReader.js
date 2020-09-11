@@ -8,6 +8,7 @@ import SideMenu from 'react-native-side-menu';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import Drawer from '../components/Drawer';
+import DictionaryModal from '../components/DictionaryModal';
 import showToast from '../components/Toast';
 import Spinner from '../components/Spinner';
 import Footer from '../components/Footer';
@@ -21,6 +22,7 @@ function EpubReader(props) {
 	const [isDrawer, setDrawer] = useState(false);
 	const [searchResults, setSearchResults] = useState(null);
 	const [selectedText, setSelectedText] = useState('');
+	const [isModal, setModal] = useState(false);
 
 	const webview = useRef();
 	const { params } = props.route;
@@ -132,7 +134,11 @@ function EpubReader(props) {
 		delete parsedData.type;
 		switch (type) {
 			case 'selected': {
-				return setSelectedText(parsedData.selected);
+				setSelectedText(parsedData.selected);
+				if (parsedData.selected.split(' ').length === 1 || props.selected.length < 50) {
+					setModal(true);
+				}
+				return;
 			}
 			case 'loc': {
 				const { progress, totalPages } = parsedData;
@@ -180,6 +186,13 @@ function EpubReader(props) {
 				goToLocation={goToLocation}
 				index={params.index}
 			/>
+			{isModal && (
+				<DictionaryModal
+					isVisible={isModal}
+					selected={selectedText}
+					hide={() => setModal(false)}
+				/>
+			)}
 		</SideMenu>
 	);
 }

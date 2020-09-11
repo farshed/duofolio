@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import Icon from './Icon';
 import Spinner from './Spinner';
 import showToast from './Toast';
-import { primaryColor, elevatedBG } from '../constants';
+import { primaryColor, elevatedBG, languages } from '../constants';
 import { translateApiUrl } from '../constants/private';
 
 const { height, width } = Dimensions.get('window');
@@ -19,7 +19,7 @@ function DictionaryModal(props) {
 			.get(translateApiUrl(props.sLang, props.tLang, props.selected))
 			.then((res) => setTranslation(res.data[0][0][0]))
 			.catch(() => showToast('An error occurred. Please try again later.'));
-	}, []);
+	}, [props.sLang, props.tLang]);
 
 	if (translation) {
 		return (
@@ -37,12 +37,22 @@ function DictionaryModal(props) {
 				hideModalContentWhileAnimating>
 				<View style={styles.contentWrapper}>
 					<View style={styles.langWrapper}>
-						<Picker />
-						<Icon name="swap" type="antdesign" size={20} color={primaryColor} />
-						<Picker />
+						<Text style={styles.langName}>
+							{languages.filter((lang) => lang.value === props.sLang)[0].label}
+						</Text>
+						<Icon
+							name="swap"
+							type="antdesign"
+							size={20}
+							color={primaryColor}
+							style={styles.swapIcon}
+						/>
+						<Text style={styles.langName}>
+							{languages.filter((lang) => lang.value === props.tLang)[0].label}
+						</Text>
 					</View>
-					<Text>{translation}</Text>
-					<Icon />
+					<Text style={styles.translation}>{translation}</Text>
+					{/* <Icon /> */}
 				</View>
 			</Modal>
 		);
@@ -74,7 +84,7 @@ const styles = {
 		alignItems: 'center'
 	},
 	contentWrapper: {
-		height: 180,
+		height: 150,
 		width: width - 16,
 		backgroundColor: elevatedBG,
 		elevation: 5,
@@ -86,12 +96,27 @@ const styles = {
 	},
 	langWrapper: {
 		width: width - 20,
-		height: 60,
+		height: 30,
 		flexDirection: 'row',
-		justifyContent: 'space-between',
+		justifyContent: 'center',
 		alignItems: 'center',
-		borderWidth: 1,
-		borderColor: primaryColor,
-		borderRadius: 5
+		position: 'absolute',
+		top: 8
+	},
+	langName: {
+		fontFamily: 'CircularLight',
+		fontSize: 14,
+		color: primaryColor
+	},
+	translation: {
+		fontFamily: 'Circular',
+		fontSize: 20,
+		color: primaryColor,
+		paddingLeft: 10,
+		paddingRight: 10
+	},
+	swapIcon: {
+		paddingLeft: 10,
+		paddingRight: 10
 	}
 };
