@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Picker, TouchableNativeFeedback } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import showToast from '../components/Toast';
 import { languages, primaryColor } from '../constants';
 
 function LangSelect(props) {
+	const [sLang, setSLang] = useState('');
+	const [tLang, setTLang] = useState('');
+
+	function onSave() {
+		if (sLang && tLang) {
+			if (sLang === tLang) {
+				showToast('Source and target languages cannot be same');
+			} else props.updateSettings({ sLang, tLang });
+		} else showToast('Please choose source & target languages');
+	}
+
 	return (
 		<View style={styles.wrapper}>
 			<Text style={styles.label}>Choose source language</Text>
@@ -12,7 +24,7 @@ function LangSelect(props) {
 				<Picker
 					prompt="Choose source language"
 					selectedValue={props.sLang}
-					onValueChange={(val) => props.updateSettings({ sLang: val })}
+					onValueChange={setSLang}
 					style={{ flex: 1 }}>
 					{languages.map((lang, i) => (
 						<Picker.Item label={lang.label} value={lang.value} key={i} />
@@ -24,23 +36,22 @@ function LangSelect(props) {
 				<Picker
 					prompt="Choose target language"
 					selectedValue={props.tLang}
-					onValueChange={(val) => props.updateSettings({ tLang: val })}
+					onValueChange={setTLang}
 					style={{ flex: 1 }}>
 					{languages.map((lang, i) => (
 						<Picker.Item label={lang.label} value={lang.value} key={i} />
 					))}
 				</Picker>
 			</View>
-			<TouchableNativeFeedback>
-				<View>
-					<Text>Confirm</Text>
-				</View>
-			</TouchableNativeFeedback>
 			<View style={styles.textWrapper}>
 				<Text style={styles.notice}>Select your source and target languages</Text>
 				<Text style={styles.subtitle}>(These can be changed later)</Text>
 			</View>
-			{props.sLang === props.tLang && <Text>Source and target languages cannot be same</Text>}
+			<TouchableNativeFeedback onPress={onSave}>
+				<View style={styles.buttonWrapper}>
+					<Text style={styles.buttonText}>Save</Text>
+				</View>
+			</TouchableNativeFeedback>
 		</View>
 	);
 }
@@ -109,5 +120,18 @@ const styles = {
 		paddingRight: 20,
 		textAlign: 'center',
 		color: 'red'
+	},
+	buttonWrapper: {
+		height: 40,
+		width: 100,
+		borderRadius: 5,
+		backgroundColor: primaryColor,
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
+	buttonText: {
+		fontFamily: 'Circular',
+		fontSize: 15,
+		color: '#ffffff'
 	}
 };

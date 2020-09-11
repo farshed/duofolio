@@ -9,7 +9,7 @@ import showToast from './Toast';
 import { primaryColor, elevatedBG } from '../constants';
 import { translateApiUrl } from '../constants/private';
 
-const { width } = Dimensions.get('window');
+const { height, width } = Dimensions.get('window');
 
 function DictionaryModal(props) {
 	const [translation, setTranslation] = useState('');
@@ -23,7 +23,18 @@ function DictionaryModal(props) {
 
 	if (translation) {
 		return (
-			<Modal style={styles.modal}>
+			<Modal
+				style={styles.modal}
+				isVisible={props.isVisible}
+				deviceHeight={height}
+				onBackButtonPress={props.hide}
+				onBackdropPress={props.hide}
+				onSwipeComplete={props.hide}
+				backdropColor="rgba(0, 0, 0, 0.5)"
+				swipeDirection="down"
+				animationOutTiming={100}
+				animationInTiming={100}
+				hideModalContentWhileAnimating>
 				<View style={styles.contentWrapper}>
 					<View style={styles.langWrapper}>
 						<Picker />
