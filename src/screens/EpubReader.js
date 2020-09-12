@@ -135,7 +135,7 @@ function EpubReader(props) {
 		switch (type) {
 			case 'selected': {
 				setSelectedText(parsedData.selected);
-				if (parsedData.selected.split(' ').length === 1 || props.selected.length < 50) {
+				if (parsedData.selected.split(' ').length === 1 && parsedData.selected.length < 50) {
 					setModal(true);
 				}
 				return;
@@ -191,6 +191,7 @@ function EpubReader(props) {
 					isVisible={isModal}
 					selected={selectedText}
 					hide={() => setModal(false)}
+					onTranslation={onTranslation}
 				/>
 			)}
 		</SideMenu>

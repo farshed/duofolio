@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Dimensions, Picker } from 'react-native';
+import { View, Text, Dimensions, TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modal';
+import Tts from 'react-native-tts';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import Icon from './Icon';
@@ -13,13 +14,27 @@ const { height, width } = Dimensions.get('window');
 
 function DictionaryModal(props) {
 	const [translation, setTranslation] = useState('');
+	const [isTtsAvailable, setTtsAvailable] = useState(true);
 
 	useEffect(() => {
 		axios
 			.get(translateApiUrl(props.sLang, props.tLang, props.selected))
 			.then((res) => setTranslation(res.data[0][0][0]))
 			.catch(() => showToast('An error occurred. Please try again later.'));
+		let langIndex = languages.findIndex((lang) => lang.value === props.sLang);
+		if (languages[langIndex].bcp) Tts.setDefaultLanguage(languages[langIndex].bcp);
+		else setTtsAvailable(false);
 	}, [props.sLang, props.tLang]);
+
+	function speak() {
+		if (isTtsAvailable) Tts.speak(props.selected);
+		else showToast('Pronunciation not available');
+	}
+
+	function openWithGoogle() {
+		props.hide();
+		props.onTranslation();
+	}
 
 	if (translation) {
 		return (
@@ -36,23 +51,30 @@ function DictionaryModal(props) {
 				animationInTiming={100}
 				hideModalContentWhileAnimating>
 				<View style={styles.contentWrapper}>
-					<View style={styles.langWrapper}>
+					{/* <View style={styles.langWrapper}>
 						<Text style={styles.langName}>
 							{languages.filter((lang) => lang.value === props.sLang)[0].label}
 						</Text>
-						<Icon
-							name="swap"
-							type="antdesign"
-							size={20}
-							color={primaryColor}
-							style={styles.swapIcon}
-						/>
+						<Icon name="arrow-right" size={16} color={primaryColor} style={styles.swapIcon} />
 						<Text style={styles.langName}>
 							{languages.filter((lang) => lang.value === props.tLang)[0].label}
 						</Text>
-					</View>
-					<Text style={styles.translation}>{translation}</Text>
-					{/* <Icon /> */}
+					</View> */}
+					<TouchableOpacity style={styles.itemWrapper} onPress={speak}>
+						<Icon
+							name="volume-2"
+							color={isTtsAvailable ? primaryColor : 'rgba(15, 36, 57, 0.3)'}
+							size={22}
+						/>
+						<View style={styles.textWrapper}>
+							<Text style={styles.word}>{props.selected}</Text>
+							<Text style={styles.translation}>{translation}</Text>
+						</View>
+					</TouchableOpacity>
+					<TouchableOpacity style={styles.buttonWrapper} onPress={openWithGoogle}>
+						<Icon name="g-translate" type="material" size={18} color={primaryColor} />
+						<Text style={styles.buttonText}>Open in Google Translate</Text>
+					</TouchableOpacity>
 				</View>
 			</Modal>
 		);
@@ -84,7 +106,7 @@ const styles = {
 		alignItems: 'center'
 	},
 	contentWrapper: {
-		height: 150,
+		height: 200,
 		width: width - 16,
 		backgroundColor: elevatedBG,
 		elevation: 5,
@@ -108,9 +130,29 @@ const styles = {
 		fontSize: 14,
 		color: primaryColor
 	},
+	itemWrapper: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		height: 60,
+		width: width - 20,
+		paddingLeft: 15,
+		paddingRight: 15
+	},
+	textWrapper: {
+		height: 50,
+		flexDirection: 'column',
+		justifyContent: 'space-evenly',
+		paddingLeft: 10
+	},
+	word: {
+		fontSize: 16,
+		fontWeight: 'bold',
+		color: primaryColor,
+		paddingLeft: 10,
+		paddingRight: 10
+	},
 	translation: {
-		fontFamily: 'Circular',
-		fontSize: 20,
+		fontSize: 15,
 		color: primaryColor,
 		paddingLeft: 10,
 		paddingRight: 10
@@ -118,5 +160,18 @@ const styles = {
 	swapIcon: {
 		paddingLeft: 10,
 		paddingRight: 10
+	},
+	buttonWrapper: {
+		height: 45,
+		width: 235,
+		flexDirection: 'row',
+		justifyContent: 'space-evenly',
+		alignItems: 'center',
+		backgroundColor: 'rgba(15, 36, 57, 0.07)',
+		borderRadius: 8
+	},
+	buttonText: {
+		fontSize: 15,
+		fontFamily: 'CircularLight'
 	}
 };
