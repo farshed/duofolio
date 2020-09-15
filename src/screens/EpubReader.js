@@ -135,9 +135,7 @@ function EpubReader(props) {
 		switch (type) {
 			case 'selected': {
 				setSelectedText(parsedData.selected);
-				if (parsedData.selected.split(' ').length === 1 && parsedData.selected.length < 50) {
-					setModal(true);
-				}
+				if (parsedData.selected.length < 40) setModal(true);
 				return;
 			}
 			case 'loc': {

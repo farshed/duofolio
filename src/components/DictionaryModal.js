@@ -14,21 +14,30 @@ const { height, width } = Dimensions.get('window');
 
 function DictionaryModal(props) {
 	const [translation, setTranslation] = useState('');
-	const [isTtsAvailable, setTtsAvailable] = useState(true);
+	const [langIndex, setLangIndex] = useState({ src: 0, trg: 0 });
 
 	useEffect(() => {
 		axios
 			.get(translateApiUrl(props.sLang, props.tLang, props.selected))
 			.then((res) => setTranslation(res.data[0][0][0]))
 			.catch(() => showToast('An error occurred. Please try again later.'));
-		let langIndex = languages.findIndex((lang) => lang.value === props.sLang);
-		if (languages[langIndex].bcp) Tts.setDefaultLanguage(languages[langIndex].bcp);
-		else setTtsAvailable(false);
+		let srcIndex = languages.findIndex((lang) => lang.value === props.sLang);
+		let trgIndex = languages.findIndex((lang) => lang.value === props.tLang);
+		setLangIndex({ src: srcIndex, trg: trgIndex });
 	}, [props.sLang, props.tLang]);
 
-	function speak() {
-		if (isTtsAvailable) Tts.speak(props.selected);
-		else showToast('Pronunciation not available');
+	function speakSrc() {
+		if (langIndex.src > -1) {
+			Tts.setDefaultLanguage(languages[langIndex.src].bcp);
+			Tts.speak(props.selected);
+		} else showToast('Pronunciation not available for this language');
+	}
+
+	function speakTrg() {
+		if (langIndex.trg > -1) {
+			Tts.setDefaultLanguage(languages[langIndex.trg].bcp);
+			Tts.speak(translation);
+		} else showToast('Pronunciation not available for this language');
 	}
 
 	function openWithGoogle() {
@@ -51,26 +60,37 @@ function DictionaryModal(props) {
 				animationInTiming={100}
 				hideModalContentWhileAnimating>
 				<View style={styles.contentWrapper}>
-					{/* <View style={styles.langWrapper}>
+					<TouchableOpacity style={styles.itemWrapper} onPress={speakSrc}>
+						<Icon
+							name="volume-2"
+							color={langIndex.src > -1 ? primaryColor : 'rgba(15, 36, 57, 0.3)'}
+							size={18}
+						/>
 						<Text style={styles.langName}>
 							{languages.filter((lang) => lang.value === props.sLang)[0].label}
 						</Text>
-						<Icon name="arrow-right" size={16} color={primaryColor} style={styles.swapIcon} />
+					</TouchableOpacity>
+					<View style={styles.wordWrapper}>
+						<Text style={styles.word} numberOfLines={2}>
+							{props.selected}
+						</Text>
+						<Icon />
+					</View>
+					<TouchableOpacity style={styles.itemWrapper} onPress={speakTrg}>
+						<Icon
+							name="volume-2"
+							color={langIndex.trg > -1 ? primaryColor : 'rgba(15, 36, 57, 0.3)'}
+							size={18}
+						/>
 						<Text style={styles.langName}>
 							{languages.filter((lang) => lang.value === props.tLang)[0].label}
 						</Text>
-					</View> */}
-					<TouchableOpacity style={styles.itemWrapper} onPress={speak}>
-						<Icon
-							name="volume-2"
-							color={isTtsAvailable ? primaryColor : 'rgba(15, 36, 57, 0.3)'}
-							size={22}
-						/>
-						<View style={styles.textWrapper}>
-							<Text style={styles.word}>{props.selected}</Text>
-							<Text style={styles.translation}>{translation}</Text>
-						</View>
 					</TouchableOpacity>
+					<View style={styles.translationWrapper}>
+						<Text style={styles.translation} numberOfLines={2}>
+							{translation}
+						</Text>
+					</View>
 					<TouchableOpacity style={styles.buttonWrapper} onPress={openWithGoogle}>
 						<Icon name="g-translate" type="material" size={18} color={primaryColor} />
 						<Text style={styles.buttonText}>Open in Google Translate</Text>
@@ -106,7 +126,7 @@ const styles = {
 		alignItems: 'center'
 	},
 	contentWrapper: {
-		height: 200,
+		height: 300,
 		width: width - 16,
 		backgroundColor: elevatedBG,
 		elevation: 5,
@@ -114,7 +134,8 @@ const styles = {
 		alignItems: 'center',
 		marginBottom: -20,
 		borderTopLeftRadius: 10,
-		borderTopRightRadius: 10
+		borderTopRightRadius: 10,
+		paddingTop: 10
 	},
 	langWrapper: {
 		width: width - 20,
@@ -126,17 +147,15 @@ const styles = {
 		top: 8
 	},
 	langName: {
-		fontFamily: 'CircularLight',
-		fontSize: 14,
-		color: primaryColor
+		fontFamily: 'CircularBold',
+		fontSize: 15,
+		color: primaryColor,
+		paddingLeft: 12
 	},
 	itemWrapper: {
 		flexDirection: 'row',
 		alignItems: 'center',
-		height: 60,
-		width: width - 20,
-		paddingLeft: 15,
-		paddingRight: 15
+		width: width - 50
 	},
 	textWrapper: {
 		height: 50,
@@ -144,18 +163,28 @@ const styles = {
 		justifyContent: 'space-evenly',
 		paddingLeft: 10
 	},
+	wordWrapper: {
+		height: 60,
+		width: width - 40,
+		borderWidth: 1,
+		borderColor: primaryColor,
+		borderRadius: 5
+	},
+	translationWrapper: {
+		height: 60,
+		width: width - 40,
+		backgroundColor: primaryColor,
+		borderRadius: 5
+	},
 	word: {
 		fontSize: 16,
-		fontWeight: 'bold',
 		color: primaryColor,
-		paddingLeft: 10,
-		paddingRight: 10
+		padding: 10
 	},
 	translation: {
-		fontSize: 15,
-		color: primaryColor,
-		paddingLeft: 10,
-		paddingRight: 10
+		fontSize: 16,
+		color: '#ffffff',
+		padding: 10
 	},
 	swapIcon: {
 		paddingLeft: 10,
