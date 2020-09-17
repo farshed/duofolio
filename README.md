@@ -13,13 +13,8 @@
 ## Why?
 
 One of the best ways to learn a language is by reading books in it. However, reader frequently needs to look up words from a dictionary, which can disrupt their engagement and immersion. This is where Duofolio comes in. It has a built-in dictionary system to quickly look up words by simply selecting them, without breaking your concentration.
-
-## Supported Languages
-
--  🇫🇷 FRENCH
--  🇪🇸 SPANISH
--  🇳🇱 DUTCH
--  🇷🇺 RUSSIAN
+<br>
+Duofolio supports bidirectional translation in more than a hundred languages.
 
 ## Powered by
 
@@ -33,7 +28,7 @@ One of the best ways to learn a language is by reading books in it. However, rea
 
 ## Todo
 
--  [ ] Offline support
--  [ ] Support more languages
+-  [ ] iOS support
+-  [x] Support more languages
 -  [ ] Display book covers
 -  [ ] Support other document formats

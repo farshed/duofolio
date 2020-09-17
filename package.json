@@ -1,6 +1,6 @@
 {
 	"name": "duofolio",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"private": true,
 	"scripts": {
 		"android": "react-native run-android",
