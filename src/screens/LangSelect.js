@@ -23,7 +23,7 @@ function LangSelect(props) {
 			<View style={styles.pickerWrapper}>
 				<Picker
 					prompt="Choose source language"
-					selectedValue={props.sLang}
+					selectedValue={sLang}
 					onValueChange={setSLang}
 					style={{ flex: 1 }}>
 					{languages.map((lang, i) => (
@@ -35,7 +35,7 @@ function LangSelect(props) {
 			<View style={styles.pickerWrapper}>
 				<Picker
 					prompt="Choose target language"
-					selectedValue={props.tLang}
+					selectedValue={tLang}
 					onValueChange={setTLang}
 					style={{ flex: 1 }}>
 					{languages.map((lang, i) => (
@@ -43,15 +43,15 @@ function LangSelect(props) {
 					))}
 				</Picker>
 			</View>
-			<View style={styles.textWrapper}>
-				<Text style={styles.notice}>Select your source and target languages</Text>
-				<Text style={styles.subtitle}>(These can be changed later)</Text>
-			</View>
 			<TouchableNativeFeedback onPress={onSave}>
 				<View style={styles.buttonWrapper}>
 					<Text style={styles.buttonText}>Save</Text>
 				</View>
 			</TouchableNativeFeedback>
+			<View style={styles.textWrapper}>
+				<Text style={styles.notice}>Select your source and target languages</Text>
+				<Text style={styles.subtitle}>(These can be changed later)</Text>
+			</View>
 		</View>
 	);
 }
@@ -92,7 +92,8 @@ const styles = {
 	textWrapper: {
 		height: 50,
 		justifyContent: 'space-evenly',
-		marginBottom: 10
+		marginBottom: 10,
+		marginTop: 35
 	},
 	notice: {
 		fontSize: 16,
@@ -113,25 +114,17 @@ const styles = {
 		textAlign: 'center',
 		lineHeight: 20
 	},
-	error: {
-		fontSize: 15,
-		fontFamily: 'CircularLight',
-		paddingLeft: 20,
-		paddingRight: 20,
-		textAlign: 'center',
-		color: 'red'
-	},
 	buttonWrapper: {
-		height: 40,
+		height: 42,
 		width: 100,
-		borderRadius: 5,
+		borderRadius: 6,
 		backgroundColor: primaryColor,
 		justifyContent: 'center',
 		alignItems: 'center'
 	},
 	buttonText: {
 		fontFamily: 'Circular',
-		fontSize: 15,
+		fontSize: 16,
 		color: '#ffffff'
 	}
 };

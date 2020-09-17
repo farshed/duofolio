@@ -57,14 +57,13 @@ const styles = {
 		paddingRight: 15
 	},
 	title: {
-		fontSize: 16,
-		fontWeight: 'bold',
+		fontSize: 15,
+		fontFamily: 'PlayfairDisplay-Bold',
 		marginBottom: 3,
 		color: contrastColor
 	},
 	author: {
 		fontSize: 14,
-		fontWeight: '300',
 		color: 'rgba(0, 0, 0, 0.8)'
 	}
 };

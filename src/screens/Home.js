@@ -34,13 +34,22 @@ function Home(props) {
 			props.navigation.setOptions({
 				header: undefined,
 				headerRight: () => (
-					<Icon
-						name="search"
-						size={20}
-						color={contrastColor}
-						style={styles.searchIcon}
-						onPress={() => setSearchBar(true)}
-					/>
+					<View style={styles.headerIconsWrapper}>
+						<Icon
+							name="help-circle"
+							size={20}
+							color={contrastColor}
+							style={styles.helpIcon}
+							onPress={() => props.navigation.navigate('help')}
+						/>
+						<Icon
+							name="search"
+							size={20}
+							color={contrastColor}
+							style={styles.searchIcon}
+							onPress={() => setSearchBar(true)}
+						/>
+					</View>
 				)
 			});
 		}
@@ -121,7 +130,7 @@ const styles = {
 		fontFamily: 'CircularLight',
 		marginBottom: 5
 	},
-	searchIcon: {
-		paddingRight: 15
-	}
+	searchIcon: { paddingRight: 20 },
+	helpIcon: { paddingRight: 25 },
+	headerIconsWrapper: { flexDirection: 'row' }
 };
