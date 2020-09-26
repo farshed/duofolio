@@ -158,7 +158,6 @@ function mapStateToProps(state) {
 	return {
 		settings: state.settings,
 		books: state.books
-		// locations: state.locations
 	};
 }
 

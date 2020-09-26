@@ -12,7 +12,7 @@
 
 ## Why?
 
-One of the best ways to learn a language is by reading books in it. However, reader frequently needs to look up words from a dictionary, which can disrupt their engagement and immersion. This is where Duofolio comes in. It has a built-in dictionary system to quickly look up words by simply selecting them, without breaking your concentration.
+One of the best ways to learn a language is by reading books in it. However, readers frequently need to look up words from a dictionary, which can disrupt their concentration and immersion. This is where Duofolio comes in. It has a built-in translation system to quickly look up words by simply selecting them, without breaking your flow.
 <br><br>
 Duofolio supports bidirectional translation in more than a hundred languages.
 
@@ -21,6 +21,7 @@ Duofolio supports bidirectional translation in more than a hundred languages.
 -  React Native
 -  Redux
 -  [epub.js](https://github.com/futurepress/epub.js)
+-  [pdf.js](https://github.com/mozilla/pdf.js)
 
 ## Screenshots
 
@@ -31,4 +32,4 @@ Duofolio supports bidirectional translation in more than a hundred languages.
 -  [ ] iOS support
 -  [x] Support more languages
 -  [ ] Display book covers
--  [ ] Support other document formats
+-  [x] Support PDF documents
