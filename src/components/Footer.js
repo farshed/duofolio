@@ -5,7 +5,12 @@ import Icon from './Icon';
 
 const { width } = Dimensions.get('window');
 function Progress(props) {
-	const { progress, totalPages = 0 } = props.books[props.index];
+	const { progress, type, totalPages = 0 } = props.books[props.index];
+
+	function goTo(n) {
+		props.goToLocation(type === 'pdf' ? n : JSON.parse(props.locations)[n - 1]);
+	}
+
 	return (
 		<View style={[styles.wrapper, { backgroundColor: props.bg }]}>
 			<TouchableWithoutFeedback onPress={props.goPrev}>
@@ -15,7 +20,7 @@ function Progress(props) {
 			</TouchableWithoutFeedback>
 			<View style={styles.progressWrapper}>
 				<Text style={[styles.text, { color: props.fg }]}>{`${
-					progress === undefined ? 'Loading' : progress + 1
+					progress === undefined ? 'Loading' : progress + (type === 'pdf' ? 0 : 1)
 				} / ${totalPages}`}</Text>
 				<Slider
 					style={styles.slider}
@@ -26,7 +31,7 @@ function Progress(props) {
 					maximumValue={totalPages || 1}
 					minimumTrackTintColor={props.fg}
 					thumbTintColor={props.fg}
-					onSlidingComplete={(n) => props.goToLocation(JSON.parse(props.locations)[n - 1])}
+					onSlidingComplete={goTo}
 				/>
 			</View>
 			<TouchableWithoutFeedback onPress={props.goNext}>

@@ -7,16 +7,16 @@ export const addBook = () => async (dispatch) => {
 	if (!granted) await getStoragePermission();
 	RNFileSelector.Show({
 		title: 'Select epub file',
-		filter: '.*\\.(epub|EPUB)$',
+		filter: '.*\\.(epub|EPUB|pdf|PDF)$',
 		onDone: (url) => {
 			let components = url.split('/');
 			let file = components[components.length - 1].split('.');
-			if (file[file.length - 1] !== 'epub') {
-				return showToast('Invalid file. Only "epub" files are allowed');
-			}
+			// if (file[file.length - 1] !== 'epub') {
+			// 	return showToast('Invalid file. Only "epub" files are allowed');
+			// }
 			dispatch({
 				type: 'add_books',
-				payload: { title: file[0], url }
+				payload: { title: file[0], url, type: file[file.length - 1].toLowerCase() }
 			});
 		},
 		onCancel: () => {}

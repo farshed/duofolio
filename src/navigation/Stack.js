@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { connect } from 'react-redux';
 import Home from '../screens/Home';
 import EpubReader from '../screens/EpubReader';
+import PdfReader from '../screens/PdfReader';
 import Help from '../screens/Help';
 
 const Stack = createStackNavigator();
@@ -35,6 +36,7 @@ function Navigator(props) {
 		<Stack.Navigator screenOptions={screenOptions}>
 			<Stack.Screen name="home" component={Home} options={{ headerTitle: 'My Library' }} />
 			<Stack.Screen name="epub-reader" component={EpubReader} options={readerTitle} />
+			<Stack.Screen name="pdf-reader" component={PdfReader} options={readerTitle} />
 			<Stack.Screen name="help" component={Help} options={{ headerTitle: 'How to use?' }} />
 		</Stack.Navigator>
 	);

@@ -27,6 +27,7 @@ function EpubReader(props) {
 	const webview = useRef();
 	const { params } = props.route;
 	const currentLocation = props.locations[props.books[params.index].key];
+	const bookLocations = props.books[params.index].locations;
 	const { bg, fg, size, height } = props.settings;
 
 	useLayoutEffect(() => {
@@ -78,7 +79,7 @@ function EpubReader(props) {
 	}, [bg, fg, size, height]);
 
 	let injectedJS = `window.BOOK_PATH = "${state.bookUrl}";
-	window.LOCATIONS = ${params.locations};
+	window.LOCATIONS = ${bookLocations};
 	window.THEME = ${JSON.stringify(themeToStyles(props.settings))};
 	`;
 
@@ -180,7 +181,7 @@ function EpubReader(props) {
 			<Footer
 				goNext={goNext}
 				goPrev={goPrev}
-				locations={params.locations}
+				locations={bookLocations}
 				goToLocation={goToLocation}
 				index={params.index}
 			/>

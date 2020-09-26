@@ -3,10 +3,12 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js"></script> -->
+		<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.5.207/es5/build/pdf.min.js"></script>
 		<style>
+			body {
+				margin: 0;
+			}
 			#reader {
-				margin: 0px;
 				height: 100vh;
 				width: 100vw;
 				overflow: hidden !important;
@@ -17,7 +19,59 @@
 		</style>
 	</head>
 	<body>
-		<div id="reader"></div>
+		<canvas id="reader"></canvas>
 	</body>
-	<script></script>
+	<script>
+		let pdfjsLib = window['pdfjs-dist/build/pdf'];
+		pdfjsLib.GlobalWorkerOptions.workerSrc =
+			'https://cdn.jsdelivr.net/npm/pdfjs-dist@2.5.207/es5/build/pdf.worker.min.js';
+
+		pdfDoc = null;
+		pageRendering = false;
+		pageNumPending = null;
+		scale = 0.8;
+		canvas = document.getElementById('reader');
+		ctx = canvas.getContext('2d');
+
+		function renderPage(num) {
+			pageRendering = true;
+			pdfDoc.getPage(num).then((page) => {
+				let viewport = page.getViewport({ scale: scale });
+				canvas.height = viewport.height;
+				canvas.width = viewport.width;
+
+				let renderContext = {
+					canvasContext: ctx,
+					viewport: viewport
+				};
+				let renderTask = page.render(renderContext);
+
+				window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'loc', progress: num }));
+
+				renderTask.promise.then(() => {
+					pageRendering = false;
+					if (pageNumPending !== null) {
+						renderPage(pageNumPending);
+						pageNumPending = null;
+					}
+				});
+			});
+		}
+
+		window.queueRenderPage = (num) => {
+			if (pageRendering) {
+				pageNumPending = num;
+			} else {
+				renderPage(num);
+			}
+		};
+
+		pdfjsLib.getDocument(window.DOC_PATH).promise.then((doc) => {
+			pdfDoc = doc;
+			window.ReactNativeWebView.postMessage(
+				JSON.stringify({ type: 'loc', totalPages: pdfDoc.numPages })
+			);
+			renderPage(window.pageNum || 1);
+		});
+	</script>
 </html>

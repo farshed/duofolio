@@ -11,17 +11,14 @@ function BookItem(props) {
 	const [isModalVisible, setModalVisible] = useState(false);
 
 	async function onPress() {
-		let { isConnected } = await NetInfo.fetch();
-		if (isConnected) {
-			props.navigation.navigate('epub-reader', {
+		let { isConnected, isInternetReachable } = await NetInfo.fetch();
+		if (isConnected && isInternetReachable) {
+			props.navigation.navigate(`${props.type || 'epub'}-reader`, {
 				title: props.title,
 				url: props.url,
-				index: props.index,
-				locations: props.locations || null
+				index: props.index
 			});
-		} else {
-			showToast('No internet connection');
-		}
+		} else showToast('No internet connection');
 	}
 
 	return (
@@ -35,7 +32,7 @@ function BookItem(props) {
 				{props.title}
 			</Text>
 			<Text style={styles.author} numberOfLines={1}>
-				{props.author || 'unknown'}
+				{props.author || (props.type || 'EPUB').toUpperCase() + ' Document'}
 			</Text>
 			<OptionsModal
 				isVisible={isModalVisible}
