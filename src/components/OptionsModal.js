@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 import Icon from './Icon';
 import { elevatedBG } from '../constants';
+import { FontFamilies } from '../theme';
 
 const { height, width } = Dimensions.get('window');
 
@@ -83,7 +84,7 @@ const styles = {
 		paddingRight: 20
 	},
 	text: {
-		fontFamily: 'Circular',
+		fontFamily: FontFamilies.Circular,
 		fontSize: 15
 	}
 };

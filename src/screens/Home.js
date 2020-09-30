@@ -6,6 +6,7 @@ import BookItem from '../components/BookItem';
 import SearchBar from '../components/SearchBar';
 import Icon from '../components/Icon';
 import { contrastColor } from '../constants';
+import { FontFamilies } from '../theme';
 
 function Home(props) {
 	const [isSearchBar, setSearchBar] = useState(false);
@@ -125,7 +126,7 @@ const styles = {
 	},
 	message: {
 		fontSize: 16,
-		fontFamily: 'CircularLight',
+		fontFamily: FontFamilies.CircularLight,
 		marginBottom: 5
 	},
 	searchIcon: {

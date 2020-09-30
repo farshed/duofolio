@@ -82,6 +82,7 @@ target 'duofolio' do
   pod 'RNFS', :path => '../node_modules/react-native-fs'
 
   pod 'TextToSpeech', :path => '../node_modules/react-native-tts'
+  pod 'FileBrowser', :git => 'https://github.com/prscX/FileBrowser'
 
   target 'duofolioTests' do
     inherit! :complete
@@ -89,15 +90,18 @@ target 'duofolio' do
   end
 
   use_native_modules!
+  use_frameworks!
 
   # Enables Flipper.
   #
   # Note that if you have use_frameworks! enabled, Flipper will not work and
   # you should disable these next few lines.
-  add_flipper_pods!
-  post_install do |installer|
-    flipper_post_install(installer)
-  end
+  # Disabeling until supported by react-native-file-selector
+  # https://github.com/prscX/react-native-file-selector/issues/71
+  # add_flipper_pods!
+  # post_install do |installer|
+  #   flipper_post_install(installer)
+  # end
 end
 
 target 'duofolio-tvOS' do

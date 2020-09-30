@@ -5,6 +5,7 @@ import Tts from 'react-native-tts';
 import { connect } from 'react-redux';
 import Icon from './Icon';
 import { elevatedBG, contrastColor, LANG } from '../constants';
+import { FontFamilies } from '../theme';
 import frenchDict from '../../assets/dicts/fra-en.json';
 import spanishDict from '../../assets/dicts/es-en.json';
 import dutchDict from '../../assets/dicts/nl-en.json';
@@ -162,7 +163,7 @@ const styles = {
 	},
 	placeholder: {
 		fontSize: 16,
-		fontFamily: 'Circular'
+		fontFamily: FontFamilies.Circular
 	},
 	placeholderSubtitle: {
 		fontSize: 14,
@@ -172,6 +173,6 @@ const styles = {
 		marginTop: 15,
 		lineHeight: 16,
 		fontStyle: 'italic',
-		fontFamily: 'CircularLight'
+		fontFamily: FontFamilies.CircularLight
 	}
 };

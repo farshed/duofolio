@@ -3,6 +3,7 @@ import { View, Image, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import { languages, contrastColor } from '../constants';
+import { FontFamilies } from '../theme';
 
 function LangSelect(props) {
 	return (
@@ -52,7 +53,7 @@ const styles = {
 	},
 	text: {
 		fontSize: 24,
-		fontFamily: 'Circular',
+		fontFamily: FontFamilies.Circular,
 		color: contrastColor,
 		marginLeft: 25
 	},
@@ -62,7 +63,7 @@ const styles = {
 	},
 	notice: {
 		fontSize: 16,
-		fontFamily: 'Circular',
+		fontFamily: FontFamilies.Circular,
 		color: contrastColor,
 		textAlign: 'center',
 		paddingLeft: 20,
@@ -72,7 +73,7 @@ const styles = {
 	},
 	subtitle: {
 		fontSize: 14,
-		fontFamily: 'CircularLight',
+		fontFamily: FontFamilies.CircularLight,
 		color: contrastColor,
 		paddingLeft: 20,
 		paddingRight: 20,
