@@ -27,14 +27,14 @@ function DictionaryModal(props) {
 	}, [props.sLang, props.tLang]);
 
 	function speakSrc() {
-		if (langIndex.src > -1) {
+		if (langIndex.src > -1 && languages[langIndex.src].bcp) {
 			Tts.setDefaultLanguage(languages[langIndex.src].bcp);
 			Tts.speak(props.selected);
 		} else showToast('Pronunciation not available for this language');
 	}
 
 	function speakTrg() {
-		if (langIndex.trg > -1) {
+		if (langIndex.trg > -1 && languages[langIndex.trg].bcp) {
 			Tts.setDefaultLanguage(languages[langIndex.trg].bcp);
 			Tts.speak(translation);
 		} else showToast('Pronunciation not available for this language');
