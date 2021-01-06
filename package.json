@@ -14,7 +14,7 @@
 		"@react-native-community/netinfo": "^5.9.6",
 		"@react-navigation/native": "^5.7.3",
 		"@react-navigation/stack": "^5.9.0",
-		"axios": "^0.20.0",
+		"axios": "^0.21.1",
 		"react": "16.11.0",
 		"react-native": "0.62.2",
 		"react-native-file-selector": "^1.0.0",
