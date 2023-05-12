@@ -12,7 +12,7 @@
 
 ## Why?
 
-One of the best ways to learn a language I've found, is by reading. However, readers frequently need to look up translations in their target language from a dictionary, which can disrupt concentration and immersion and make the experience less pleasing. This is where Duofolio comes in. It has a built-in translation system to quickly look up words by simply selecting them, without breaking your flow.
+One of the most effective ways to learn a language that I've found, is by consuming media in one's target language, particularly literature. However, novice speakers frequently need to look up translations in their target language. This context switching can disrupt concentration, preventing proper immersion. This is where Duofolio comes in. It's a mobile ebook reader with built-in support for translation, allowing users to quickly look up words in their target language by simply selecting them, preserving your flow and immersion.
 <br><br>
 Duofolio supports bidirectional translation in more than a hundred languages.
 
